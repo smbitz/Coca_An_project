@@ -1,5 +1,7 @@
 package codegears.coca.data;
 
+import java.util.ArrayList;
+
 import org.w3c.dom.Document;
 
 import codegears.coca.LoadListener;
@@ -9,11 +11,20 @@ import codegears.coca.util.NetworkThreadUtil.NetworkThreadListener;
 public class Player implements NetworkThreadListener {
 
 	private LoadListener listener;
+	private ArrayList<Tile> tileList;
+
+	public Player(){
+		tileList = new ArrayList<Tile>();
+	}
 	
 	public void load(String url){
 		NetworkThreadUtil.getXml( url, this );
 	}
 
+	public ArrayList<Tile> getAllTile(){
+		return tileList;
+	}
+	
 	public void setLoadListener(LoadListener listener){
 		this.listener = listener;
 	}

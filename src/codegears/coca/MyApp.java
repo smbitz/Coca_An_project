@@ -47,6 +47,10 @@ public class MyApp extends Application implements LoadListener {
 		return bManager;
 	}
 	
+	public Player getCurrentPlayer(){
+		return currentPlayer;
+	}
+	
 	public Config getConfig(){
 		return config;
 	}
