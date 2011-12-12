@@ -1,5 +1,7 @@
 package codegears.coca;
 
+import java.util.HashMap;
+
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.camera.ZoomCamera;
@@ -22,6 +24,7 @@ import org.anddev.andengine.input.touch.detector.SurfaceScrollDetector;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import org.anddev.andengine.opengl.texture.region.TextureRegionLibrary;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import codegears.coca.data.Player;
@@ -42,18 +45,6 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	private ZoomCamera mZoomCamera;
 	private Scene mMainScene;
 
-	private BitmapTextureAtlas mFarmMapTextureAtlas;
-	private BitmapTextureAtlas mCouponButtonTextureAtlas;
-	private BitmapTextureAtlas mSpecialCodeButtonTextureAtlas;
-	private BitmapTextureAtlas mSoundButtonTextureAtlas;
-	private BitmapTextureAtlas mShopButtonTextureAtlas;
-
-	private TextureRegion mFarmMapTextureRegion;
-	private TextureRegion mCouponButtonTextureRegion;
-	private TextureRegion mSpecialCodeTextureRegion;
-	private TextureRegion mSoundTextureRegion;
-	private TextureRegion mShopTextureRegion;
-
 	private FarmSprite farmMapSprite;
 
 	private ButtonSprite couponButton;
@@ -65,6 +56,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	private PinchZoomDetector mPinchZoomDetector;
 	private float mPinchZoomStartedCameraZoomFactor;
 
+	private HashMap<String, TextureRegion> textureCollection;
+	
 	private MyApp app;
 	//---- Data Variable ----//
 	private Player currentPlayer;
@@ -72,6 +65,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	
 	@Override
 	public Engine onLoadEngine() {
+		textureCollection = new HashMap<String, TextureRegion>();
 		final Display display = getWindowManager().getDefaultDisplay();
 		int cameraWidth = display.getWidth();
 		int cameraHeight = display.getHeight();
@@ -101,23 +95,28 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public void onLoadResources() {
-		this.mFarmMapTextureAtlas = new BitmapTextureAtlas( 512, 512 );
-		this.mCouponButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
-		this.mSpecialCodeButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
-		this.mSoundButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
-		this.mShopButtonTextureAtlas = new BitmapTextureAtlas( 256, 256 );
+		BitmapTextureAtlas mFarmMapTextureAtlas = new BitmapTextureAtlas( 512, 512 );
+		BitmapTextureAtlas mCouponButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSpecialCodeButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSoundButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mShopButtonTextureAtlas = new BitmapTextureAtlas( 256, 256 );
 
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath( "gfx/" );
-		this.mFarmMapTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-						this.mFarmMapTextureAtlas, this, "farm.png", 0, 0 );
-		this.mCouponButtonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-						this.mCouponButtonTextureAtlas, this, "couponButton.png", 0, 0 );
-		this.mSpecialCodeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-						this.mSpecialCodeButtonTextureAtlas, this, "specialCodeButton.png", 0, 0 );
-		this.mSoundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-						this.mSoundButtonTextureAtlas, this, "sound.png", 0, 0 );
-		this.mShopTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-						this.mShopButtonTextureAtlas, this, "shop.png", 0, 0 );
+		TextureRegion mFarmMapTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+						mFarmMapTextureAtlas, this, "farm.png", 0, 0 );
+		textureCollection.put( "TEXTURE_FARM", mFarmMapTextureRegion );
+		TextureRegion mCouponButtonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+						mCouponButtonTextureAtlas, this, "couponButton.png", 0, 0 );
+		textureCollection.put( "TEXTURE_COUPONBUTTON", mCouponButtonTextureRegion );
+		TextureRegion mSpecialCodeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+						mSpecialCodeButtonTextureAtlas, this, "specialCodeButton.png", 0, 0 );
+		textureCollection.put( "TEXTURE_SPECIALCODEBUTTON", mSpecialCodeTextureRegion );
+		TextureRegion mSoundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+						mSoundButtonTextureAtlas, this, "sound.png", 0, 0 );
+		textureCollection.put( "TEXTURE_SOUNDBUTTON", mSoundTextureRegion );
+		TextureRegion mShopTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+						mShopButtonTextureAtlas, this, "shop.png", 0, 0 );
+		textureCollection.put( "TEXTURE_SHOPBUTTON", mShopTextureRegion );
 
 		this.mEngine.getTextureManager().loadTexture( mFarmMapTextureAtlas );
 		this.mEngine.getTextureManager().loadTexture( mCouponButtonTextureAtlas );
@@ -136,11 +135,11 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		mMainScene = new Scene();
 		mMainScene.setBackground( new ColorBackground( 0.09804f, 0.6274f, 0.8784f ) );
 
-		couponButton = new ButtonSprite( 200, 0, this.mCouponButtonTextureRegion );
-		specialCodeButton = new ButtonSprite( 300, 5, this.mSpecialCodeTextureRegion );
-		soundButton = new ButtonSprite( 390, 5, this.mSoundTextureRegion );
-		shopButton = new ButtonSprite( 0, 0, this.mShopTextureRegion );
-		farmMapSprite = new FarmSprite( 0, 0, this.mFarmMapTextureRegion );
+		couponButton = new ButtonSprite( 200, 0, textureCollection.get( "TEXTURE_FARM" ) );
+		specialCodeButton = new ButtonSprite( 300, 5, textureCollection.get( "TEXTURE_COUPONBUTTON" ) );
+		soundButton = new ButtonSprite( 390, 5, textureCollection.get( "TEXTURE_SPECIALCODEBUTTON" ) );
+		shopButton = new ButtonSprite( 0, 0, textureCollection.get( "TEXTURE_SOUNDBUTTON" ) );
+		farmMapSprite = new FarmSprite( 0, 0, textureCollection.get( "TEXTURE_SHOPBUTTON" ) );
 		farmMapSprite.setPlayer( currentPlayer );
 
 		farmMapSprite.setListener( this );
