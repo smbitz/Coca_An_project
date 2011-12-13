@@ -28,7 +28,7 @@ public class FarmSprite extends Sprite {
 
 	public void setPlayer(Player p){
 		currentPlayer = p;
-		ArrayList<Tile> tileList = p.getAllTile();
+		ArrayList<Tile> tileList = p.getTile();
 		//---- Create FarmTile ----//
 		for(Tile tileData:tileList){
 			AbstractFarmTile tile = FarmTileBuilder.createFarmTile( tileData ); 
