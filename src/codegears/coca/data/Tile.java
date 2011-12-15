@@ -38,6 +38,10 @@ public class Tile {
 		return this.landType;
 	}
 	
+	public Boolean getIsCooupy(){
+		return this.isOccupy;
+	}
+	
 	public void setBuilding(Building setValue){
 		this.building = setValue;
 	}
