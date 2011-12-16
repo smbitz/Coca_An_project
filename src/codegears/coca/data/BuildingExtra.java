@@ -12,6 +12,10 @@ public class BuildingExtra {
 		this.result = setResult;
 	}
 	
+	public String getId(){
+		return id;
+	}
+	
 	public void setItem(Item setItem){
 		this.item = setItem;
 	}

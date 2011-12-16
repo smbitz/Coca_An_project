@@ -3,6 +3,8 @@ package codegears.coca.data;
 import java.util.ArrayList;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import codegears.coca.LoadListener;
 import codegears.coca.util.NetworkThreadUtil;
@@ -22,12 +24,35 @@ public class BuildingManager implements NetworkThreadListener {
 		NetworkThreadUtil.getXml( url, this );
 	}
 
+	private void onXmlComplete(Document document) {
+		NodeList fetchXml = document.getDocumentElement().getElementsByTagName("building");
+		for(int i = 0; i < fetchXml.getLength(); i++){
+			Building newBuilding = new Building();
+			newBuilding.setDataFromXmlNode(fetchXml.item(i));
+			building.add(newBuilding);
+		}
+	}
+	
+	public ArrayList<Building> getBuilding(){
+		return building;
+	}
+	
 	public void setLoadListener(LoadListener listener){
 		this.listener = listener;
 	}
 	
+	public Building getMatchBuilding(String id){
+		for(Building matchBuildingId:building){
+			if(matchBuildingId.getId().equals(id)){
+				return matchBuildingId;
+			}
+		}
+		return null;
+	}
+	
 	@Override
 	public void onNetworkDocSuccess(String urlString, Document document) {
+		onXmlComplete(document);
 		listener.onLoadComplete( this );
 	}
 

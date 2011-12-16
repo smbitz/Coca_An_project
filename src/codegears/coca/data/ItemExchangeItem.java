@@ -12,4 +12,15 @@ public class ItemExchangeItem {
 		quantity = setQuantity;
 	}
 	
+	public Item getItem(){
+		return this.item;
+	}
+	
+	public String getId(){
+		return this.id;
+	}
+	
+	public void setItem(Item setValue){
+		this.item = setValue;
+	}
 }

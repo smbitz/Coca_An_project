@@ -16,6 +16,10 @@ public class BuildingYieldItem {
 		randomTime = setRandomTime;
 	}
 	
+	public String getId(){
+		return id;
+	}
+	
 	public void setItem(Item setItem){
 		this.item = setItem;
 	}
