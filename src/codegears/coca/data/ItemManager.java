@@ -61,5 +61,49 @@ public class ItemManager implements NetworkThreadListener {
 	@Override
 	public void onNetworkFail( String urlString ) {
 	}
+
+	public ArrayList<Item> getItemByType(String getType) {
+		ArrayList<Item> newArrayItemByType = null;
+		
+		for(Item fetchItem:item){
+			if(fetchItem.getItemType().equals(getType)){
+				newArrayItemByType.add(fetchItem);
+			}
+		}
+		
+		return newArrayItemByType;
+	}
+
+	public ArrayList<Item> getSupplyItem() {
+		ArrayList<Item> newArraySupplyItem = null;
+		
+		for(Item fetchItem:item){
+			if(fetchItem.getId().equals(DefaultVar.ITEM_ID_WATER)||
+				 fetchItem.getId().equals(DefaultVar.ITEM_ID_SAPPAN_WOOD)||
+				 fetchItem.getId().equals(DefaultVar.ITEM_ID_PELLET_FOOD)||
+				 fetchItem.getId().equals(DefaultVar.ITEM_ID_FERTILIZER_A)||
+				 fetchItem.getId().equals(DefaultVar.ITEM_ID_FERTILIZER_B)||
+				 fetchItem.getId().equals(DefaultVar.ITEM_ID_VACCINE_A)||
+				 fetchItem.getId().equals(DefaultVar.ITEM_ID_VACCINE_B)||
+				 fetchItem.getId().equals(DefaultVar.ITEM_ID_MICROORGANISM_A)||
+				 fetchItem.getId().equals(DefaultVar.ITEM_ID_MICROORGANISM_B)){
+				newArraySupplyItem.add(fetchItem);
+			}
+		}
+		
+		return newArraySupplyItem;
+	}
+
+	/*public ArrayList<Item> getBuildItem() {
+		ArrayList<Item> newArrayBuildItem = null;
+		
+		for(Item fetchItem:item){
+			if(fetchItem.getId().equals()){
+				newArrayBuildItem.add(fetchItem);
+			}
+		}
+		
+		return newArrayBuildItem;
+	}*/
 	
 }

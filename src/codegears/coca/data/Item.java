@@ -40,6 +40,10 @@ public class Item {
 		return this.id;
 	}
 	
+	public String getItemType(){
+		return this.itemType;
+	}
+	
 	public ArrayList<ItemExchangeItem> getExchangeItem(){
 		return this.exchangeItem;
 	}
