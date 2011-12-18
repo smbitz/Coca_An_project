@@ -92,4 +92,12 @@ public class Player implements NetworkThreadListener {
 	@Override
 	public void onNetworkFail( String urlString ) {
 	}
+	
+	//---- Harvest completed tile ----//
+	public void harvest(Tile tile){
+	}
+	
+	//---- add supply to tile ----//
+	public void addSupply(Tile tile){
+	}
 }

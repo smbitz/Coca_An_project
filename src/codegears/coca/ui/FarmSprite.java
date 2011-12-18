@@ -3,6 +3,7 @@ package codegears.coca.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
@@ -13,11 +14,11 @@ import codegears.coca.data.Tile;
 
 public class FarmSprite extends Sprite {
 	
-	private ButtonListener listener;
 	private ArrayList<AbstractFarmTile> farmTileList;
 	private ArrayList<AbstractFarmTile> purchaseTileList;
 	private Player currentPlayer;
 	private HashMap<String, TextureRegion> textureCollection;
+	private FarmTileListener tileListener;
 	
 	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection){
 		super(0, 0, getTextureCollection.get(DefaultVar.TEXTURE_FARM_DEFAULT));
@@ -25,9 +26,15 @@ public class FarmSprite extends Sprite {
 		purchaseTileList = new ArrayList<AbstractFarmTile>();
 		textureCollection = getTextureCollection;
 	}
-
-	public void setListener(ButtonListener l){
-		listener = l;
+	
+	public void setFarmTileListener(FarmTileListener listener){
+		tileListener = listener;
+		for(AbstractFarmTile tile:farmTileList){
+			tile.setFarmTileListener( tileListener );
+		}
+		for(AbstractFarmTile tile:purchaseTileList){
+			tile.setFarmTileListener( tileListener );
+		}
 	}
 
 	public void setPlayer(Player p){
@@ -36,7 +43,6 @@ public class FarmSprite extends Sprite {
 		//---- Create FarmTile ----//
 		int setX = 0;
 		int setY = 0;
-		int CountRow = 0;
 		for(Tile tileData:tileList){
 			if( tileData.getIsCooupy() ){
 				//if index match condition
@@ -44,7 +50,7 @@ public class FarmSprite extends Sprite {
 				purchaseTile.setData( tileData );
 				purchaseTileList.add( purchaseTile );
 			}else{
-				AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( DefaultVar.TEXTURE_FARM_NOTOCCUPY ) ); 
+				AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( DefaultVar.TEXTURE_FARM_NOTOCCUPY ) );
 				tile.setData( tileData );
 				farmTileList.add( tile );
 			}
@@ -65,9 +71,13 @@ public class FarmSprite extends Sprite {
 		}
 	}
 
-	@Override
-	public boolean onAreaTouched(TouchEvent pSceneTouchEvent,float pTouchAreaLocalX, float pTouchAreaLocalY) {
-    return true;
+	public void registerChildTouchArea(Scene scene){
+		for(AbstractFarmTile tile:farmTileList){
+			scene.registerTouchArea( tile );
+		}
+		for(AbstractFarmTile tile:purchaseTileList){
+			scene.registerTouchArea( tile );
+		}
 	}
 	
 }

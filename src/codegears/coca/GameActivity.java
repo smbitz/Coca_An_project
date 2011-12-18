@@ -29,19 +29,21 @@ import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import codegears.coca.data.DefaultVar;
 import codegears.coca.data.Player;
+import codegears.coca.data.Tile;
 import codegears.coca.dialog.CouponDialog;
 import codegears.coca.dialog.ShopDialog;
 import codegears.coca.dialog.SpecialCodeDialog;
 import codegears.coca.ui.ButtonListener;
 import codegears.coca.ui.ButtonSprite;
 import codegears.coca.ui.FarmSprite;
+import codegears.coca.ui.FarmTileListener;
 
 import android.content.Intent;
 import android.view.Display;
 import android.widget.Toast;
 
 public class GameActivity extends BaseGameActivity implements ButtonListener,
-				IScrollDetectorListener, IPinchZoomDetectorListener, IOnSceneTouchListener {
+				IScrollDetectorListener, IPinchZoomDetectorListener, IOnSceneTouchListener, FarmTileListener {
 
 	private ZoomCamera mZoomCamera;
 	private Scene mMainScene;
@@ -149,8 +151,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		shopButton = new ButtonSprite( 0, 0, textureCollection.get( DefaultVar.TEXTURE_SHOPBUTTON ) );
 		farmMapSprite = new FarmSprite( textureCollection );
 		farmMapSprite.setPlayer( currentPlayer );
+		farmMapSprite.setFarmTileListener(this);
 
-		farmMapSprite.setListener( this );
 		couponButton.setListener( this );
 		specialCodeButton.setListener( this );
 		soundButton.setListener( this );
@@ -169,6 +171,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			this.mPinchZoomDetector = null;
 		}
 
+		farmMapSprite.registerChildTouchArea(mMainScene);
 		mMainScene.attachChild( farmMapSprite );
 		mMainScene.attachChild( couponButton );
 		mMainScene.attachChild( specialCodeButton );
@@ -207,7 +210,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		} else if ( buttonSprite == this.shopButton ) {
 			Intent i = new Intent( this, ShopDialog.class );
 			this.startActivity( i );
-		}
+		} 
 	}
 
 	@Override
@@ -249,6 +252,33 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		}
 
 		return true;
+	}
+
+	@Override
+	public void onPurchaseRequest( Tile data ) {
+		//display purchase confirm
+	}
+
+	@Override
+	public void onBuildRequest( Tile data ) {
+		//display build panel
+	}
+
+	@Override
+	public void onAddItemRequest( Tile data ) {
+		//display add item panel
+	}
+
+	@Override
+	public void onSupplyRequest( Tile data ) {
+		currentPlayer.addSupply(data);
+		//display supply animation
+	}
+
+	@Override
+	public void onHarvestRequest( Tile data ) {
+		currentPlayer.harvest(data);
+		//display harvest animation
 	}
 
 }
