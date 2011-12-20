@@ -191,8 +191,6 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public void onLoadComplete() {
-		// TODO Auto-generated method stub
-
 	}
 
 	public HashMap<String, TextureRegion> getTextureCollection(){
@@ -208,7 +206,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			Intent i = new Intent( this, SpecialCodeDialog.class );
 			this.startActivity( i );
 		} else if ( buttonSprite == this.shopButton ) {
-			Intent i = new Intent( this, ShopDialog.class );
+			Intent i = new Intent( this, ShopDialog.class);
 			this.startActivity( i );
 		} 
 	}

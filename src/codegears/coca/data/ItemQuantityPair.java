@@ -21,8 +21,20 @@ public class ItemQuantityPair {
 		return this.id;
 	}
 	
+	public int getQuantity(){
+		return this.quantity;
+	}
+	
 	public void setItem(Item setValue){
 		this.item = setValue;
+	}
+	
+	public void setItemQuantity(int setValue){
+		this.quantity = setValue;
+	}
+	
+	public void setId(String setValue){
+		this.id = setValue;
 	}
 	
 }

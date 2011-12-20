@@ -1,5 +1,12 @@
 package codegears.coca.dialog;
 
-public class TutorialDialog {
+import android.app.Activity;
+import android.os.Bundle;
 
+public class TutorialDialog extends Activity {
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	}
 }

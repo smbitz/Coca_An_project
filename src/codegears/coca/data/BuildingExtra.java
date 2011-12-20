@@ -13,7 +13,11 @@ public class BuildingExtra {
 	}
 	
 	public String getId(){
-		return id;
+		return this.id;
+	}
+	
+	public int getResult(){
+		return this.result;
 	}
 	
 	public void setItem(Item setItem){

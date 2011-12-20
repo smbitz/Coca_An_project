@@ -44,6 +44,10 @@ public class Item {
 		return this.itemType;
 	}
 	
+	public int getPrice(){
+		return this.price;
+	}
+	
 	public ArrayList<ItemExchangeItem> getExchangeItem(){
 		return this.exchangeItem;
 	}

@@ -17,7 +17,23 @@ public class BuildingYieldItem {
 	}
 	
 	public String getId(){
-		return id;
+		return this.id;
+	}
+	
+	public int getRandomTime(){
+		return this.randomTime;
+	}
+	
+	public int getChance(){
+		return this.chance;
+	}
+	
+	public int getQuantity(){
+		return this.quantity;
+	}
+	
+	public Item getItem(){
+		return this.item;
 	}
 	
 	public void setItem(Item setItem){

@@ -20,6 +20,10 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<activity android:name=".dialog.BuildDialog"></activity>
+		<activity android:name=".dialog.NewspaperDialog"></activity>
+		<activity android:name=".dialog.SupplyBoxDialog"></activity>
+		<activity android:name=".dialog.TutorialDialog"></activity>
 	</application>
 
 </manifest>

@@ -8,8 +8,8 @@ import android.util.Xml;
 
 public class Building {
 	
-	private String EXTRA_BUILDING = "extra";
-	private String YIELD_BUILDING = "yield_item";
+	public static final String EXTRA_BUILDING = "extra";
+	public static final String YIELD_BUILDING = "yield_item";
 	
 	private String id;
 	private String name;
@@ -85,6 +85,14 @@ public class Building {
 		return this.id;
 	}
 	
+	public int getBuildPeriod(){
+		return this.buildPeriod;
+	}
+	
+	public int getSupplyPeriod(){
+		return this.supplyPeriod;
+	}
+	
 	public void setBuildItem(Item setItem){
 		this.buildItem = setItem;
 	}
@@ -93,11 +101,42 @@ public class Building {
 		this.supplyItem = setItem;
 	}
 	
-	public ItemQuantityPair generateYieldItem(){
-		return null;
+	public ArrayList<ItemQuantityPair> generateYieldItem(){
+		ArrayList<ItemQuantityPair> totalYieldItem = new ArrayList<ItemQuantityPair>();
+		
+		for(BuildingYieldItem arrayOfYieldItem:yieldItem){
+			if(!(arrayOfYieldItem.getId().equals(ItemManager.ITEM_ID_MONEY))){
+				for(int i = 0; i < arrayOfYieldItem.getRandomTime(); i++){
+					int randomChance = (int) (Math.random()*100);
+					if(randomChance < arrayOfYieldItem.getChance()){
+						Item itemToPush = arrayOfYieldItem.getItem();
+						
+						ItemQuantityPair newItemPair = new ItemQuantityPair();
+						newItemPair.setItemQuantity(arrayOfYieldItem.getQuantity());
+						newItemPair.setItem(itemToPush);
+						totalYieldItem.add(newItemPair);
+					}
+				}
+			}
+		}
+		
+		return totalYieldItem;
 	}
 	
 	public int generateYieldMoney(){
-		return 0;
+		int totalYieldMoney = 0;
+		
+		for(BuildingYieldItem arrayOfYieldItem:yieldItem){
+			if(arrayOfYieldItem.getId().equals(ItemManager.ITEM_ID_MONEY)){
+				for(int i = 0; i < arrayOfYieldItem.getRandomTime(); i++){
+					int randomChance = (int) (Math.random()*100);
+					if(randomChance < arrayOfYieldItem.getChance()){
+						totalYieldMoney+=arrayOfYieldItem.getQuantity();
+					}
+				}
+			}
+		}
+		
+		return totalYieldMoney;
 	}
 }
