@@ -20,6 +20,10 @@ public class BuildingExtra {
 		return this.result;
 	}
 	
+	public Item getItem(){
+		return this.item;
+	}
+	
 	public void setItem(Item setItem){
 		this.item = setItem;
 	}

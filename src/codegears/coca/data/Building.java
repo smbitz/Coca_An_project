@@ -93,6 +93,14 @@ public class Building {
 		return this.supplyPeriod;
 	}
 	
+	public String getBuildingType(){
+		return this.buildingType;
+	}
+	
+	public int getRottenPeriod(){
+		return this.rottenPeriod;
+	}
+	
 	public void setBuildItem(Item setItem){
 		this.buildItem = setItem;
 	}
@@ -138,5 +146,17 @@ public class Building {
 		}
 		
 		return totalYieldMoney;
+	}
+	
+  //---- return extra item1  ----//
+	public Item getExtraItem1(){
+		Item extraItem1 = extra.get(0).getItem();
+		return extraItem1;
+	}
+	
+  //---- return extra item2  ----//
+	public Item getExtraItem2(){
+		Item extraItem2 = extra.get(1).getItem();
+		return extraItem2;
 	}
 }

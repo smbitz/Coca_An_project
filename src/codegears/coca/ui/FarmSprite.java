@@ -44,7 +44,7 @@ public class FarmSprite extends Sprite {
 		int setX = 0;
 		int setY = 0;
 		for(Tile tileData:tileList){
-			if( tileData.getIsCooupy() ){
+			if( tileData.getIsOccupy() ){
 				//if index match condition
 				AbstractFarmTile purchaseTile = new PurchaseTile(setX, setY, textureCollection.get( DefaultVar.TEXTURE_FARM ));
 				purchaseTile.setData( tileData );

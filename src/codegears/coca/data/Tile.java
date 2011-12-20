@@ -2,6 +2,8 @@ package codegears.coca.data;
 
 import org.w3c.dom.Node;
 
+import codegears.coca.MyApp;
+
 public class Tile {
 	
 	public static final int BUILDING_NOTOCCUPY = 0;
@@ -13,6 +15,13 @@ public class Tile {
 	
 	public static final int SUPPY_FULL_PERCEN = 1;
 	public static final int SUPPY_OUT_PERCEN = 0;
+	
+	public static final String LAND_TYPE_LAND = "land";
+	public static final String LAND_TYPE_SEA = "sea";
+	
+	public static final String BUILDING_TYPE_VEGE = "vege";
+	public static final String BUILDING_TYPE_MEAT = "meat";
+	public static final String BUILDING_TYPE_SEA = "sea";
 	
 	private String landType;
 	private Boolean isOccupy;
@@ -66,7 +75,7 @@ public class Tile {
 		return this.landType;
 	}
 	
-	public Boolean getIsCooupy(){
+	public Boolean getIsOccupy(){
 		return this.isOccupy;
 	}
 	
@@ -78,12 +87,44 @@ public class Tile {
 		return this.extraId;
 	}
 	
+	public int getProgress(){
+		return this.progress;
+	}
+	
+	public int getSupply(){
+		return this.supply;
+	}
+	
+	public int getRottenPeriod(){
+		return this.rottenPeriod;
+	}
+	
 	public void setBuilding(Building setValue){
 		this.building = setValue;
 	}
 	
 	public void setSupply(int setValue){
 		this.supply = setValue;
+	}
+	
+	public void setIsOccupy(boolean setValue){
+		this.isOccupy = setValue;
+	}
+	
+	public void setExtraId(String setValue){
+		this.extraId = setValue;
+	}
+	
+	public void setBuildingId(String setValue){
+		this.buildingId = setValue;
+	}
+	
+	public void setProgress(int setValue){
+		this.progress = setValue;
+	}
+	
+	public void setRottenPeriod(int setValue){
+		this.rottenPeriod = setValue;
 	}
 	
 	public void clearTile() {
@@ -105,6 +146,26 @@ public class Tile {
 		}
 		
 		return currentPercen;
+	}
+
+	public boolean isAllowToBuild(Building building) {
+		if(landType.equals(LAND_TYPE_LAND) && building.getBuildingType().equals(BUILDING_TYPE_VEGE) && isOccupy ||
+		   landType.equals(LAND_TYPE_LAND) && building.getBuildingType().equals(BUILDING_TYPE_MEAT) && isOccupy ||
+		   landType.equals(LAND_TYPE_SEA) && building.getBuildingType().equals(BUILDING_TYPE_SEA) && isOccupy){
+			   return true;
+		} else {
+			   return false;
+		}
+	}
+	
+	public void buildTile(Building buildValue){
+		this.buildingId = buildValue.getId();
+		this.progress = buildValue.getBuildPeriod();
+		this.supply = 0;
+		this.extraId = "NULL";
+		this.rottenPeriod = buildValue.getRottenPeriod();
+		
+		this.setBuilding(buildValue);
 	}
 	
 }

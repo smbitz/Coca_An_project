@@ -17,7 +17,13 @@ import codegears.coca.util.NetworkUtil;
 public class Player implements NetworkThreadListener {
 
 	public static final int NUMBER_PERCENTS_TO_ADD_SUPPLY = 95;
+	public static final int QTY_USE_EXTRA = 1;
 	public static final int QTY_USE_SUPPLY = 1;
+	public static final int QTY_START_FARM_PLAYER = 16;
+	public static final int QTY_TO_BUILD = 1;
+	public static final int BUY_EACH_AREA = 4;
+	public static final int TILE_MAX_X = 8;
+	public static final int TILE_MAX_Y = 8;
 	
 	private String facebookId;
 	private int exp;
@@ -97,6 +103,25 @@ public class Player implements NetworkThreadListener {
 
 	@Override
 	public void onNetworkFail( String urlString ) {
+	}
+	
+	//---- Build tile ----//
+	public void build(Tile currentTile, Building building){
+		int moneyItem = MyApp.getItemManager().howMoney(building.getBuildItemId());
+		
+		if(currentTile.isAllowToBuild(building)){
+			if(isItemEnough(building.getId(), QTY_TO_BUILD)){
+				for(int i = 0; i < backpack.size(); i++){
+					if(backpack.get(i).getId().equals(building.getBuildItemId())){
+						backpack.get(i).setItemQuantity(backpack.get(i).getQuantity()-QTY_TO_BUILD);
+					}
+					currentTile.buildTile(building);
+				}
+			}else if(money>=(moneyItem*QTY_TO_BUILD)){
+				money-=(moneyItem*QTY_TO_BUILD);
+				currentTile.buildTile(building);
+			}
+		}
 	}
 	
 	//---- Harvest completed tile ----//
@@ -212,5 +237,103 @@ public class Player implements NetworkThreadListener {
 		}
 		
 		return false;
+	}
+	
+  //---- Purchase that tile ----//
+	public void purchase(Tile purchaseTile){
+		int moneyToPurchase = getMoneyRequiredForPurchaseTile();
+		int levelToPurchase = getLevelRequiredForPurchaseTile();
+		
+		System.out.println("Can't Purchase !! "+money+":"+moneyToPurchase+" "+getLevel()+":"+levelToPurchase);
+		
+		if(money>=moneyToPurchase&&getLevel()>=levelToPurchase){
+			System.out.println("Can Purchase !!");
+			//Calculate money
+			money -= moneyToPurchase;
+			
+		  //Change tile Status
+			for(int i = 0; i < tileList.size(); i++){
+				if(tileList.get(i)==purchaseTile){
+					tileList.get(i).setIsOccupy(true);
+					tileList.get(i+1).setIsOccupy(true);
+					tileList.get(i+TILE_MAX_X).setIsOccupy(true);
+					tileList.get(i+TILE_MAX_X+1).setIsOccupy(true);
+				}
+			}
+		}
+	}
+
+	private int getLevel() {
+		int currentPlayerLevel = 0;
+		int expForNextLevel = 0;
+		
+		while(exp>=expForNextLevel){
+			currentPlayerLevel++;
+			expForNextLevel = (int) (50+(50*(Math.pow(currentPlayerLevel, 2))));
+		}
+		
+		return currentPlayerLevel;
+	}
+
+	private int getLevelRequiredForPurchaseTile() {
+		int currentPlayerFarm = getCurrentPlayerFarm();
+		int requireLevel = 5*currentPlayerFarm;
+		return requireLevel;
+	}
+
+	private int getCurrentPlayerFarm() {
+		int totalPlayerFarm = 0;
+		for(Tile arrayTile:tileList){
+			if(arrayTile.getIsOccupy()){
+				totalPlayerFarm++;
+			}
+		}
+		totalPlayerFarm -= QTY_START_FARM_PLAYER;
+		totalPlayerFarm = (totalPlayerFarm/BUY_EACH_AREA)+1;
+		return totalPlayerFarm;
+	}
+
+	private int getMoneyRequiredForPurchaseTile() {
+		int currentPlayerFarm = getCurrentPlayerFarm();
+		int requireMoney = (int) (500+(500*Math.pow(currentPlayerFarm, 2)));
+		return requireMoney;
+	}
+	
+  //---- add extraItem to targetTile
+	public Boolean addExtraItem(Tile targetTile, Item extraItem){
+		String extraItemId1 = targetTile.getBuilding().getExtraItem1().getId();
+		String extraItemId2 = targetTile.getBuilding().getExtraItem2().getId();
+		
+		if(extraItem.getId().equals(extraItemId1)||extraItem.getId()==extraItemId2){
+			if(isItemEnough(extraItem.getId(), QTY_USE_EXTRA)){
+				int searchExtra = searchBackpackItem(extraItem.getId());
+				
+				if(searchExtra>=0){
+					int currentExtraQty = backpack.get(searchExtra).getQuantity();
+					backpack.get(searchExtra).setItemQuantity(currentExtraQty-1);
+					targetTile.setExtraId(extraItem.getId());
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+  //---- Check for possible move condtion (1) ----//
+	public Boolean isMoveable(Tile moveTile, Tile destinationTile){ 	
+		return false;
+	}
+	
+	//---- proceed move tile ----//
+	public void moveTile(Tile moveTile, Tile destinationTile){
+		destinationTile.setBuildingId(moveTile.getBuildingId());
+		destinationTile.setProgress(moveTile.getProgress());
+		destinationTile.setSupply(moveTile.getSupply());
+		destinationTile.setExtraId(moveTile.getExtraId());
+		destinationTile.setRottenPeriod(moveTile.getRottenPeriod());
+		destinationTile.setBuilding(moveTile.getBuilding());
+		
+		moveTile.clearTile();
 	}
 }

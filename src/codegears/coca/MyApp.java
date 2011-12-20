@@ -42,7 +42,7 @@ public class MyApp extends Application implements LoadListener {
 	
 	public void load(){
 		HashMap<String, String> dataMap = new HashMap();
-		dataMap.put("facebook_id", "11111");
+		dataMap.put("facebook_id", "9999");
 		String postData = NetworkUtil.createPostData(dataMap);
 		
 		bManager.setLoadListener( this );
