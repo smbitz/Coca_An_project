@@ -192,6 +192,12 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	@Override
 	public void onLoadComplete() {
 		/*Tile testTile = MyApp.getCurrentPlayer().getTile().get(0);
+		Tile testTile2 = MyApp.getCurrentPlayer().getTile().get(22);
+		testTile.setBuildingId("10");
+		testTile.setProgress(1);
+		testTile.setSupply(2);
+		testTile.setExtraId("3");
+		testTile.setRottenPeriod(4);
 		testTile.setBuilding(MyApp.getBuildingManager().getMatchBuilding("10"));
 		
 		System.out.println("Before 1 : "+MyApp.getCurrentPlayer().getTile().get(0).getExtraId());
@@ -207,6 +213,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		currentPlayer.build(testTile, MyApp.getBuildingManager().getMatchBuilding("10"));
 		System.out.println("After buildId : "+testTile.getBuildingId());
 		System.out.println("After Build : "+currentPlayer.getMoney());*/
+		//System.out.println(currentPlayer.isMoveable(testTile, testTile2));
 	}
 
 	public HashMap<String, TextureRegion> getTextureCollection(){

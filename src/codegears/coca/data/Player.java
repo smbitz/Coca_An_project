@@ -321,7 +321,13 @@ public class Player implements NetworkThreadListener {
 	}
 	
   //---- Check for possible move condtion (1) ----//
-	public Boolean isMoveable(Tile moveTile, Tile destinationTile){ 	
+	public Boolean isMoveable(Tile moveTile, Tile destinationTile){
+		String moveTileLandType = moveTile.getLandType();
+		String destinationTileLandType = destinationTile.getLandType();
+		
+		if(moveTileLandType.equals(destinationTileLandType)&&destinationTile.getBuilding()==null){
+			return true;
+		}
 		return false;
 	}
 	
@@ -335,5 +341,35 @@ public class Player implements NetworkThreadListener {
 		destinationTile.setBuilding(moveTile.getBuilding());
 		
 		moveTile.clearTile();
+	}
+	
+  //--- buy item ----//
+	public void buy(String itemId, int quantity){
+		Item currentItem = MyApp.getItemManager().getMatchItem(itemId);
+		
+		if(money>=(currentItem.getPrice()*quantity)){
+			int itemPosition = findItemBackpackById(itemId);
+			
+			if(itemPosition>=0){
+				backpack.get(itemPosition).setItemQuantity(backpack.get(itemPosition).getQuantity()+quantity);
+			}else{
+				ItemQuantityPair newBackpack = new ItemQuantityPair();
+				newBackpack.setItemQuantity(quantity);
+				newBackpack.setItem(currentItem);
+				newBackpack.setId(itemId);
+				backpack.add(newBackpack);
+			}
+			money -= (currentItem.getPrice()*quantity);
+		}
+	}
+
+	private int findItemBackpackById(String findItemId) {
+		for(int i = 0; i < backpack.size(); i++){
+			if(backpack.get(i).equals(findItemId)){
+				return i;
+			}
+		}
+		
+		return -1;
 	}
 }
