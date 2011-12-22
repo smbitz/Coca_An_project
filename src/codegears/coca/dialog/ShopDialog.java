@@ -15,12 +15,14 @@ public class ShopDialog extends Activity {
 	
 	private ArrayList<Item> shopItem;
 	private Player currentPlayer;
+	private MyApp app;
 	
 	public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.shopdialog);
     
-    shopItem = MyApp.getItemManager().getItemByType(ItemManager.ITEM_TYPE_NORMAL);
-    currentPlayer = MyApp.getCurrentPlayer();
+    app = (MyApp)this.getApplication();
+    shopItem = app.getItemManager().getItemByType(ItemManager.ITEM_TYPE_NORMAL);
+    currentPlayer = app.getCurrentPlayer();
 	}
 }

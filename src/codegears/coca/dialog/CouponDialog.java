@@ -15,12 +15,14 @@ public class CouponDialog extends Activity {
 	
 	private ArrayList<Item> couponItem;
 	private Player currentPlayer;
+	private MyApp app;
 	
 	public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.coupondialog);
     
-    couponItem = MyApp.getItemManager().getItemByType(ItemManager.ITEM_TYPE_COUPON);
-    currentPlayer = MyApp.getCurrentPlayer();
+    app = (MyApp)this.getApplication();
+    couponItem = app.getItemManager().getItemByType(ItemManager.ITEM_TYPE_COUPON);
+    currentPlayer = app.getCurrentPlayer();
 	}
 }

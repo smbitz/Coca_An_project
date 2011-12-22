@@ -34,8 +34,10 @@ public class Player implements NetworkThreadListener {
 	private LoadListener listener;
 	private ArrayList<Tile> tileList;
 	private ArrayList<ItemQuantityPair> backpack;
+	private MyApp app;
 
-	public Player(){
+	public Player(MyApp app){
+		this.app = app;
 		tileList = new ArrayList<Tile>();
 		backpack = new ArrayList<ItemQuantityPair>();
 	}
@@ -107,7 +109,7 @@ public class Player implements NetworkThreadListener {
 	
 	//---- Build tile ----//
 	public void build(Tile currentTile, Building building){
-		int moneyItem = MyApp.getItemManager().howMoney(building.getBuildItemId());
+		int moneyItem = app.getItemManager().howMoney(building.getBuildItemId());
 		
 		if(currentTile.isAllowToBuild(building)){
 			if(isItemEnough(building.getId(), QTY_TO_BUILD)){
@@ -209,7 +211,7 @@ public class Player implements NetworkThreadListener {
 	//---- add supply to tile ----//
 	public void addSupply(Tile tile){
 		String supplyItemId = tile.getBuilding().getSupplyId();
-		int moneySupply = MyApp.getItemManager().howMoney(supplyItemId);
+		int moneySupply = app.getItemManager().howMoney(supplyItemId);
 		int currentTileSupplyPercents = tile.getSupplyPercentage()*100;
 		
 		if(currentTileSupplyPercents<NUMBER_PERCENTS_TO_ADD_SUPPLY){
@@ -345,7 +347,7 @@ public class Player implements NetworkThreadListener {
 	
   //--- buy item ----//
 	public void buy(String itemId, int quantity){
-		Item currentItem = MyApp.getItemManager().getMatchItem(itemId);
+		Item currentItem = app.getItemManager().getMatchItem(itemId);
 		
 		if(money>=(currentItem.getPrice()*quantity)){
 			int itemPosition = findItemBackpackById(itemId);

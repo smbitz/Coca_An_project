@@ -27,10 +27,13 @@ import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TextureRegionLibrary;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
+import codegears.coca.data.Building;
 import codegears.coca.data.DefaultVar;
 import codegears.coca.data.Player;
 import codegears.coca.data.Tile;
+import codegears.coca.dialog.BuildDialog;
 import codegears.coca.dialog.CouponDialog;
+import codegears.coca.dialog.PurchaseDialog;
 import codegears.coca.dialog.ShopDialog;
 import codegears.coca.dialog.SpecialCodeDialog;
 import codegears.coca.ui.ButtonListener;
@@ -38,6 +41,7 @@ import codegears.coca.ui.ButtonSprite;
 import codegears.coca.ui.FarmSprite;
 import codegears.coca.ui.FarmTileListener;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.Display;
 import android.widget.Toast;
@@ -45,6 +49,8 @@ import android.widget.Toast;
 public class GameActivity extends BaseGameActivity implements ButtonListener,
 				IScrollDetectorListener, IPinchZoomDetectorListener, IOnSceneTouchListener, FarmTileListener {
 
+	public static final int REQUEST_PURCHASETILE = 1;
+	public static final int REQUEST_BUILD = 2;
 	private ZoomCamera mZoomCamera;
 	private Scene mMainScene;
 
@@ -64,6 +70,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	private MyApp app;
 	//---- Data Variable ----//
 	private Player currentPlayer;
+	private Tile activeTile;
 	
 	@Override
 	public Engine onLoadEngine() {
@@ -274,15 +281,33 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 		return true;
 	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data){
+		if(requestCode == REQUEST_PURCHASETILE){
+			currentPlayer.purchase( activeTile );
+			if(resultCode == Activity.RESULT_OK){
+				currentPlayer.purchase( activeTile );
+			} 
+		} else if(requestCode == REQUEST_BUILD){
+			String buildingId = data.getStringExtra( BuildDialog.BUILDING_ID );
+			Building building = app.getBuildingManager().getMatchBuilding(buildingId);
+			currentPlayer.build( activeTile, building );
+		}
+	}
 
 	@Override
 	public void onPurchaseRequest( Tile data ) {
-		//display purchase confirm
+		activeTile = data;
+		Intent intent = new Intent(this, PurchaseDialog.class);
+		this.startActivityForResult( intent, REQUEST_PURCHASETILE );
 	}
 
 	@Override
 	public void onBuildRequest( Tile data ) {
-		//display build panel
+		activeTile = data;
+		Intent intent = new Intent(this, BuildDialog.class);
+		this.startActivityForResult( intent, REQUEST_BUILD );
 	}
 
 	@Override

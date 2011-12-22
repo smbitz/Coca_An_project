@@ -43,16 +43,19 @@ public class FarmSprite extends Sprite {
 		//---- Create FarmTile ----//
 		int setX = 0;
 		int setY = 0;
+		int loop = 0;
 		for(Tile tileData:tileList){
-			if( tileData.getIsOccupy() ){
-				//if index match condition
-				AbstractFarmTile purchaseTile = new PurchaseTile(setX, setY, textureCollection.get( DefaultVar.TEXTURE_FARM ));
-				purchaseTile.setData( tileData );
-				purchaseTileList.add( purchaseTile );
-			}else{
-				AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( DefaultVar.TEXTURE_FARM_NOTOCCUPY ) );
-				tile.setData( tileData );
-				farmTileList.add( tile );
+			AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( DefaultVar.TEXTURE_FARM_NOTOCCUPY ) );
+			tile.setData( tileData );
+			farmTileList.add( tile );
+			if( !tileData.getIsOccupy() ){
+				int indexX = loop % 8;
+				int indexY = loop / 8;
+				if((indexX % 2 == 0) && (indexY % 2 == 0)){
+					AbstractFarmTile purchaseTile = new PurchaseTile(setX, setY, textureCollection.get( DefaultVar.TEXTURE_FARM ));
+					purchaseTile.setData( tileData );
+					purchaseTileList.add( purchaseTile );
+				}
 			}
 			
 			//Set Tile Position
@@ -61,6 +64,7 @@ public class FarmSprite extends Sprite {
 				setX = 0;
 				setY+=DefaultVar.TILE_HEIGHT;
 			}
+			loop++;
 		}
 		//---- add All tile to farmMap in proper order ----//
 		for(AbstractFarmTile tile:farmTileList){

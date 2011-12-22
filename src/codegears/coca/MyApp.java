@@ -19,9 +19,9 @@ import android.app.Application;
 
 public class MyApp extends Application implements LoadListener {
 	
-	private static BuildingManager bManager;
-	private static ItemManager iManager;
-	private static Player currentPlayer;
+	private BuildingManager bManager;
+	private ItemManager iManager;
+	private Player currentPlayer;
 	private Config config;
 	private boolean isBManagerLoad;
 	private boolean isIManagerLoad;
@@ -34,7 +34,7 @@ public class MyApp extends Application implements LoadListener {
 		config = new Config(getApplicationContext());
 		bManager = new BuildingManager();
 		iManager = new ItemManager();
-		currentPlayer = new Player();
+		currentPlayer = new Player(this);
 		isBManagerLoad = false;
 		isIManagerLoad = false;
 		isCurrentPlayerLoad = false;
@@ -57,15 +57,15 @@ public class MyApp extends Application implements LoadListener {
 		this.listener = listener;
 	}
 	
-	public static BuildingManager getBuildingManager(){
+	public BuildingManager getBuildingManager(){
 		return bManager;
 	}
 	
-	public static ItemManager getItemManager(){
+	public ItemManager getItemManager(){
 		return iManager;
 	}
 	
-	public static Player getCurrentPlayer(){
+	public Player getCurrentPlayer(){
 		return currentPlayer;
 	}
 	

@@ -30,4 +30,11 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>com_facebook_android_v2_src</name>
+			<type>2</type>
+			<locationURI>_android_com_facebook_android_v2_57ef99a7/src</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

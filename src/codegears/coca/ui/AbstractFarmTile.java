@@ -33,6 +33,8 @@ public class AbstractFarmTile extends Sprite {
 					float pTouchAreaLocalY ) {
 		if(data.getBuildingStatus() == Tile.BUILDING_NOTOCCUPY){
 			listener.onPurchaseRequest( data );
+		} else if(data.getBuildingStatus() == Tile.BUILDING_EMPTY){
+			listener.onBuildRequest( data );
 		} else if(true/*other cases*/){
 		}
 		return false;

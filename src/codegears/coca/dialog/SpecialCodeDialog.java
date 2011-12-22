@@ -9,11 +9,13 @@ import android.os.Bundle;
 public class SpecialCodeDialog extends Activity {
 	
 	private Player currentPlayer;
+	private MyApp app;
 	
 	public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.specialcodedialog);
     
-    currentPlayer = MyApp.getCurrentPlayer();
+    app = (MyApp)this.getApplication();
+    currentPlayer = app.getCurrentPlayer();
 	}
 }

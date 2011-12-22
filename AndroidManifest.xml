@@ -24,6 +24,7 @@
 		<activity android:name=".dialog.NewspaperDialog"></activity>
 		<activity android:name=".dialog.SupplyBoxDialog"></activity>
 		<activity android:name=".dialog.TutorialDialog"></activity>
+		<activity android:name=".dialog.PurchaseDialog"></activity>
 	</application>
 
 </manifest>
