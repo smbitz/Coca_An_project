@@ -36,6 +36,7 @@ import codegears.coca.dialog.CouponDialog;
 import codegears.coca.dialog.PurchaseDialog;
 import codegears.coca.dialog.ShopDialog;
 import codegears.coca.dialog.SpecialCodeDialog;
+import codegears.coca.dialog.SupplyBoxDialog;
 import codegears.coca.ui.ButtonListener;
 import codegears.coca.ui.ButtonSprite;
 import codegears.coca.ui.FarmSprite;
@@ -51,6 +52,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	public static final int REQUEST_PURCHASETILE = 1;
 	public static final int REQUEST_BUILD = 2;
+	public static final int REQUEST_SPECIALCODE = 3;
 	private ZoomCamera mZoomCamera;
 	private Scene mMainScene;
 
@@ -198,6 +200,12 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public void onLoadComplete() {
+		//open newspaper
+		if(false/*this is the first time play*/){
+			//open tutorial
+		}
+		
+		
 		/*Tile testTile = MyApp.getCurrentPlayer().getTile().get(0);
 		Tile testTile2 = MyApp.getCurrentPlayer().getTile().get(22);
 		testTile.setBuildingId("10");
@@ -234,7 +242,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			this.startActivity( i );
 		} else if ( buttonSprite == this.specialCodeButton ) {
 			Intent i = new Intent( this, SpecialCodeDialog.class );
-			this.startActivity( i );
+			this.startActivityForResult( i, REQUEST_SPECIALCODE );
 		} else if ( buttonSprite == this.shopButton ) {
 			Intent i = new Intent( this, ShopDialog.class);
 			this.startActivity( i );
@@ -285,14 +293,23 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		if(requestCode == REQUEST_PURCHASETILE){
-			currentPlayer.purchase( activeTile );
 			if(resultCode == Activity.RESULT_OK){
 				currentPlayer.purchase( activeTile );
+				//update farmSprite
 			} 
 		} else if(requestCode == REQUEST_BUILD){
-			String buildingId = data.getStringExtra( BuildDialog.BUILDING_ID );
-			Building building = app.getBuildingManager().getMatchBuilding(buildingId);
-			currentPlayer.build( activeTile, building );
+			if(resultCode == Activity.RESULT_OK){
+				String buildingId = data.getStringExtra( BuildDialog.BUILDING_ID );
+				Building building = app.getBuildingManager().getMatchBuilding(buildingId);
+				currentPlayer.build( activeTile, building );
+				//update farmSprite
+			}
+		} else if(requestCode == REQUEST_SPECIALCODE){
+			if(resultCode == Activity.RESULT_OK){
+				//get item and quantity result
+				//add item to player
+				//display GetItemDialog
+			}
 		}
 	}
 
@@ -312,7 +329,9 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public void onAddItemRequest( Tile data ) {
-		//display add item panel
+		activeTile = data;
+		Intent intent = new Intent(this, SupplyBoxDialog.class);
+		this.startActivity( intent );
 	}
 
 	@Override

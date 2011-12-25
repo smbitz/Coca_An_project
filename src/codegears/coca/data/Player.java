@@ -1,18 +1,12 @@
 package codegears.coca.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-
-import android.hardware.Camera.Size;
-
 import codegears.coca.LoadListener;
 import codegears.coca.MyApp;
 import codegears.coca.util.NetworkThreadUtil;
 import codegears.coca.util.NetworkThreadUtil.NetworkThreadListener;
-import codegears.coca.util.NetworkUtil;
 
 public class Player implements NetworkThreadListener {
 

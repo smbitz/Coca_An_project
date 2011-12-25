@@ -77,7 +77,9 @@ public class FarmSprite extends Sprite {
 
 	public void registerChildTouchArea(Scene scene){
 		for(AbstractFarmTile tile:farmTileList){
-			scene.registerTouchArea( tile );
+			if(tile.getData().getBuildingStatus() != Tile.BUILDING_NOTOCCUPY){
+				scene.registerTouchArea( tile );
+			}
 		}
 		for(AbstractFarmTile tile:purchaseTileList){
 			scene.registerTouchArea( tile );
