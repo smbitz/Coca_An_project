@@ -3,7 +3,15 @@ package codegears.coca.data;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import android.hardware.Camera.Size;
@@ -364,6 +372,20 @@ public class Player implements NetworkThreadListener {
 			money -= (currentItem.getPrice()*quantity);
 		}
 	}
+	
+//---- sell item----//
+	public void sell(String itemId, int quantity){
+		int itemPosition = findItemBackpackById(itemId);
+		
+		if(itemPosition>=0){
+			int currentItemQty = backpack.get(itemPosition).getQuantity();
+			
+			if(currentItemQty>=quantity){
+				backpack.get(itemPosition).setItemQuantity(backpack.get(itemPosition).getQuantity()-quantity);
+				money -= (backpack.get(itemPosition).getItem().getSellPrice())*quantity;
+			}
+		}
+	}
 
 	private int findItemBackpackById(String findItemId) {
 		for(int i = 0; i < backpack.size(); i++){
@@ -373,5 +395,62 @@ public class Player implements NetworkThreadListener {
 		}
 		
 		return -1;
+	}
+	
+  //---- Update Player data to Server ----//
+	public void updateToServer(){
+		int checkValue = 0;
+		
+		try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			
+			Document doc = docBuilder.newDocument();
+			
+		  //getTileData and change millisec to sec.
+			Element landElement = doc.createElement("land");
+			for(Tile tileData:tileList){
+				checkValue+=(((int) tileData.getProgress()/1000)+((int) tileData.getSupply()/1000)+((int) tileData.getRottenPeriod()/1000));
+				
+				Element tileElement = doc.createElement("tile");
+				tileElement.setAttribute("land_type", tileData.getLandType());
+				tileElement.setAttribute("is_occupy", String.valueOf(tileData.getIsOccupy()));
+				tileElement.setAttribute("building_id", tileData.getBuildingId());
+				tileElement.setAttribute("progress", String.valueOf(tileData.getProgress()/1000));
+				tileElement.setAttribute("supply_left", String.valueOf(tileData.getSupply()/1000));
+				tileElement.setAttribute("extra_id", tileData.getExtraId());
+				tileElement.setAttribute("rotten_period", String.valueOf(tileData.getRottenPeriod()/1000));
+				landElement.appendChild(tileElement);
+			}
+			
+		  //getBackpackItem
+			Element backpackElement = doc.createElement("backpack");
+			for(ItemQuantityPair backpackItem:backpack){
+				checkValue-=((int) backpackItem.getQuantity());
+				
+				Element backpackItemElement = doc.createElement("item");
+				backpackItemElement.setAttribute("id", backpackItem.getId());
+				backpackItemElement.setAttribute("quantity", String.valueOf(backpackItem.getQuantity()));
+				backpackElement.appendChild(backpackItemElement);
+			}
+			
+			//Player
+			Element playerElement = doc.createElement("player");
+			playerElement.setAttribute("facebook_id", facebookId);
+			playerElement.setAttribute("exp", String.valueOf(exp));
+			playerElement.setAttribute("money", String.valueOf(money));
+			playerElement.setAttribute("is_new", String.valueOf(isNew));
+			playerElement.setAttribute("c1", String.valueOf(checkValue));
+			
+			playerElement.appendChild(landElement);
+			playerElement.appendChild(backpackElement);
+			doc.appendChild(playerElement);
+			
+			//Send Data To Server
+	    
+			
+		} catch (ParserConfigurationException pce) {
+				pce.printStackTrace();
+		}
 	}
 }

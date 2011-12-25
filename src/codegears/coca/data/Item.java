@@ -51,4 +51,8 @@ public class Item {
 	public ArrayList<ItemExchangeItem> getExchangeItem(){
 		return this.exchangeItem;
 	}
+
+	public int getSellPrice() {
+		return (this.price/2);
+	}
 }

@@ -51,6 +51,9 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	public static final int REQUEST_PURCHASETILE = 1;
 	public static final int REQUEST_BUILD = 2;
+	public static final int REQUEST_ADD_ITEM = 3;
+	public static final int REQUEST_SUPPLY = 4;
+	public static final int REQUEST_HARVEST = 5;
 	private ZoomCamera mZoomCamera;
 	private Scene mMainScene;
 
@@ -221,6 +224,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		System.out.println("After buildId : "+testTile.getBuildingId());
 		System.out.println("After Build : "+currentPlayer.getMoney());*/
 		//System.out.println(currentPlayer.isMoveable(testTile, testTile2));
+		currentPlayer.updateToServer();
 	}
 
 	public HashMap<String, TextureRegion> getTextureCollection(){

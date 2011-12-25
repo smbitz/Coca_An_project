@@ -1,17 +1,17 @@
 package codegears.coca;
 
-import com.facebook.android.DialogError;
+/*import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
 import com.facebook.android.Facebook.DialogListener;
-import com.facebook.android.FacebookError;
+import com.facebook.android.FacebookError;*/
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class LoadActivity extends Activity implements LoadListener, DialogListener {
+public class LoadActivity extends Activity implements LoadListener{//, DialogListener {
 
-	public Facebook facebook;
+	//public Facebook facebook;
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate( savedInstanceState );
@@ -20,16 +20,18 @@ public class LoadActivity extends Activity implements LoadListener, DialogListen
 		app.load();
 		app.setLoadListener(this);
 		
-		facebook = new Facebook("164010340367745");
-		facebook.authorize( this, this );
+		//facebook = new Facebook("164010340367745");
+		//facebook.authorize( this, this );
 		onLoadComplete(null);
 	}
 	
 	public void onLoadComplete(Object obj){
 		//start GameActivity
+		Intent i = new Intent(this, GameActivity.class);
+		startActivity(i);
 	}
 
-	@Override
+	/*@Override
 	public void onComplete( Bundle values ) {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(this, GameActivity.class);
@@ -52,5 +54,5 @@ public class LoadActivity extends Activity implements LoadListener, DialogListen
 	public void onCancel() {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 }

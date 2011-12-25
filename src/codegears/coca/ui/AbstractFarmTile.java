@@ -35,7 +35,22 @@ public class AbstractFarmTile extends Sprite {
 			listener.onPurchaseRequest( data );
 		} else if(data.getBuildingStatus() == Tile.BUILDING_EMPTY){
 			listener.onBuildRequest( data );
-		} else if(true/*other cases*/){
+		} else if(data.getBuildingStatus() == Tile.BUILDING_PROCESS1){
+			if(data.getSupply()<=0){
+				listener.onSupplyRequest( data );
+			}else{
+				listener.onAddItemRequest( data );
+			}
+		} else if(data.getBuildingStatus() == Tile.BUILDING_PROCESS2){
+			if(data.getSupply()<=0){
+				listener.onSupplyRequest( data );
+			}else{
+				listener.onAddItemRequest( data );
+			}
+		} else if(data.getBuildingStatus() == Tile.BUILDING_COMPLETED){
+			listener.onHarvestRequest( data );
+		} else if(data.getBuildingStatus() == Tile.BUILDING_ROTTED){
+			listener.onHarvestRequest( data );
 		}
 		return false;
 	}
