@@ -1,18 +1,11 @@
 package codegears.coca.data;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
-import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-=======
->>>>>>> 03f71383703b17d7d01e6ad10f18515e770c1682
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;

@@ -1,22 +1,7 @@
 package codegears.coca.dialog;
 
 import codegears.coca.MyApp;
-<<<<<<< HEAD
-import codegears.coca.data.Player;
-import android.app.Activity;
-import android.os.Bundle;
 
-public class PurchaseDialog extends Activity {
-	
-	private Player currentPlayer;
-	private MyApp app;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		app = (MyApp)this.getApplication();		
-		currentPlayer = app.getCurrentPlayer();
-=======
 import codegears.coca.R;
 import codegears.coca.data.Player;
 import android.app.Activity;
@@ -66,6 +51,5 @@ public class PurchaseDialog extends Activity implements OnClickListener {
 			this.setResult( Activity.RESULT_CANCELED );
 			this.finish();
 		}
->>>>>>> 03f71383703b17d7d01e6ad10f18515e770c1682
 	}
 }
