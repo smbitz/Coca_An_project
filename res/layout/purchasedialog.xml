@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:background="#7F000000">
+	<TextView android:text="Purchase Dialog" android:id="@+id/textView1"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+	<TextView android:text="Money" android:id="@+id/MoneyText"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+	<TextView android:text="Level" android:id="@+id/LevelText"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+	<Button android:text="Ok" android:id="@+id/OkButton"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+	<Button android:text="Close" android:id="@+id/CloseButton"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+</LinearLayout>
