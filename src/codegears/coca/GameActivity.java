@@ -37,6 +37,7 @@ import codegears.coca.dialog.PurchaseDialog;
 import codegears.coca.dialog.ShopDialog;
 import codegears.coca.dialog.SpecialCodeDialog;
 import codegears.coca.dialog.SupplyBoxDialog;
+import codegears.coca.dialog.TutorialDialog;
 import codegears.coca.ui.ButtonListener;
 import codegears.coca.ui.ButtonSprite;
 import codegears.coca.ui.FarmSprite;
@@ -204,35 +205,11 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	@Override
 	public void onLoadComplete() {
 		//open newspaper
-		if(false/*this is the first time play*/){
+		if(currentPlayer.getIsNew()){
 			//open tutorial
+			Intent i = new Intent(this, TutorialDialog.class);
+			startActivity(i);
 		}
-		
-		
-		/*Tile testTile = MyApp.getCurrentPlayer().getTile().get(0);
-		Tile testTile2 = MyApp.getCurrentPlayer().getTile().get(22);
-		testTile.setBuildingId("10");
-		testTile.setProgress(1);
-		testTile.setSupply(2);
-		testTile.setExtraId("3");
-		testTile.setRottenPeriod(4);
-		testTile.setBuilding(MyApp.getBuildingManager().getMatchBuilding("10"));
-		
-		System.out.println("Before 1 : "+MyApp.getCurrentPlayer().getTile().get(0).getExtraId());
-		currentPlayer.addExtraItem(testTile, app.getItemManager().getMatchItem("7020"));
-		System.out.println("Quantity : "+currentPlayer.getBackpack().get(currentPlayer.searchBackpackItem("7020")).getQuantity());
-		System.out.println("After 1 : "+MyApp.getCurrentPlayer().getTile().get(0).getExtraId());
-		
-		testTile.setIsOccupy(true);
-		System.out.println("Before buildId : "+testTile.getBuildingId());
-		currentPlayer.setMoney(0);
-		currentPlayer.getBackpack().get(currentPlayer.searchBackpackItem("10")).setItemQuantity(0);
-		System.out.println("Before Build : "+currentPlayer.getMoney());
-		currentPlayer.build(testTile, MyApp.getBuildingManager().getMatchBuilding("10"));
-		System.out.println("After buildId : "+testTile.getBuildingId());
-		System.out.println("After Build : "+currentPlayer.getMoney());*/
-		//System.out.println(currentPlayer.isMoveable(testTile, testTile2));
-		currentPlayer.updateToServer();
 	}
 
 	public HashMap<String, TextureRegion> getTextureCollection(){

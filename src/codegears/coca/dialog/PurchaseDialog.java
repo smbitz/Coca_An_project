@@ -35,7 +35,7 @@ public class PurchaseDialog extends Activity implements OnClickListener {
     closeButton = (Button)this.findViewById( R.id.CloseButton );
     closeButton.setOnClickListener( this );
     
-    if(true/*allow to purchase*/){
+    if(currentPlayer.isAllowToPurchase()){
     	okButton.setVisibility( View.VISIBLE );
     } else {
     	okButton.setVisibility( View.INVISIBLE );

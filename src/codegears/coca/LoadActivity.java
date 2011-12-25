@@ -28,5 +28,7 @@ public class LoadActivity extends Activity implements LoadListener /*, DialogLis
 	
 	public void onLoadComplete(Object obj){
 		//start GameActivity
+		Intent i = new Intent(this, GameActivity.class);
+		startActivity(i);
 	}
 }

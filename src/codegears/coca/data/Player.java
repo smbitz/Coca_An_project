@@ -87,7 +87,11 @@ public class Player implements NetworkThreadListener {
 	
 	public ArrayList<ItemQuantityPair> getBackpack(){
 		return backpack;
-	}                                              
+	}
+	
+	public Boolean getIsNew(){
+		return isNew;
+	}
 	
 	public void setLoadListener(LoadListener listener){
 		this.listener = listener;
@@ -198,7 +202,7 @@ public class Player implements NetworkThreadListener {
 		}
 	}
 	
-	private int searchBackpackItem(String searchItemId) {
+	public int searchBackpackItem(String searchItemId) {
 		for(int i = 0; i < backpack.size(); i++){
 			if(backpack.get(i).getId().equals(searchItemId)){
 				return i;
@@ -244,12 +248,8 @@ public class Player implements NetworkThreadListener {
   //---- Purchase that tile ----//
 	public void purchase(Tile purchaseTile){
 		int moneyToPurchase = getMoneyRequiredForPurchaseTile();
-		int levelToPurchase = getLevelRequiredForPurchaseTile();
 		
-		System.out.println("Can't Purchase !! "+money+":"+moneyToPurchase+" "+getLevel()+":"+levelToPurchase);
-		
-		if(money>=moneyToPurchase&&getLevel()>=levelToPurchase){
-			System.out.println("Can Purchase !!");
+		if(isAllowToPurchase()){
 			//Calculate money
 			money -= moneyToPurchase;
 			
@@ -350,9 +350,10 @@ public class Player implements NetworkThreadListener {
 		Item currentItem = app.getItemManager().getMatchItem(itemId);
 		
 		if(money>=(currentItem.getPrice()*quantity)){
-			int itemPosition = findItemBackpackById(itemId);
+			int itemPosition = searchBackpackItem(itemId);
 			
 			if(itemPosition>=0){
+				
 				backpack.get(itemPosition).setItemQuantity(backpack.get(itemPosition).getQuantity()+quantity);
 			}else{
 				ItemQuantityPair newBackpack = new ItemQuantityPair();
@@ -365,28 +366,18 @@ public class Player implements NetworkThreadListener {
 		}
 	}
 	
-//---- sell item----//
+  //---- sell item----//
 	public void sell(String itemId, int quantity){
-		int itemPosition = findItemBackpackById(itemId);
+		int itemPosition = searchBackpackItem(itemId);
 		
 		if(itemPosition>=0){
 			int currentItemQty = backpack.get(itemPosition).getQuantity();
 			
 			if(currentItemQty>=quantity){
 				backpack.get(itemPosition).setItemQuantity(backpack.get(itemPosition).getQuantity()-quantity);
-				money -= (backpack.get(itemPosition).getItem().getSellPrice())*quantity;
+				money += (backpack.get(itemPosition).getItem().getSellPrice())*quantity;
 			}
 		}
-	}
-
-	private int findItemBackpackById(String findItemId) {
-		for(int i = 0; i < backpack.size(); i++){
-			if(backpack.get(i).equals(findItemId)){
-				return i;
-			}
-		}
-		
-		return -1;
 	}
 	
   //---- Update Player data to Server ----//
@@ -443,6 +434,17 @@ public class Player implements NetworkThreadListener {
 			
 		} catch (ParserConfigurationException pce) {
 				pce.printStackTrace();
+		}
+	}
+
+	public boolean isAllowToPurchase() {
+		int moneyToPurchase = getMoneyRequiredForPurchaseTile();
+		int levelToPurchase = getLevelRequiredForPurchaseTile();
+		
+		if(money>=moneyToPurchase&&getLevel()>=levelToPurchase){
+			return true;
+		}else {
+			return false;
 		}
 	}
 }
