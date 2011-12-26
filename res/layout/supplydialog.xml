@@ -6,7 +6,7 @@
 
     <FrameLayout
         android:id="@+id/frameLayout1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content" android:layout_gravity="center">
 
         <LinearLayout
@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/popup_status_animal"
-            android:orientation="vertical" >
+            android:orientation="vertical" android:layout_gravity="center">
         </LinearLayout>
 
         <LinearLayout
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/popup_status_plant"
-            android:orientation="vertical" >
+            android:orientation="vertical" android:layout_gravity="center">
         </LinearLayout>
 
         <LinearLayout
@@ -30,15 +30,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/popup_status_seaanimal"
-            android:orientation="vertical" >
-
-            <Button
-                android:id="@+id/supplyCloseButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_close"/>
+            android:orientation="vertical" android:layout_gravity="center">
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/supplyCloseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_close" />
+
     </FrameLayout>
 
 </LinearLayout>

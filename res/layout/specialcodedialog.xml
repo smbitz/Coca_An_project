@@ -20,9 +20,9 @@
 
 		<EditText
 		    android:id="@+id/SpecialCodeField"
-		    android:layout_width="292dp"
+		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
-		    android:inputType="numberDecimal" android:layout_gravity="center" android:layout_marginTop="110dp">
+		    android:inputType="numberDecimal" android:layout_gravity="center">
 
 		    <requestFocus />
 		</EditText>

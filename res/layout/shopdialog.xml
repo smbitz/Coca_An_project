@@ -7,27 +7,28 @@
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
-        android:layout_height="179dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/plant_popup_market"
-        android:orientation="vertical" >
+        android:orientation="vertical" android:layout_gravity="center" android:layout_weight="1">
 
         <Button
             android:id="@+id/shopCloseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_close"/>
+            android:background="@drawable/button_close" android:layout_gravity="right"/>
 
-        <Button
-            android:id="@+id/shopNextbutton1"
+        <HorizontalScrollView
+            android:id="@+id/shopItemScrollView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_next_animation02"/>
+            android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/shopBackButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_back_animation02"/>
+            <LinearLayout
+                android:id="@+id/shopItem"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
 
     </LinearLayout>
 
@@ -36,19 +37,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/plant_popup_store"
-        android:orientation="vertical" >
+        android:orientation="vertical" android:layout_gravity="center" android:layout_weight="1">
 
-        <Button
-            android:id="@+id/backpackNextButton1"
+        <HorizontalScrollView
+            android:id="@+id/backpackItemScrollView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_next_animation02" />
+            android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/backpackBackButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_back_animation02" />
+            <LinearLayout
+                android:id="@+id/backpackItem"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+
     </LinearLayout>
 
 </LinearLayout>

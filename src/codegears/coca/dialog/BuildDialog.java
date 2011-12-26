@@ -8,13 +8,18 @@ import codegears.coca.data.Item;
 import codegears.coca.data.Player;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
-public class BuildDialog extends Activity {
+public class BuildDialog extends Activity implements OnClickListener {
 	
 	public static final String BUILDING_ID = "BUILDING_ID";
 	private ArrayList<Item> buildItem;
 	private Player currentPlayer;
 	private MyApp app;
+	
+	private Button closeButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,5 +28,15 @@ public class BuildDialog extends Activity {
 		app = (MyApp)this.getApplication();		
 		buildItem = app.getItemManager().getBuildItem();
 		currentPlayer = app.getCurrentPlayer();
+		
+		closeButton = (Button) this.findViewById(R.id.plantCloseButton);
+		closeButton.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		if( v.equals(closeButton) ){
+			this.finish();
+		}
 	}
 }

@@ -5,28 +5,53 @@
     android:orientation="vertical" android:background="#7F000000">
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" android:layout_weight="1">
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" android:background="@drawable/plant_popup_plantfarm">
+        android:background="@drawable/plant_popup_plantfarm"
+        android:orientation="vertical" android:layout_weight="0">
 
-        <Button
-            android:id="@+id/plantCloseButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_close"/>
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0" android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/plantBackButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_back_animation02"/>
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/plantNextButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_next_animation02"/>
+            <Button
+                android:id="@+id/plantCloseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:background="@drawable/button_close" android:layout_gravity="right"/>
+
+            <HorizontalScrollView
+                android:id="@+id/plantItemScrollView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+                    android:id="@+id/plantItem"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </LinearLayout>
 
     </LinearLayout>
 

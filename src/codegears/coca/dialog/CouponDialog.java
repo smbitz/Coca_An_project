@@ -10,12 +10,16 @@ import codegears.coca.data.ItemManager;
 import codegears.coca.data.Player;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
-public class CouponDialog extends Activity {
+public class CouponDialog extends Activity implements OnClickListener {
 	
 	private ArrayList<Item> couponItem;
 	private Player currentPlayer;
 	private MyApp app;
+	private Button closeButton;
 	
 	public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -24,5 +28,15 @@ public class CouponDialog extends Activity {
     app = (MyApp)this.getApplication();
     couponItem = app.getItemManager().getItemByType(ItemManager.ITEM_TYPE_COUPON);
     currentPlayer = app.getCurrentPlayer();
+    
+    closeButton = (Button) this.findViewById(R.id.couponCloseButton);
+    closeButton.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		if( v.equals(closeButton) ){
+			this.finish();
+		}
 	}
 }
