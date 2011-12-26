@@ -25,7 +25,7 @@
 		<activity android:name=".dialog.SupplyBoxDialog" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
 		<activity android:name=".dialog.TutorialDialog" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
 		<activity android:name=".dialog.PurchaseDialog" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
-		<activity android:name=".dialog.ItemGetDialog"></activity>
+		<activity android:name=".dialog.ItemGetDialog" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
 	</application>
 
 </manifest>

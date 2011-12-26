@@ -4,12 +4,42 @@
 	android:layout_height="fill_parent" android:background="#7F000000">
 	<TextView android:text="Purchase Dialog" android:id="@+id/textView1"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-	<TextView android:text="Money" android:id="@+id/MoneyText"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 	<TextView android:text="Level" android:id="@+id/LevelText"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-	<Button android:text="Ok" android:id="@+id/OkButton"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-	<Button android:text="Close" android:id="@+id/CloseButton"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+
+	<LinearLayout
+	    android:id="@+id/linearLayout1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/popup_sell"
+	    android:orientation="vertical" android:layout_gravity="center">
+
+		<TextView
+		    android:id="@+id/MoneyText"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="Money" />
+
+		<Button
+		    android:id="@+id/CloseButton"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/button_close" />
+
+	</LinearLayout>
+
+	<LinearLayout
+	    android:id="@+id/linearLayout2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" android:layout_gravity="center">
+
+		<Button
+		    android:id="@+id/OkButton"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/button_ok" />
+
+	</LinearLayout>
+
 </LinearLayout>
