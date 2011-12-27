@@ -11,16 +11,24 @@
         android:background="@drawable/plant_popup_market"
         android:orientation="vertical" android:layout_gravity="center" android:layout_weight="1">
 
-        <Button
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" android:layout_weight="1">
+        </LinearLayout>
+
+        <ImageButton
             android:id="@+id/shopCloseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_close" android:layout_gravity="right"/>
+            android:layout_weight="1"
+            android:src="@drawable/button_close" android:background="@null" android:layout_gravity="right"/>
 
         <HorizontalScrollView
             android:id="@+id/shopItemScrollView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:layout_weight="2">
 
             <LinearLayout
                 android:id="@+id/shopItem"
@@ -29,6 +37,14 @@
                 android:orientation="horizontal" >
             </LinearLayout>
         </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -39,10 +55,17 @@
         android:background="@drawable/plant_popup_store"
         android:orientation="vertical" android:layout_gravity="center" android:layout_weight="1">
 
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" android:layout_weight="1">
+        </LinearLayout>
+
         <HorizontalScrollView
             android:id="@+id/backpackItemScrollView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:layout_weight="2">
 
             <LinearLayout
                 android:id="@+id/backpackItem"
@@ -51,6 +74,14 @@
                 android:orientation="horizontal" >
             </LinearLayout>
         </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+        </LinearLayout>
 
     </LinearLayout>
 

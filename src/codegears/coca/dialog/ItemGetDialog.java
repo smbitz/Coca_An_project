@@ -9,10 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class ItemGetDialog extends Activity implements OnClickListener {
 
-	private Button closeButton;
+	private ImageButton closeButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class ItemGetDialog extends Activity implements OnClickListener {
 
     Intent intent = this.getIntent();
     //get item and quantity from intent
-    closeButton = (Button)this.findViewById( R.id.CloseButton );
+    closeButton = (ImageButton) this.findViewById( R.id.itemGetCloseButton );
     closeButton.setOnClickListener( this );
 	}
 

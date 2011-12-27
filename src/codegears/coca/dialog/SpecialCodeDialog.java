@@ -28,9 +28,9 @@ public class SpecialCodeDialog extends Activity implements OnClickListener {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.specialcodedialog);
     codeField = (EditText)this.findViewById( R.id.SpecialCodeField );
-    okButton = (Button)this.findViewById( R.id.OkButton );
+    okButton = (Button)this.findViewById( R.id.specialCodeOkButton );
     okButton.setOnClickListener( this );
-    cancelButton = (Button)this.findViewById( R.id.CancelButton );
+    cancelButton = (Button)this.findViewById( R.id.specialCodeCancelButton );
     cancelButton.setOnClickListener( this );
     
     app = (MyApp)this.getApplication();

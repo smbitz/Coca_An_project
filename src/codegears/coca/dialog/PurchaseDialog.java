@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class PurchaseDialog extends Activity implements OnClickListener {
@@ -18,7 +19,7 @@ public class PurchaseDialog extends Activity implements OnClickListener {
 	private TextView moneyText;
 	private TextView levelText;
 	private Button okButton;
-	private Button closeButton;
+	private ImageButton closeButton;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,11 @@ public class PurchaseDialog extends Activity implements OnClickListener {
     app = (MyApp)this.getApplication();
     currentPlayer = app.getCurrentPlayer();
     
-    moneyText = (TextView)this.findViewById( R.id.MoneyText );
-    levelText = (TextView)this.findViewById( R.id.LevelText );
-    okButton = (Button)this.findViewById( R.id.OkButton );
+    moneyText = (TextView) this.findViewById( R.id.MoneyText );
+    levelText = (TextView) this.findViewById( R.id.LevelText );
+    okButton = (Button) this.findViewById( R.id.purchaseOkButton );
     okButton.setOnClickListener( this );
-    closeButton = (Button)this.findViewById( R.id.CloseButton );
+    closeButton = (ImageButton) this.findViewById( R.id.purchaseCloseDialog );
     closeButton.setOnClickListener( this );
     
     if(currentPlayer.isAllowToPurchase()){

@@ -12,20 +12,17 @@
 	    android:background="@drawable/popup_code"
 	    android:orientation="vertical" android:layout_gravity="center">
 
-		<Button
-		    android:id="@+id/button1"
+		<ImageButton
+		    android:id="@+id/specialCodeCloseButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:background="@drawable/button_close"/>
-
+		    android:src="@drawable/button_close" android:background="@null"/>
+
 		<EditText
 		    android:id="@+id/SpecialCodeField"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
-		    android:inputType="numberDecimal" android:layout_gravity="center">
-
-		    <requestFocus />
-		</EditText>
+		    android:inputType="numberDecimal" />
 
 	</LinearLayout>
 
@@ -35,13 +32,13 @@
 	    android:layout_height="wrap_content" android:layout_gravity="center">
 
 		<Button
-		    android:id="@+id/CancelButton"
+		    android:id="@+id/specialCodeCancelButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:background="@drawable/button_cancel"/>
 
 		<Button
-		    android:id="@+id/OkButton"
+		    android:id="@+id/specialCodeOkButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:background="@drawable/button_ok"/>

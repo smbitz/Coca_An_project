@@ -43,7 +43,7 @@ public class MyApp extends Application implements LoadListener {
 		isBManagerLoad = false;
 		isIManagerLoad = false;
 		isCurrentPlayerLoad = false;
-		facebookId = "9999";
+		facebookId = "2222";
 	}
 	
 	public void load(){
@@ -87,10 +87,13 @@ public class MyApp extends Application implements LoadListener {
 	public void onLoadComplete( Object obj ) {
 		if(obj == bManager){
 			isBManagerLoad = true;
+			System.out.println("Load Building Complete !!");
 		} else if(obj == iManager){
 			isIManagerLoad = true;
+			System.out.println("Load Item Complete !!");
 		} else if(obj == currentPlayer){
-			isCurrentPlayerLoad = true;			
+			isCurrentPlayerLoad = true;
+			System.out.println("Load Player Complete !!");
 		}
 		if(isBManagerLoad && isIManagerLoad && isCurrentPlayerLoad){
 			manageData();

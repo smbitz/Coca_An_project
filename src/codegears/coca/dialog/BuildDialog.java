@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class BuildDialog extends Activity implements OnClickListener {
 	
@@ -19,7 +20,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 	private Player currentPlayer;
 	private MyApp app;
 	
-	private Button closeButton;
+	private ImageButton closeButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 		buildItem = app.getItemManager().getBuildItem();
 		currentPlayer = app.getCurrentPlayer();
 		
-		closeButton = (Button) this.findViewById(R.id.plantCloseButton);
+		closeButton = (ImageButton) this.findViewById(R.id.plantCloseButton);
 		closeButton.setOnClickListener(this);
 	}
 

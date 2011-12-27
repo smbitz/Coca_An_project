@@ -9,25 +9,70 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:background="@drawable/popup_coupons" android:layout_gravity="center" android:orientation="vertical">
 
-        <Button
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" android:layout_weight="1">
+        </LinearLayout>
+
+        <ImageButton
             android:id="@+id/couponCloseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_close" android:layout_gravity="right"/>
-
-    </LinearLayout>
-
-    <HorizontalScrollView
-        android:id="@+id/couponItemScrollView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+            android:src="@drawable/button_close" android:layout_gravity="right" android:background="@null"/>
 
         <LinearLayout
-            android:id="@+id/couponItem"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal" >
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/couponAllCouponButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/text_allcoupons_animation02" android:background="@null"/>
+
+            <ImageButton
+                android:id="@+id/couponAvilableButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/text_available_animation02" android:background="@null"/>
+
+            <ImageButton
+                android:id="@+id/couponUnavialbleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/text_unavialble_animation02" android:background="@null"/>
+
+            <ImageButton
+                android:id="@+id/couponMycouponsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/text_mycoupons_animation02" android:background="@null"/>
+
         </LinearLayout>
-    </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:id="@+id/couponItemScrollView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:layout_weight="7">
+
+            <LinearLayout
+                android:id="@+id/couponItem"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" android:layout_weight="1">
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

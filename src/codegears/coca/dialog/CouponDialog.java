@@ -13,13 +13,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class CouponDialog extends Activity implements OnClickListener {
 	
 	private ArrayList<Item> couponItem;
 	private Player currentPlayer;
 	private MyApp app;
-	private Button closeButton;
+	private ImageButton closeButton;
 	
 	public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -29,7 +30,7 @@ public class CouponDialog extends Activity implements OnClickListener {
     couponItem = app.getItemManager().getItemByType(ItemManager.ITEM_TYPE_COUPON);
     currentPlayer = app.getCurrentPlayer();
     
-    closeButton = (Button) this.findViewById(R.id.couponCloseButton);
+    closeButton = (ImageButton) this.findViewById(R.id.couponCloseButton);
     closeButton.setOnClickListener(this);
 	}
 

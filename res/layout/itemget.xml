@@ -55,11 +55,11 @@
 
 		</LinearLayout>
 
-		<Button
-		    android:id="@+id/CloseButton"
+		<ImageButton
+		    android:id="@+id/itemGetCloseButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:background="@drawable/button_close" />
+		    android:src="@drawable/button_close" android:background="@null" android:layout_gravity="right"/>
 
 	</FrameLayout>
 

@@ -15,19 +15,18 @@
 	    android:layout_height="wrap_content"
 	    android:background="@drawable/popup_sell"
 	    android:orientation="vertical" android:layout_gravity="center">
-
-		<Button
-		    android:id="@+id/CloseButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_gravity="right"
-		    android:background="@drawable/button_close" />
 
 		<TextView
 		    android:id="@+id/MoneyText"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="Money" />
+
+		<ImageButton
+		    android:id="@+id/purchaseCloseDialog"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/button_close" android:background="@null" android:layout_gravity="right"/>
 		
 	</LinearLayout>
 
@@ -38,7 +37,7 @@
 	    android:orientation="horizontal" android:layout_gravity="center">
 
 		<Button
-		    android:id="@+id/OkButton"
+		    android:id="@+id/purchaseOkButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:background="@drawable/button_ok" />
