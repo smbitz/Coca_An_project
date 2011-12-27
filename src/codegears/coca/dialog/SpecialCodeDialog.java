@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class SpecialCodeDialog extends Activity implements OnClickListener {
 	
@@ -20,17 +21,17 @@ public class SpecialCodeDialog extends Activity implements OnClickListener {
 	private Player currentPlayer;
 	private MyApp app;
 	private EditText codeField;
-	private Button okButton;
-	private Button cancelButton;
+	private ImageButton okButton;
+	private ImageButton cancelButton;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.specialcodedialog);
-    codeField = (EditText)this.findViewById( R.id.SpecialCodeField );
-    okButton = (Button)this.findViewById( R.id.specialCodeOkButton );
+    codeField = (EditText) this.findViewById( R.id.SpecialCodeField );
+    okButton = (ImageButton) this.findViewById( R.id.specialCodeOkButton );
     okButton.setOnClickListener( this );
-    cancelButton = (Button)this.findViewById( R.id.specialCodeCancelButton );
+    cancelButton = (ImageButton) this.findViewById( R.id.specialCodeCancelButton );
     cancelButton.setOnClickListener( this );
     
     app = (MyApp)this.getApplication();

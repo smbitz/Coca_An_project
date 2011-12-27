@@ -7,6 +7,7 @@ import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.camera.ZoomCamera;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
+import org.anddev.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
@@ -57,6 +58,10 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public static final int REQUEST_ADD_ITEM = 3;
 	public static final int REQUEST_SUPPLY = 4;
 	public static final int REQUEST_HARVEST = 5;
+	
+	private static final int FIX_SCENE_WIDTH = 480;
+	private static final int FIX_SCENE_HEIGHT = 320;
+	
 	private ZoomCamera mZoomCamera;
 	private Scene mMainScene;
 
@@ -81,15 +86,14 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	@Override
 	public Engine onLoadEngine() {
 		textureCollection = new HashMap<String, TextureRegion>();
-		final Display display = getWindowManager().getDefaultDisplay();
-		int cameraWidth = display.getWidth();
-		int cameraHeight = display.getHeight();
+		int cameraWidth = FIX_SCENE_WIDTH;
+		int cameraHeight = FIX_SCENE_HEIGHT;
 
 		mZoomCamera = new ZoomCamera( 0, 0, cameraWidth, cameraHeight );
 
 		Engine engine = new Engine( new EngineOptions( true, ScreenOrientation.LANDSCAPE,
-						new RatioResolutionPolicy( cameraWidth, cameraHeight ), mZoomCamera ) );
-
+						new FillResolutionPolicy(), mZoomCamera ) );
+		
 		try {
 			if ( MultiTouch.isSupported( this ) ) {
 				engine.setTouchController( new MultiTouchController() );

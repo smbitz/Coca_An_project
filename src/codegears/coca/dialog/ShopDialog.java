@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 
 public class ShopDialog extends Activity implements OnClickListener {
@@ -23,6 +24,8 @@ public class ShopDialog extends Activity implements OnClickListener {
 	private Player currentPlayer;
 	private MyApp app;
 	private ImageButton closeButton;
+	private HorizontalScrollView storeItemScrollView;
+	private HorizontalScrollView backpackItemScrollView;
 	
 	public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -35,6 +38,8 @@ public class ShopDialog extends Activity implements OnClickListener {
     
     closeButton = (ImageButton) this.findViewById(R.id.shopCloseButton);
     closeButton.setOnClickListener(this);
+    storeItemScrollView = (HorizontalScrollView) this.findViewById(R.id.shopItemScrollView);
+    backpackItemScrollView = (HorizontalScrollView) this.findViewById(R.id.backpackItemScrollView);
 	}
 
 	@Override

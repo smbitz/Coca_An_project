@@ -104,8 +104,13 @@ public class ItemManager implements NetworkThreadListener {
 
 	@Override
 	public void onNetworkFail( String urlString ) {
+		load(urlString);
 	}
 
+	@Override
+	public void onNetworkFail(String urlString, String postData) {
+	}
+	
 	public ArrayList<Item> getItemByType(String getType) {
 		ArrayList<Item> newArrayItemByType = new ArrayList<Item>();
 		

@@ -3,24 +3,38 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" android:background="#7F000000">
-
-    <FrameLayout
-        android:id="@+id/frameLayout1"
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/popup_tutoria_hd" android:layout_gravity="center">
+        android:orientation="vertical" android:background="@drawable/popup_tutoria_hd" android:layout_gravity="center">
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" android:layout_weight="1">
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/tutorialCloseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/button_close" android:layout_gravity="right"/>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical" android:layout_weight="1">
         </LinearLayout>
-
+
         <FrameLayout
             android:id="@+id/frameLayout2"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_gravity="center">
 
             <ImageView
                 android:id="@+id/tutrialPage1"
@@ -59,13 +73,34 @@
                 android:src="@drawable/tutorial_pic_06_hd" />
         </FrameLayout>
 
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" android:layout_gravity="center"/>
+
         <LinearLayout
-            android:id="@+id/linearLayout1"
+            android:id="@+id/linearLayout5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/tutorialNextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/button_tutorial_next_hd" android:background="@null"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical" >
         </LinearLayout>
 
-    </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>

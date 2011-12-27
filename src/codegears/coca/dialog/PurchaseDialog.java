@@ -18,7 +18,7 @@ public class PurchaseDialog extends Activity implements OnClickListener {
 	private MyApp app;
 	private TextView moneyText;
 	private TextView levelText;
-	private Button okButton;
+	private ImageButton okButton;
 	private ImageButton closeButton;
 	
 	@Override
@@ -31,7 +31,7 @@ public class PurchaseDialog extends Activity implements OnClickListener {
     
     moneyText = (TextView) this.findViewById( R.id.MoneyText );
     levelText = (TextView) this.findViewById( R.id.LevelText );
-    okButton = (Button) this.findViewById( R.id.purchaseOkButton );
+    okButton = (ImageButton) this.findViewById( R.id.purchaseOkButton );
     okButton.setOnClickListener( this );
     closeButton = (ImageButton) this.findViewById( R.id.purchaseCloseDialog );
     closeButton.setOnClickListener( this );

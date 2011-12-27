@@ -62,6 +62,11 @@ public class BuildingManager implements NetworkThreadListener {
 
 	@Override
 	public void onNetworkFail(String urlString) {
+		load(urlString);
+	}
+
+	@Override
+	public void onNetworkFail(String urlString, String postData) {
 	}
 	
 }

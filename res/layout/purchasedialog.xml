@@ -3,6 +3,13 @@
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:background="#7F000000">
 
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" android:layout_weight="1">
+    </LinearLayout>
+
     <TextView
         android:id="@+id/LevelText"
         android:layout_width="wrap_content"
@@ -16,17 +23,32 @@
 	    android:background="@drawable/popup_sell"
 	    android:orientation="vertical" android:layout_gravity="center">
 
-		<TextView
-		    android:id="@+id/MoneyText"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="Money" />
-
 		<ImageButton
 		    android:id="@+id/purchaseCloseDialog"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:src="@drawable/button_close" android:background="@null" android:layout_gravity="right"/>
+		    android:background="@null"
+		    android:src="@drawable/button_close" android:layout_gravity="right"/>
+
+		<LinearLayout
+		    android:id="@+id/linearLayout3"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" android:layout_weight="4">
+		</LinearLayout>
+
+		<TextView
+		    android:id="@+id/MoneyText"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="Money" android:layout_gravity="center"/>
+
+		<LinearLayout
+		    android:id="@+id/linearLayout4"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" android:layout_weight="1">
+		</LinearLayout>
 		
 	</LinearLayout>
 
@@ -36,12 +58,19 @@
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal" android:layout_gravity="center">
 
-		<Button
+		<ImageButton
 		    android:id="@+id/purchaseOkButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:background="@drawable/button_ok" />
+		    android:src="@drawable/button_ok" android:background="@null"/>
 
+	</LinearLayout>
+
+	<LinearLayout
+	    android:id="@+id/linearLayout6"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" android:layout_weight="1">
 	</LinearLayout>
 
 </LinearLayout>

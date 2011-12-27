@@ -2,8 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
 	android:orientation="vertical" android:background="#7F000000">
-	<TextView android:text="Special Code Dialog" android:id="@+id/textView1"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" android:layout_weight="1">
+    </LinearLayout>
 
 	<LinearLayout
 	    android:id="@+id/linearLayout1"
@@ -12,17 +17,39 @@
 	    android:background="@drawable/popup_code"
 	    android:orientation="vertical" android:layout_gravity="center">
 
-		<ImageButton
-		    android:id="@+id/specialCodeCloseButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/button_close" android:background="@null"/>
-
-		<EditText
-		    android:id="@+id/SpecialCodeField"
+		<LinearLayout
+		    android:id="@+id/linearLayout7"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
-		    android:inputType="numberDecimal" />
+		    android:layout_weight="3"
+		    android:orientation="vertical" >
+		</LinearLayout>
+
+		<LinearLayout
+		    android:id="@+id/linearLayout8"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+
+			<EditText
+			    android:id="@+id/SpecialCodeField"
+			    android:layout_height="wrap_content"
+			    android:background="#10FFFFFF"
+			    android:inputType="numberDecimal"
+			    android:maxLength="8"
+			    android:maxLines="1" android:layout_width="fill_parent" android:layout_marginLeft="50dip" android:layout_marginRight="50dip">
+
+			    <requestFocus />
+			</EditText>
+
+		</LinearLayout>
+
+		<LinearLayout
+		    android:id="@+id/linearLayout6"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:orientation="vertical" >
+		</LinearLayout>
 
 	</LinearLayout>
 
@@ -31,18 +58,27 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content" android:layout_gravity="center">
 
-		<Button
+		<ImageButton
 		    android:id="@+id/specialCodeCancelButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:background="@drawable/button_cancel"/>
+		    android:layout_weight="1"
+		    android:src="@drawable/button_cancel" android:background="@null"/>
 
-		<Button
+		<ImageButton
 		    android:id="@+id/specialCodeOkButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:background="@drawable/button_ok"/>
+		    android:layout_weight="1"
+		    android:src="@drawable/button_ok" android:background="@null"/>
 
+	</LinearLayout>
+
+	<LinearLayout
+	    android:id="@+id/linearLayout4"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" android:layout_weight="1">
 	</LinearLayout>
 
 </LinearLayout>

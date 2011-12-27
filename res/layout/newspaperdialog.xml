@@ -7,13 +7,32 @@
     <LinearLayout
         android:id="@+id/newspaperDialog"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:background="@drawable/popup_newspaper_hd" android:layout_gravity="center">
+        android:layout_height="wrap_content" android:background="@drawable/popup_newspaper_hd" android:layout_gravity="center" android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/newspaperCloseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/button_close" android:background="@null"/>
+            android:src="@drawable/button_close" android:background="@null" android:layout_gravity="right"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" android:layout_weight="0.5">
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/newspaperImage"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:layout_weight="4"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" android:layout_weight="1">
+        </LinearLayout>
 
     </LinearLayout>
 

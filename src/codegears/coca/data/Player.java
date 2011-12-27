@@ -111,6 +111,11 @@ public class Player implements NetworkThreadListener {
 	public void onNetworkFail( String urlString ) {
 	}
 	
+	@Override
+	public void onNetworkFail(String urlString, String postData) {
+		load(urlString, postData);
+	}
+	
 	//---- Build tile ----//
 	public void build(Tile currentTile, Building building){
 		int moneyItem = app.getItemManager().howMoney(building.getBuildItemId());

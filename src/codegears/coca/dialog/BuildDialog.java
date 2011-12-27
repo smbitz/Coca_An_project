@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 
 public class BuildDialog extends Activity implements OnClickListener {
@@ -21,6 +22,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 	private MyApp app;
 	
 	private ImageButton closeButton;
+	private HorizontalScrollView shopItemScrollView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 		
 		closeButton = (ImageButton) this.findViewById(R.id.plantCloseButton);
 		closeButton.setOnClickListener(this);
+		shopItemScrollView = (HorizontalScrollView) this.findViewById(R.id.shopItemScrollView);
 	}
 
 	@Override

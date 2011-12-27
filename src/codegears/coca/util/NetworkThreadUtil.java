@@ -13,7 +13,7 @@ public class NetworkThreadUtil {
 				if (doc != null) {
 					listener.onNetworkDocSuccess(urlString, doc);
 				} else {
-					listener.onNetworkFail(urlString);
+					listener.onNetworkFail(urlString, postData);
 				}
 			}
 		}.start();
@@ -43,7 +43,7 @@ public class NetworkThreadUtil {
 				if (!raw.equals("")) {
 					listener.onNetworkRawSuccess(urlString, raw);
 				} else {
-					listener.onNetworkFail(urlString);
+					listener.onNetworkFail(urlString, postData);
 				}
 			}
 		}.start();
@@ -55,6 +55,8 @@ public class NetworkThreadUtil {
 		public void onNetworkRawSuccess(String urlString, String result);
 
 		public void onNetworkFail(String urlString);
+		
+		public void onNetworkFail(String urlString, String postData);
 	}
 
 }
