@@ -63,6 +63,9 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	private static final int FIX_SCENE_WIDTH = 480;
 	private static final int FIX_SCENE_HEIGHT = 320;
 	
+	private static final String PUT_EXTRA_ITEM_ID = "ITEM_ID";
+	private static final String PUT_EXTRA_ITEM_QUANTITY = "ITEM_QUANTITY";
+	
 	private ZoomCamera mZoomCamera;
 	private Scene mMainScene;
 
@@ -291,13 +294,15 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			}
 		} else if(requestCode == REQUEST_SPECIALCODE){
 			if(resultCode == Activity.RESULT_OK){
-				String itemId = data.getStringExtra( "ITEM_ID" );
-				int itemQuantity = data.getIntExtra( "ITEM_QUANTITY", 0 );
+				String itemId = data.getStringExtra( PUT_EXTRA_ITEM_ID );
+				int itemQuantity = data.getIntExtra( PUT_EXTRA_ITEM_QUANTITY, 0 );
 				Intent intent = new Intent(this, ItemGetDialog.class);
-				intent.putExtra( "ITEM_ID", itemId );
-				intent.putExtra( "ITEM_QUANTITY", itemQuantity );
+				intent.putExtra( PUT_EXTRA_ITEM_ID, itemId );
+				intent.putExtra( PUT_EXTRA_ITEM_QUANTITY, itemQuantity );
 				this.startActivity( intent );
+				
 				//add item to player
+				app.getCurrentPlayer().addItemToBackpack(itemId, itemQuantity);
 			}
 		}
 	}

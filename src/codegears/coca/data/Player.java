@@ -1,6 +1,7 @@
 package codegears.coca.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -12,6 +13,7 @@ import org.w3c.dom.NodeList;
 import codegears.coca.LoadListener;
 import codegears.coca.MyApp;
 import codegears.coca.util.NetworkThreadUtil;
+import codegears.coca.util.NetworkUtil;
 import codegears.coca.util.NetworkThreadUtil.NetworkThreadListener;
 
 public class Player implements NetworkThreadListener {
@@ -24,6 +26,7 @@ public class Player implements NetworkThreadListener {
 	public static final int BUY_EACH_AREA = 4;
 	public static final int TILE_MAX_X = 8;
 	public static final int TILE_MAX_Y = 8;
+	private static final String PLAYER_URL = "PLAYER_URL";
 	
 	private String facebookId;
 	private int exp;
@@ -42,8 +45,21 @@ public class Player implements NetworkThreadListener {
 		backpack = new ArrayList<ItemQuantityPair>();
 	}
 	
-	public void load(String url, String postData){
-		NetworkThreadUtil.getXml( url, postData, this);
+	public void setFacebookId(String setValue){
+		this.facebookId = setValue;		
+	}
+	
+	public void load(){
+		//app.getConfig()URL
+		String urlString = app.getConfig().get(PLAYER_URL).toString();
+		
+		//pack postData
+		HashMap<String, String> dataMap = new HashMap();
+		dataMap.put("facebook_id", facebookId);
+		String postData = NetworkUtil.createPostData(dataMap);
+		
+		//call NetworkThreadUtil.getXml
+		NetworkThreadUtil.getXml(urlString, postData, this);
 	}
 	
 	private void onXmlComplete(Document document) {
@@ -109,11 +125,7 @@ public class Player implements NetworkThreadListener {
 
 	@Override
 	public void onNetworkFail( String urlString ) {
-	}
-	
-	@Override
-	public void onNetworkFail(String urlString, String postData) {
-		load(urlString, postData);
+		load();
 	}
 	
 	//---- Build tile ----//
@@ -450,6 +462,20 @@ public class Player implements NetworkThreadListener {
 			return true;
 		}else {
 			return false;
+		}
+	}
+
+	public void addItemToBackpack(String itemId, int itemQuantity) {
+		int searchBackpack = searchBackpackItem(itemId);
+		
+		if( searchBackpack>=0 ){
+			backpack.get(searchBackpack).setItemQuantity(backpack.get(searchBackpack).getQuantity()+itemQuantity);
+		}else{
+			ItemQuantityPair newItemQuantityPair = new ItemQuantityPair();
+			newItemQuantityPair.setId(itemId);
+			newItemQuantityPair.setItemQuantity(itemQuantity);
+			newItemQuantityPair.setItem(app.getItemManager().getMatchItem(itemId));
+			backpack.add(newItemQuantityPair);
 		}
 	}
 }

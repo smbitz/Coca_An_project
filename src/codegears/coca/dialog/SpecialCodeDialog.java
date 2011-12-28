@@ -85,8 +85,4 @@ public class SpecialCodeDialog extends Activity implements OnClickListener, Netw
 	@Override
 	public void onNetworkFail( String urlString ) {
 	}
-
-	@Override
-	public void onNetworkFail( String urlString, String postData ) {
-	}
 }

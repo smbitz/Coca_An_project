@@ -1,95 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:background="#7F000000">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#7F000000"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical" >
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
+    <FrameLayout
+        android:id="@+id/frameLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" android:layout_gravity="center">
+        android:layout_weight="1" >
 
         <FrameLayout
             android:id="@+id/itemGetLayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_centerHorizontal="true" android:layout_centerVertical="true">
+            android:layout_height="wrap_content" android:layout_gravity="center">
 
-            <LinearLayout
+            <ImageView
                 android:id="@+id/itemGetFertilizerA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/popup_congra_animals01"
-                android:orientation="vertical" android:visibility="invisible">
-            </LinearLayout>
+                android:src="@drawable/popup_congra_animals01" android:visibility="invisible"/>
 
-            <LinearLayout
+            <ImageView
                 android:id="@+id/itemGetFertilizerB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/popup_congra_animals02"
-                android:orientation="vertical" android:visibility="invisible">
-            </LinearLayout>
+                android:src="@drawable/popup_congra_animals02" android:visibility="invisible"/>
 
-            <LinearLayout
+            <ImageView
                 android:id="@+id/itemGetVaccineA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/popup_congra_plant01"
-                android:orientation="vertical" android:visibility="invisible">
-            </LinearLayout>
+                android:src="@drawable/popup_congra_plant01" android:visibility="invisible"/>
 
-            <LinearLayout
+            <ImageView
                 android:id="@+id/itemGetVaccineB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/popup_congra_plant02"
-                android:orientation="vertical" android:visibility="invisible">
-            </LinearLayout>
+                android:src="@drawable/popup_congra_plant02" android:visibility="invisible"/>
 
-            <LinearLayout
+            <ImageView
                 android:id="@+id/itemGetMicroorganismA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/popup_congra_seaanimals01"
-                android:orientation="vertical" android:visibility="invisible">
-            </LinearLayout>
+                android:src="@drawable/popup_congra_seaanimals01" android:visibility="invisible"/>
 
-            <LinearLayout
+            <ImageView
                 android:id="@+id/itemGetMicroorganismB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/popup_congra_seaanimals02"
-                android:orientation="vertical" android:visibility="invisible">
-            </LinearLayout>
+                android:src="@drawable/popup_congra_seaanimals02" android:visibility="visible"/>
         </FrameLayout>
 
-        <ImageButton
-            android:id="@+id/itemGetCloseButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:src="@drawable/button_close" android:layout_toRightOf="@+id/itemGetLayout"/>
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal" >
 
-    </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent" android:layout_weight="1">
+            </LinearLayout>
 
-	<LinearLayout
-	    android:id="@+id/linearLayout2"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="vertical" android:layout_weight="1">
-	</LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="2.5"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/linearLayout7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" android:layout_weight="4">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout9"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent" android:layout_weight="1.5">
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/itemGetTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="TextView" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent" android:layout_weight="1">
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout8"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" android:layout_weight="1">
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/itemGetCloseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/button_close"/>
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" >
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+    </LinearLayout>
 
 </LinearLayout>

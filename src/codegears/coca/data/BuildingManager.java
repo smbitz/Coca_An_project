@@ -7,21 +7,28 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import codegears.coca.LoadListener;
+import codegears.coca.MyApp;
 import codegears.coca.util.NetworkThreadUtil;
 import codegears.coca.util.NetworkThreadUtil.NetworkThreadListener;
 
 public class BuildingManager implements NetworkThreadListener {
 
+	private static final String BUILDING_URL = "BUILDING_URL";
+	
 	private LoadListener listener;
 	private ArrayList<Building> building;
 	
+	private MyApp app;
+	
 	//---- Can't called by any class except MyApp ----//
-	public BuildingManager() {
+	public BuildingManager(MyApp app) {
+		this.app = app;
 		building = new ArrayList<Building>();
 	}
 	
-	public void load(String url){
-		NetworkThreadUtil.getXml( url, this );
+	public void load(){
+		String urlString = app.getConfig().get(BUILDING_URL).toString();
+		NetworkThreadUtil.getXml( urlString, this );
 	}
 
 	private void onXmlComplete(Document document) {
@@ -62,11 +69,7 @@ public class BuildingManager implements NetworkThreadListener {
 
 	@Override
 	public void onNetworkFail(String urlString) {
-		load(urlString);
-	}
-
-	@Override
-	public void onNetworkFail(String urlString, String postData) {
+		load();
 	}
 	
 }

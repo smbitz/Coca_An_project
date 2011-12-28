@@ -6,6 +6,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import codegears.coca.LoadListener;
+import codegears.coca.MyApp;
 import codegears.coca.util.NetworkThreadUtil;
 import codegears.coca.util.NetworkThreadUtil.NetworkThreadListener;
 
@@ -55,15 +56,21 @@ public class ItemManager implements NetworkThreadListener {
 	public static final String ITEM_TYPE_NORMAL = "normal";
 	public static final String ITEM_TYPE_COUPON = "coupon";
 	
+	private static final String ITEM_URL = "ITEM_URL";
+	
 	private LoadListener listener;
 	private ArrayList<Item> item;
 	
-	public ItemManager(){
+	private MyApp app;
+	
+	public ItemManager(MyApp app){
+		this.app = app;
 		item = new ArrayList<Item>();
 	}
 	
-	public void load(String url){
-		NetworkThreadUtil.getXml( url, this );
+	public void load(){
+		String urlString = app.getConfig().get(ITEM_URL).toString();
+		NetworkThreadUtil.getXml( urlString, this );
 	}
 
 	public void setLoadListener(LoadListener listener){
@@ -104,11 +111,7 @@ public class ItemManager implements NetworkThreadListener {
 
 	@Override
 	public void onNetworkFail( String urlString ) {
-		load(urlString);
-	}
-
-	@Override
-	public void onNetworkFail(String urlString, String postData) {
+		load();
 	}
 	
 	public ArrayList<Item> getItemByType(String getType) {

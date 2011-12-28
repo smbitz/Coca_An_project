@@ -19,10 +19,6 @@ import android.app.Application;
 
 public class MyApp extends Application implements LoadListener {
 	
-	private static final String BUILDING_URL = "BUILDING_URL";
-	private static final String ITEM_URL = "ITEM_URL";
-	private static final String PLAYER_URL = "PLAYER_URL";
-	
 	private BuildingManager bManager;
 	private ItemManager iManager;
 	private Player currentPlayer;
@@ -37,8 +33,8 @@ public class MyApp extends Application implements LoadListener {
 	@Override
 	public void onCreate(){
 		config = new Config(getApplicationContext());
-		bManager = new BuildingManager();
-		iManager = new ItemManager();
+		bManager = new BuildingManager(this);
+		iManager = new ItemManager(this);
 		currentPlayer = new Player(this);
 		isBManagerLoad = false;
 		isIManagerLoad = false;
@@ -47,16 +43,13 @@ public class MyApp extends Application implements LoadListener {
 	}
 	
 	public void load(){
-		HashMap<String, String> dataMap = new HashMap();
-		dataMap.put("facebook_id", facebookId);
-		String postData = NetworkUtil.createPostData(dataMap);
-		
 		bManager.setLoadListener( this );
-		bManager.load(config.get(BUILDING_URL).toString());
+		bManager.load();
 		iManager.setLoadListener( this );
-		iManager.load(config.get(ITEM_URL).toString());
+		iManager.load();
+		currentPlayer.setFacebookId(facebookId);
 		currentPlayer.setLoadListener( this );
-		currentPlayer.load(config.get(PLAYER_URL).toString(), postData);
+		currentPlayer.load();
 	}
 	
 	public void setLoadListener(LoadListener listener){
