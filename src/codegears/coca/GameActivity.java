@@ -209,11 +209,11 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	@Override
 	public void onLoadComplete() {
 		//open newspaper
-		if(currentPlayer.getIsNew()){
+		//if(currentPlayer.getIsNew()){
 			//open tutorial
 			Intent i = new Intent(this, TutorialDialog.class);
 			startActivity(i);
-		}
+		//}
 	}
 
 	public HashMap<String, TextureRegion> getTextureCollection(){
