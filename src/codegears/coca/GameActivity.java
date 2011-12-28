@@ -34,6 +34,7 @@ import codegears.coca.data.Player;
 import codegears.coca.data.Tile;
 import codegears.coca.dialog.BuildDialog;
 import codegears.coca.dialog.CouponDialog;
+import codegears.coca.dialog.ItemGetDialog;
 import codegears.coca.dialog.PurchaseDialog;
 import codegears.coca.dialog.ShopDialog;
 import codegears.coca.dialog.SpecialCodeDialog;
@@ -259,7 +260,6 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public boolean onSceneTouchEvent( Scene arg0, TouchEvent pSceneTouchEvent ) {
 		if ( this.mPinchZoomDetector != null ) {
 			this.mPinchZoomDetector.onTouchEvent( pSceneTouchEvent );
-
 			if ( this.mPinchZoomDetector.isZooming() ) {
 				this.mScrollDetector.setEnabled( false );
 			} else {
@@ -291,9 +291,13 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			}
 		} else if(requestCode == REQUEST_SPECIALCODE){
 			if(resultCode == Activity.RESULT_OK){
-				//get item and quantity result
+				String itemId = data.getStringExtra( "ITEM_ID" );
+				int itemQuantity = data.getIntExtra( "ITEM_QUANTITY", 0 );
+				Intent intent = new Intent(this, ItemGetDialog.class);
+				intent.putExtra( "ITEM_ID", itemId );
+				intent.putExtra( "ITEM_QUANTITY", itemQuantity );
+				this.startActivity( intent );
 				//add item to player
-				//display GetItemDialog
 			}
 		}
 	}

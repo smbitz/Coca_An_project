@@ -21,7 +21,8 @@ public class ItemGetDialog extends Activity implements OnClickListener {
     setContentView(R.layout.itemget);
 
     Intent intent = this.getIntent();
-    //get item and quantity from intent
+    String itemID = intent.getStringExtra( "ITEM_ID" );
+    int itemQuantity = intent.getIntExtra( "ITEM_QUANTITY", 0 );
     closeButton = (ImageButton) this.findViewById( R.id.itemGetCloseButton );
     closeButton.setOnClickListener( this );
 	}
