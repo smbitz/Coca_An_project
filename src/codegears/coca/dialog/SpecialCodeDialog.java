@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import codegears.coca.MyApp;
 import codegears.coca.R;
+import codegears.coca.data.ItemQuantityPair;
 import codegears.coca.data.Player;
 import codegears.coca.util.NetworkUtil;
 import android.app.Activity;
@@ -52,8 +53,19 @@ public class SpecialCodeDialog extends Activity implements OnClickListener {
 				
 			//if return success
 			if(!returnMessage.equals("fail")){
+				String[] returnData = returnMessage.split(",");
+				String returnItemId = returnData[0];
+				int returnItemQuantity = Integer.parseInt(returnData[1]);
+				
+				ItemQuantityPair newItemQuantityPair = new ItemQuantityPair();
+				newItemQuantityPair.setId(returnItemId);
+				newItemQuantityPair.setItemQuantity(returnItemQuantity);
+				newItemQuantityPair.setItem(app.getItemManager().getMatchItem(returnItemId));
+
 				//pack data (item and quantity) to intent
 				//finish activity RESULT_OK
+				this.setResult( Activity.RESULT_OK );
+				this.finish();
 			}else if(returnMessage.equals("fail")){
 			//else if return fail
 				//display error message
