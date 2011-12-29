@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
-	<TextView android:text="Build Item" android:id="@+id/textView1"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+	android:orientation="vertical" android:layout_width="wrap_content"
+	android:layout_height="wrap_content" android:background="@drawable/plant_shop_time">
+
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/buildItemImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/itemid10" android:visibility="visible"/>
+
+    </FrameLayout>
+
 	<TextView android:text="Name" android:id="@+id/ItemName"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+		android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center"></TextView>
 	<TextView android:text="Price" android:id="@+id/ItemPrice"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+		android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center"></TextView>
+
 </LinearLayout>

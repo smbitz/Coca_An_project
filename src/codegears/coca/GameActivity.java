@@ -65,6 +65,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	
 	private static final String PUT_EXTRA_ITEM_ID = "ITEM_ID";
 	private static final String PUT_EXTRA_ITEM_QUANTITY = "ITEM_QUANTITY";
+	private static final String PUT_EXTRA_LAND_TYPE = "tileLandType";
 	
 	private ZoomCamera mZoomCamera;
 	private Scene mMainScene;
@@ -290,6 +291,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 				String buildingId = data.getStringExtra( BuildDialog.BUILDING_ID );
 				Building building = app.getBuildingManager().getMatchBuilding(buildingId);
 				currentPlayer.build( activeTile, building );
+				
 				//update farmSprite
 			}
 		} else if(requestCode == REQUEST_SPECIALCODE){
@@ -318,6 +320,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public void onBuildRequest( Tile data ) {
 		activeTile = data;
 		Intent intent = new Intent(this, BuildDialog.class);
+		intent.putExtra( PUT_EXTRA_LAND_TYPE, data.getLandType() );
 		this.startActivityForResult( intent, REQUEST_BUILD );
 	}
 

@@ -48,6 +48,10 @@ public class Item {
 		return this.price;
 	}
 	
+	public String getName(){
+		return this.name;
+	}
+	
 	public ArrayList<ItemExchangeItem> getExchangeItem(){
 		return this.exchangeItem;
 	}
