@@ -8,7 +8,7 @@ import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
-import codegears.coca.data.DefaultVar;
+import codegears.coca.data.TextureVar;
 import codegears.coca.data.Player;
 import codegears.coca.data.Tile;
 
@@ -21,7 +21,7 @@ public class FarmSprite extends Sprite {
 	private FarmTileListener tileListener;
 	
 	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection){
-		super(0, 0, getTextureCollection.get(DefaultVar.TEXTURE_FARM_DEFAULT));
+		super(0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_DEFAULT));
 		farmTileList = new ArrayList<AbstractFarmTile>();
 		purchaseTileList = new ArrayList<AbstractFarmTile>();
 		textureCollection = getTextureCollection;
@@ -45,24 +45,24 @@ public class FarmSprite extends Sprite {
 		int setY = 0;
 		int loop = 0;
 		for(Tile tileData:tileList){
-			AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( DefaultVar.TEXTURE_FARM_NOTOCCUPY ) );
+			AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ) );
 			tile.setData( tileData );
 			farmTileList.add( tile );
 			if( !tileData.getIsOccupy() ){
 				int indexX = loop % 8;
 				int indexY = loop / 8;
 				if((indexX % 2 == 0) && (indexY % 2 == 0)){
-					AbstractFarmTile purchaseTile = new PurchaseTile(setX, setY, textureCollection.get( DefaultVar.TEXTURE_FARM ));
+					AbstractFarmTile purchaseTile = new PurchaseTile(setX, setY, textureCollection.get( TextureVar.TEXTURE_FARM ));
 					purchaseTile.setData( tileData );
 					purchaseTileList.add( purchaseTile );
 				}
 			}
 			
 			//Set Tile Position
-			setX+=DefaultVar.TILE_WIDTH;
-			if(setX==DefaultVar.ALL_TILE_WIDTH){
+			setX+=TextureVar.TILE_WIDTH;
+			if(setX==TextureVar.ALL_TILE_WIDTH){
 				setX = 0;
-				setY+=DefaultVar.TILE_HEIGHT;
+				setY+=TextureVar.TILE_HEIGHT;
 			}
 			loop++;
 		}

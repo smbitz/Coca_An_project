@@ -4,7 +4,7 @@ import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
-import codegears.coca.data.DefaultVar;
+import codegears.coca.data.TextureVar;
 import codegears.coca.data.Tile;
 
 public class AbstractFarmTile extends Sprite {

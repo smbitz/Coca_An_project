@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import codegears.coca.MyApp;
 import codegears.coca.R;
+import codegears.coca.data.BuildingManager;
 import codegears.coca.data.Item;
 import codegears.coca.data.ItemManager;
 import codegears.coca.data.Player;
 import codegears.coca.data.Tile;
 import codegears.coca.ui.BuildItem;
+import codegears.coca.util.MilliSecToHour;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +31,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 	private ArrayList<Item> buildItem;
 	private Player currentPlayer;
 	private MyApp app;
+	private BuildingManager bManager;
 	
 	private ImageButton closeButton;
 	private LinearLayout itemLayout;
@@ -38,7 +41,8 @@ public class BuildDialog extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.builddialog);
-		app = (MyApp)this.getApplication();		
+		app = (MyApp)this.getApplication();
+		bManager = app.getBuildingManager();
 		buildItem = app.getItemManager().getBuildItem();
 		currentPlayer = app.getCurrentPlayer();
 		
@@ -67,6 +71,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 							newBuildItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
 							newBuildItem.setItemName(fetachItem.getName());
 							newBuildItem.setItemPrice(String.valueOf(fetachItem.getPrice()));
+							newBuildItem.setItemTime(String.valueOf(MilliSecToHour.getConvert(bManager.getMatchBuilding(bManager.getBuildingIdFromItemBuild(fetachItem.getId())).getBuildPeriod())));
 							
 							if(fetachItem.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY_SEED)){
 								newBuildItem.setItemImage(R.drawable.itemid10);
@@ -105,6 +110,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 							newBuildItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
 							newBuildItem.setItemName(fetachItem.getName());
 							newBuildItem.setItemPrice(String.valueOf(fetachItem.getPrice()));
+							newBuildItem.setItemTime(String.valueOf(MilliSecToHour.getConvert(bManager.getMatchBuilding(bManager.getBuildingIdFromItemBuild(fetachItem.getId())).getBuildPeriod())));
 							
 							if(fetachItem.getId().equals(ItemManager.ITEM_ID_FISH_BABY)){
 								newBuildItem.setItemImage(R.drawable.itemid110);

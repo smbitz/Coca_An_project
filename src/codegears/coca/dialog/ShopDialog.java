@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import codegears.coca.MyApp;
 import codegears.coca.R;
-import codegears.coca.data.DefaultVar;
+import codegears.coca.data.TextureVar;
 import codegears.coca.data.Item;
 import codegears.coca.data.ItemManager;
 import codegears.coca.data.ItemQuantityPair;

@@ -26,6 +26,8 @@ public class TutorialDialog extends Activity implements OnClickListener {
 	private static final int TUTORIAL_STATE_5 = 4;
 	private static final int TUTORIAL_STATE_6 = 5;
 	
+	private static final String FONT_POSITION = "font/DB_HelvethaicaMon_X_Med_v3.2.ttf";
+	
 	private ImageButton closeButton;
 	private ImageButton nextButton;
 	private ImageButton backButton;
@@ -54,7 +56,7 @@ public class TutorialDialog extends Activity implements OnClickListener {
 		backButton.setOnClickListener(this);
 		
 		tutorialText = (TextView) findViewById(R.id.tutorialText);
-		Typeface setFont = Typeface.createFromAsset(getAssets(), "font/DB_HelvethaicaMon_X_Med_v3.2.ttf");
+		Typeface setFont = Typeface.createFromAsset(getAssets(), FONT_POSITION);
 		tutorialText.setTextColor(Color.BLACK);
 		tutorialText.setTypeface(setFont);
 		tutorialText.setTextSize(20);

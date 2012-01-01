@@ -57,6 +57,15 @@ public class BuildingManager implements NetworkThreadListener {
 		return null;
 	}
 	
+	public String getBuildingIdFromItemBuild(String id){
+		for(Building matchBuildingId:building){
+			if(matchBuildingId.getBuildItemId().equals(id)){
+				return matchBuildingId.getId();
+			}
+		}
+		return null;
+	}
+	
 	@Override
 	public void onNetworkDocSuccess(String urlString, Document document) {
 		onXmlComplete(document);

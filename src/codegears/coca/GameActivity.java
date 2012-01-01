@@ -29,7 +29,7 @@ import org.anddev.andengine.opengl.texture.region.TextureRegionLibrary;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import codegears.coca.data.Building;
-import codegears.coca.data.DefaultVar;
+import codegears.coca.data.TextureVar;
 import codegears.coca.data.Player;
 import codegears.coca.data.Tile;
 import codegears.coca.dialog.BuildDialog;
@@ -130,25 +130,25 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath( "gfx/" );
 		TextureRegion mDefaultFarmMapTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mDefaultFarmMapTextureAtlas, this, "defaultFarmSprite.png", 0, 0 );
-		textureCollection.put( DefaultVar.TEXTURE_FARM_DEFAULT, mDefaultFarmMapTextureRegion );
+		textureCollection.put( TextureVar.TEXTURE_FARM_DEFAULT, mDefaultFarmMapTextureRegion );
 		TextureRegion mFarmMapTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 						mFarmMapTextureAtlas, this, "farm.png", 0, 0 );
-		textureCollection.put( DefaultVar.TEXTURE_FARM, mFarmMapTextureRegion );
+		textureCollection.put( TextureVar.TEXTURE_FARM, mFarmMapTextureRegion );
 		TextureRegion mFarmMapNotOccupyTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mFarmMapNotOccupyTextureAtlas, this, "farmNotOccupy.png", 0, 0 );
-		textureCollection.put( DefaultVar.TEXTURE_FARM_NOTOCCUPY, mFarmMapNotOccupyTextureRegion );
+		textureCollection.put( TextureVar.TEXTURE_FARM_NOTOCCUPY, mFarmMapNotOccupyTextureRegion );
 		TextureRegion mCouponButtonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 						mCouponButtonTextureAtlas, this, "couponButton.png", 0, 0 );
-		textureCollection.put( DefaultVar.TEXTURE_COUPONBUTTON, mCouponButtonTextureRegion );
+		textureCollection.put( TextureVar.TEXTURE_COUPONBUTTON, mCouponButtonTextureRegion );
 		TextureRegion mSpecialCodeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 						mSpecialCodeButtonTextureAtlas, this, "specialCodeButton.png", 0, 0 );
-		textureCollection.put( DefaultVar.TEXTURE_SPECIALCODEBUTTON, mSpecialCodeTextureRegion );
+		textureCollection.put( TextureVar.TEXTURE_SPECIALCODEBUTTON, mSpecialCodeTextureRegion );
 		TextureRegion mSoundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 						mSoundButtonTextureAtlas, this, "sound.png", 0, 0 );
-		textureCollection.put( DefaultVar.TEXTURE_SOUNDBUTTON, mSoundTextureRegion );
+		textureCollection.put( TextureVar.TEXTURE_SOUNDBUTTON, mSoundTextureRegion );
 		TextureRegion mShopTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 						mShopButtonTextureAtlas, this, "shop.png", 0, 0 );
-		textureCollection.put( DefaultVar.TEXTURE_SHOPBUTTON, mShopTextureRegion );
+		textureCollection.put( TextureVar.TEXTURE_SHOPBUTTON, mShopTextureRegion );
 
 		this.mEngine.getTextureManager().loadTexture( mFarmMapTextureAtlas );
 		this.mEngine.getTextureManager().loadTexture( mCouponButtonTextureAtlas );
@@ -167,10 +167,10 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		mMainScene = new Scene();
 		mMainScene.setBackground( new ColorBackground( 0.09804f, 0.6274f, 0.8784f ) );
 
-		couponButton = new ButtonSprite( 200, 0, textureCollection.get( DefaultVar.TEXTURE_COUPONBUTTON ) );
-		specialCodeButton = new ButtonSprite( 300, 5, textureCollection.get( DefaultVar.TEXTURE_SPECIALCODEBUTTON ) );
-		soundButton = new ButtonSprite( 390, 5, textureCollection.get( DefaultVar.TEXTURE_SOUNDBUTTON ) );
-		shopButton = new ButtonSprite( 0, 0, textureCollection.get( DefaultVar.TEXTURE_SHOPBUTTON ) );
+		couponButton = new ButtonSprite( 200, 0, textureCollection.get( TextureVar.TEXTURE_COUPONBUTTON ) );
+		specialCodeButton = new ButtonSprite( 300, 5, textureCollection.get( TextureVar.TEXTURE_SPECIALCODEBUTTON ) );
+		soundButton = new ButtonSprite( 390, 5, textureCollection.get( TextureVar.TEXTURE_SOUNDBUTTON ) );
+		shopButton = new ButtonSprite( 0, 0, textureCollection.get( TextureVar.TEXTURE_SHOPBUTTON ) );
 		farmMapSprite = new FarmSprite( textureCollection );
 		farmMapSprite.setPlayer( currentPlayer );
 		farmMapSprite.setFarmTileListener(this);

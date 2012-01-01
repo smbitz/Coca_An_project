@@ -1,6 +1,6 @@
 package codegears.coca.data;
 
-public class DefaultVar {
+public class TextureVar {
 	public static final String TEXTURE_FARM = "TEXTURE_FARM";
 	public static final String TEXTURE_FARM_DEFAULT = "TEXTURE_FARM_DEFAULT";
 	public static final String TEXTURE_FARM_NOTOCCUPY = "TEXTURE_FARM_NOTOCCUPY";
