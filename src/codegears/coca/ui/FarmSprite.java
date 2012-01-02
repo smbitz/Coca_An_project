@@ -20,11 +20,28 @@ public class FarmSprite extends Sprite {
 	private HashMap<String, TextureRegion> textureCollection;
 	private FarmTileListener tileListener;
 	
+	private float mouseX;
+	private float mouseY;
+	private float positionX;
+	private float positionY;
+	
 	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection){
 		super(0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_DEFAULT));
 		farmTileList = new ArrayList<AbstractFarmTile>();
 		purchaseTileList = new ArrayList<AbstractFarmTile>();
 		textureCollection = getTextureCollection;
+	}
+	
+	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY ){
+		if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN){
+			mouseX = pSceneTouchEvent.getX();
+			mouseY = pSceneTouchEvent.getY();
+			positionX = this.getX();
+			positionY = this.getY();
+		} else if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_MOVE){
+			this.setPosition( positionX - (mouseX - pSceneTouchEvent.getX() ), positionY - (mouseY - pSceneTouchEvent.getY()));
+		}
+		return true;
 	}
 	
 	public void setFarmTileListener(FarmTileListener listener){
