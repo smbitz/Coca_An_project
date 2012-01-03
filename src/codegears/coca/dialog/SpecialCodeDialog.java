@@ -6,7 +6,6 @@ import org.w3c.dom.Document;
 
 import codegears.coca.MyApp;
 import codegears.coca.R;
-import codegears.coca.data.ItemQuantityPair;
 import codegears.coca.data.Player;
 import codegears.coca.util.NetworkThreadUtil;
 import codegears.coca.util.NetworkThreadUtil.NetworkThreadListener;
@@ -16,7 +15,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -48,7 +46,7 @@ public class SpecialCodeDialog extends Activity implements OnClickListener, Netw
 	public void onClick( View v ) {
 		if ( v.equals( okButton ) ) {
 			String code = codeField.getText().toString();
-			HashMap< String, String > dataMap = new HashMap();
+			HashMap< String, String > dataMap = new HashMap<String, String>();
 			dataMap.put( "special_code", code );
 			dataMap.put( "facebook_id", app.getFacebookId() );
 			String postData = NetworkUtil.createPostData( dataMap );

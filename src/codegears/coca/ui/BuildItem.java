@@ -15,6 +15,7 @@ public class BuildItem extends LinearLayout {
 	private TextView priceText;
 	private TextView timeText;
 	private ImageView buildItemImage;
+	private String itemId;
 	
 	public BuildItem( Context context ) {
 		super( context );
@@ -27,6 +28,19 @@ public class BuildItem extends LinearLayout {
 		nameText.setTextColor(Color.BLACK);
 		priceText.setTextColor(Color.BLACK);
 		timeText.setTextColor(Color.BLACK);
+		this.setClickable( true );
+	}
+	
+	public String getItemName(){
+		return nameText.getText().toString();
+	}
+	
+	public String getItemId(){
+		return itemId;
+	}
+	
+	public void setItemId(String id){
+		itemId = id;
 	}
 	
 	public void setItemName(String name){
