@@ -4,6 +4,7 @@ import codegears.coca.R;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ public class ShopItem extends LinearLayout {
 	private TextView priceText;
 	private TextView timeText;
 	private ImageView shopItemImage;
+	private ImageButton shopButton;
+	private LinearLayout shopItemBackground;
 
 	public ShopItem(Context context) {
 		super( context );
@@ -22,7 +25,9 @@ public class ShopItem extends LinearLayout {
 		priceText = (TextView) findViewById(R.id.shopItemPrice);
 		timeText = (TextView) findViewById(R.id.shopItemTime);
 		shopItemImage = (ImageView) findViewById(R.id.shopItemImage);
-		
+		shopButton = (ImageButton) findViewById(R.id.shopButton);
+		shopItemBackground = (LinearLayout) findViewById(R.id.shopItemBackground);
+
 		nameText.setTextColor(Color.BLACK);
 		priceText.setTextColor(Color.BLACK);
 		timeText.setTextColor(Color.BLACK);
@@ -39,8 +44,17 @@ public class ShopItem extends LinearLayout {
 	public void setItemTime(String time){
 		timeText.setText( time );
 	}
-
-	public void setItemImage(int resId){
+	
+	public void setItemImage( int resId ){
 		shopItemImage.setImageResource(resId);
 	}
+
+	public void setItemBackground( int resId ){
+		shopItemBackground.setBackgroundResource(resId);
+	}
+	
+	public void setShopButton( int resId ){
+		shopButton.setImageResource(resId);
+	}
+	
 }

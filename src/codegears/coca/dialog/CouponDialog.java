@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -28,7 +29,6 @@ public class CouponDialog extends Activity implements OnClickListener {
 	private Player currentPlayer;
 	private MyApp app;
 	private ImageButton closeButton;
-	private HorizontalScrollView couponItemScrollView;
 	private Gallery gallery;
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,6 @@ public class CouponDialog extends Activity implements OnClickListener {
     
     closeButton = (ImageButton) this.findViewById(R.id.couponCloseButton);
     closeButton.setOnClickListener(this);
-    couponItemScrollView = (HorizontalScrollView) this.findViewById(R.id.couponItemScrollView);
     gallery = (Gallery)this.findViewById( R.id.Gallery );
     gallery.setAdapter( new GalleryAdapter( ));
 	}
@@ -83,8 +82,6 @@ public class CouponDialog extends Activity implements OnClickListener {
 			LinearLayout layout = new LinearLayout(CouponDialog.this);
 			layout.setLayoutParams( new Gallery.LayoutParams(parent.getWidth() / 2, LayoutParams.FILL_PARENT) );
 			layout.setOrientation( LinearLayout.VERTICAL );
-			
-			
 			
 			TextView text1 = new TextView(CouponDialog.this);
 			text1.setText( data[position / 2] );

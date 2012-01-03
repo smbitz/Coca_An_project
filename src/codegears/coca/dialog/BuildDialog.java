@@ -70,9 +70,17 @@ public class BuildDialog extends Activity implements OnClickListener {
 							BuildItem newBuildItem = new BuildItem(this);
 							newBuildItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
 							newBuildItem.setItemName(fetachItem.getName());
-							newBuildItem.setItemPrice(String.valueOf(fetachItem.getPrice()));
 							newBuildItem.setItemTime(String.valueOf(MilliSecToHour.getConvert(bManager.getMatchBuilding(bManager.getBuildingIdFromItemBuild(fetachItem.getId())).getBuildPeriod())));
 							
+							//Set time or quantity
+							int itemPositionInBackpack = currentPlayer.searchBackpackItem(fetachItem.getId());
+							if(itemPositionInBackpack>=0){
+								int foundItemQuantity = currentPlayer.getBackpack().get(itemPositionInBackpack).getQuantity();
+								newBuildItem.setItemPrice(String.valueOf(foundItemQuantity));
+							}else{
+								newBuildItem.setItemPrice(String.valueOf(fetachItem.getPrice()));
+							}
+								
 							if(fetachItem.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY_SEED)){
 								newBuildItem.setItemImage(R.drawable.itemid10);
 							}else if(fetachItem.getId().equals(ItemManager.ITEM_ID_CHINESE_CABBAGE_SEED)){
@@ -109,8 +117,16 @@ public class BuildDialog extends Activity implements OnClickListener {
 							BuildItem newBuildItem = new BuildItem(this);
 							newBuildItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
 							newBuildItem.setItemName(fetachItem.getName());
-							newBuildItem.setItemPrice(String.valueOf(fetachItem.getPrice()));
 							newBuildItem.setItemTime(String.valueOf(MilliSecToHour.getConvert(bManager.getMatchBuilding(bManager.getBuildingIdFromItemBuild(fetachItem.getId())).getBuildPeriod())));
+							
+							//Set price or quantity
+							int itemPositionInBackpack = currentPlayer.searchBackpackItem(fetachItem.getId());
+							if(itemPositionInBackpack>=0){
+								int foundItemQuantity = currentPlayer.getBackpack().get(itemPositionInBackpack).getQuantity();
+								newBuildItem.setItemPrice(String.valueOf(foundItemQuantity));
+							}else{
+								newBuildItem.setItemPrice(String.valueOf(fetachItem.getPrice()));
+							}
 							
 							if(fetachItem.getId().equals(ItemManager.ITEM_ID_FISH_BABY)){
 								newBuildItem.setItemImage(R.drawable.itemid110);

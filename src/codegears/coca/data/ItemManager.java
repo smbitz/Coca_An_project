@@ -43,8 +43,11 @@ public class ItemManager implements NetworkThreadListener {
 	public static final String ITEM_ID_SHRIMP = "290";
 	public static final String ITEM_ID_OYSTER = "300";
 	public static final String ITEM_ID_WATER = "310";
-	public static final String ITEM_ID_PELLET_FOOD = "330";
 	public static final String ITEM_ID_SAPPAN_WOOD = "320";
+	public static final String ITEM_ID_PELLET_FOOD = "330";
+	public static final String ITEM_ID_PEARL = "340";
+	public static final String ITEM_ID_GOLD = "350";
+	public static final String ITEM_ID_DIAMOND = "360";
 	public static final String ITEM_ID_FERTILIZER_A = "7010";
 	public static final String ITEM_ID_FERTILIZER_B = "7020";
 	public static final String ITEM_ID_VACCINE_A = "7030";
