@@ -12,6 +12,7 @@ import codegears.coca.data.Tile;
 import codegears.coca.ui.BuildItem;
 import codegears.coca.util.MilliSecToHour;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,10 +26,11 @@ import android.widget.LinearLayout;
 
 public class BuildDialog extends Activity implements OnClickListener {
 	
-	public static final String BUILDING_ID = "BUILDING_ID";
+	public static final String ITEM_ID = "ITEM_ID";
 	private static final String GET_EXTRA_LAND_TYPE = "tileLandType";
 	
-	private ArrayList<Item> buildItem;
+	private ArrayList<Item> itemList;
+	private ArrayList<BuildItem> buildItemList;
 	private Player currentPlayer;
 	private MyApp app;
 	private BuildingManager bManager;
@@ -43,7 +45,8 @@ public class BuildDialog extends Activity implements OnClickListener {
 		setContentView(R.layout.builddialog);
 		app = (MyApp)this.getApplication();
 		bManager = app.getBuildingManager();
-		buildItem = app.getItemManager().getBuildItem();
+		itemList = app.getItemManager().getBuildItem();
+		buildItemList = new ArrayList<BuildItem>();
 		currentPlayer = app.getCurrentPlayer();
 		
 		closeButton = (ImageButton) this.findViewById(R.id.plantCloseButton);
@@ -55,7 +58,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 		
 	  //Set Item on item layout.
 		if( getLandType.equals(Tile.LAND_TYPE_LAND) ){
-			for(Item fetachItem:buildItem){
+			for(Item fetachItem:itemList){
 				if( fetachItem.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY_SEED)||
 						fetachItem.getId().equals(ItemManager.ITEM_ID_CHINESE_CABBAGE_SEED)||
 						fetachItem.getId().equals(ItemManager.ITEM_ID_PUMPKIN_SEED)||
@@ -68,8 +71,10 @@ public class BuildDialog extends Activity implements OnClickListener {
 						fetachItem.getId().equals(ItemManager.ITEM_ID_OSTRICH_BABY) ){
 					
 							BuildItem newBuildItem = new BuildItem(this);
+							newBuildItem.setOnClickListener( this );
 							newBuildItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
 							newBuildItem.setItemName(fetachItem.getName());
+							newBuildItem.setItemId( fetachItem.getId() );
 							newBuildItem.setItemTime(String.valueOf(MilliSecToHour.getConvert(bManager.getMatchBuilding(bManager.getBuildingIdFromItemBuild(fetachItem.getId())).getBuildPeriod())));
 							
 							//Set time or quantity
@@ -104,10 +109,11 @@ public class BuildDialog extends Activity implements OnClickListener {
 							}
 							
 							itemLayout.addView(newBuildItem);
+							buildItemList.add( newBuildItem );
 				}
 			}
 		}else if( getLandType.equals(Tile.LAND_TYPE_SEA) ){
-			for(Item fetachItem:buildItem){
+			for(Item fetachItem:itemList){
 				if( fetachItem.getId().equals(ItemManager.ITEM_ID_FISH_BABY)||
 						fetachItem.getId().equals(ItemManager.ITEM_ID_SQUID_BABY)||
 						fetachItem.getId().equals(ItemManager.ITEM_ID_SCALLOPS_BABY)||
@@ -115,8 +121,10 @@ public class BuildDialog extends Activity implements OnClickListener {
 						fetachItem.getId().equals(ItemManager.ITEM_ID_OYSTER_BABY) ){
 					
 							BuildItem newBuildItem = new BuildItem(this);
+							newBuildItem.setOnClickListener( this );
 							newBuildItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
 							newBuildItem.setItemName(fetachItem.getName());
+							newBuildItem.setItemId( fetachItem.getId() );
 							newBuildItem.setItemTime(String.valueOf(MilliSecToHour.getConvert(bManager.getMatchBuilding(bManager.getBuildingIdFromItemBuild(fetachItem.getId())).getBuildPeriod())));
 							
 							//Set price or quantity
@@ -141,6 +149,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 							}
 							
 							itemLayout.addView(newBuildItem);
+							buildItemList.add( newBuildItem );
 				}
 			}
 		}
@@ -150,32 +159,16 @@ public class BuildDialog extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		if( v.equals(closeButton) ){
 			this.finish();
+		} else {
+			for(BuildItem item:buildItemList){
+				if(v.equals( item )){
+					Intent intent = new Intent();
+					intent.putExtra( ITEM_ID, item.getItemId() );
+					this.setResult( Activity.RESULT_OK, intent );
+					this.finish();
+				}
+			}
 		}
 	}
 	
-	private class GridAdapter extends BaseAdapter{
-
-		@Override
-		public int getCount() {
-			return 12;
-		}
-
-		@Override
-		public Object getItem( int position ) {
-			return position;
-		}
-
-		@Override
-		public long getItemId( int position ) {
-			return position;
-		}
-
-		@Override
-		public View getView( int position, View convertView, ViewGroup parent ) {
-			Button b = new Button(BuildDialog.this);
-			b.setLayoutParams( new GridView.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT) );
-			b.setText( "test grid" );
-			return b;
-		}
-	}
 }

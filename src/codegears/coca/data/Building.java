@@ -69,6 +69,10 @@ public class Building {
 		return this.buildItem;
 	}
 	
+	public String getBuildName(){
+		return name;
+	}
+	
 	public Item getSupplyItem(){
 		return this.supplyItem;
 	}

@@ -3,16 +3,13 @@ package codegears.coca;
 import java.util.HashMap;
 
 import org.anddev.andengine.engine.Engine;
-import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.camera.ZoomCamera;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
-import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
-import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.extension.input.touch.controller.MultiTouch;
 import org.anddev.andengine.extension.input.touch.controller.MultiTouchController;
@@ -48,11 +45,9 @@ import codegears.coca.ui.FarmTileListener;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Display;
-import android.widget.Toast;
 
 public class GameActivity extends BaseGameActivity implements ButtonListener,
-				IScrollDetectorListener, IPinchZoomDetectorListener, IOnSceneTouchListener, FarmTileListener {
+				IPinchZoomDetectorListener, IOnSceneTouchListener, FarmTileListener {
 
 	public static final int REQUEST_PURCHASETILE = 1;
 	public static final int REQUEST_BUILD = 2;
@@ -78,7 +73,6 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	private ButtonSprite soundButton;
 	private ButtonSprite shopButton;
 
-	private SurfaceScrollDetector mScrollDetector;
 	private PinchZoomDetector mPinchZoomDetector;
 	private float mPinchZoomStartedCameraZoomFactor;
 
@@ -103,16 +97,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		try {
 			if ( MultiTouch.isSupported( this ) ) {
 				engine.setTouchController( new MultiTouchController() );
-			} else {
-				Toast.makeText( this,
-								"Sorry your device does NOT support MultiTouch!\n\n(No PinchZoom is possible!)",
-								Toast.LENGTH_LONG ).show();
 			}
 		} catch ( final MultiTouchException e ) {
-			Toast.makeText(
-							this,
-							"Sorry your Android Version does NOT support MultiTouch!\n\n(No PinchZoom is possible!)",
-							Toast.LENGTH_LONG ).show();
 		}
 
 		return engine;
@@ -185,7 +171,6 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 		farmMapSprite.attachChild( shopButton );
 
-		this.mScrollDetector = new SurfaceScrollDetector( this );
 		if ( MultiTouch.isSupportedByAndroidVersion() ) {
 			try {
 				this.mPinchZoomDetector = new PinchZoomDetector( this );
@@ -208,8 +193,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		mMainScene.registerTouchArea( shopButton );
 		mMainScene.registerTouchArea( farmMapSprite );
 
-		//mMainScene.setOnSceneTouchListener(this);
-		mMainScene.setTouchAreaBindingEnabled( true );
+		mMainScene.setOnSceneTouchListener(this);
+		mMainScene.setTouchAreaBindingEnabled( false );
 
 		return mMainScene;
 	}
@@ -244,41 +229,24 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public void onPinchZoom( PinchZoomDetector arg0, TouchEvent arg1, float pZoomFactor ) {
-		this.mZoomCamera.setZoomFactor( this.mPinchZoomStartedCameraZoomFactor * pZoomFactor );
+		farmMapSprite.pinchZoom(pZoomFactor);
 	}
 
 	@Override
 	public void onPinchZoomFinished( PinchZoomDetector arg0, TouchEvent arg1, float pZoomFactor ) {
-		this.mZoomCamera.setZoomFactor( this.mPinchZoomStartedCameraZoomFactor * pZoomFactor );
+		farmMapSprite.pinchZoom(pZoomFactor);
 	}
 
 	@Override
 	public void onPinchZoomStarted( PinchZoomDetector arg0, TouchEvent arg1 ) {
-		this.mPinchZoomStartedCameraZoomFactor = this.mZoomCamera.getZoomFactor();
-	}
-
-	@Override
-	public void onScroll( ScrollDetector arg0, TouchEvent arg1, float pDistanceX, float pDistanceY ) {
-		final float zoomFactor = this.mZoomCamera.getZoomFactor();
-		this.mZoomCamera.offsetCenter( -pDistanceX / zoomFactor, -pDistanceY / zoomFactor );
+		farmMapSprite.pinchStarted();
 	}
 
 	@Override
 	public boolean onSceneTouchEvent( Scene arg0, TouchEvent pSceneTouchEvent ) {
 		if ( this.mPinchZoomDetector != null ) {
 			this.mPinchZoomDetector.onTouchEvent( pSceneTouchEvent );
-			if ( this.mPinchZoomDetector.isZooming() ) {
-				this.mScrollDetector.setEnabled( false );
-			} else {
-				if ( pSceneTouchEvent.isActionDown() ) {
-					this.mScrollDetector.setEnabled( true );
-				}
-				this.mScrollDetector.onTouchEvent( pSceneTouchEvent );
-			}
-		} else {
-			this.mScrollDetector.onTouchEvent( pSceneTouchEvent );
 		}
-
 		return true;
 	}
 	
@@ -291,10 +259,11 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			} 
 		} else if(requestCode == REQUEST_BUILD){
 			if(resultCode == Activity.RESULT_OK){
-				String buildingId = data.getStringExtra( BuildDialog.BUILDING_ID );
+				String itemForBuildId = data.getStringExtra( BuildDialog.ITEM_ID );
+				String buildingId = app.getBuildingManager().getBuildingIdFromItemBuild( itemForBuildId );
 				Building building = app.getBuildingManager().getMatchBuilding(buildingId);
+				System.out.println(building.getBuildName());
 				currentPlayer.build( activeTile, building );
-				
 				//update farmSprite
 			}
 		} else if(requestCode == REQUEST_SPECIALCODE){

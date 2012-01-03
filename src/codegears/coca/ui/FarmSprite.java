@@ -20,10 +20,11 @@ public class FarmSprite extends Sprite {
 	private HashMap<String, TextureRegion> textureCollection;
 	private FarmTileListener tileListener;
 	
-	private float mouseX;
-	private float mouseY;
-	private float positionX;
-	private float positionY;
+	private float startedMouseTouchX;
+	private float startedMouseTouchY;
+	private float startedPositionX;
+	private float startedPositionY;
+	private float startedZoomFactor;
 	
 	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection){
 		super(0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_DEFAULT));
@@ -33,13 +34,17 @@ public class FarmSprite extends Sprite {
 	}
 	
 	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY ){
+		if(pSceneTouchEvent.getPointerID() != 0){
+			System.out.println("MULTI TOUCH");
+			return false;
+		}
 		if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN){
-			mouseX = pSceneTouchEvent.getX();
-			mouseY = pSceneTouchEvent.getY();
-			positionX = this.getX();
-			positionY = this.getY();
+			startedMouseTouchX = pSceneTouchEvent.getX();
+			startedMouseTouchY = pSceneTouchEvent.getY();
+			startedPositionX = this.getX();
+			startedPositionY = this.getY();
 		} else if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_MOVE){
-			this.setPosition( positionX - (mouseX - pSceneTouchEvent.getX() ), positionY - (mouseY - pSceneTouchEvent.getY()));
+			this.setPosition( startedPositionX - (startedMouseTouchX - pSceneTouchEvent.getX() ), startedPositionY - (startedMouseTouchY - pSceneTouchEvent.getY()));
 		}
 		return true;
 	}
@@ -103,4 +108,11 @@ public class FarmSprite extends Sprite {
 		}
 	}
 	
+	public void pinchStarted(){
+		startedZoomFactor = this.getScaleX();
+	}
+	
+	public void pinchZoom(float factor){
+		this.setScale( startedZoomFactor * factor); 
+	}
 }
