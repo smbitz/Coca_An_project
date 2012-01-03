@@ -137,7 +137,7 @@ public final class R {
         public static final int Gallery=0x7f060017;
         public static final int LevelText=0x7f060028;
         public static final int MoneyText=0x7f06002a;
-        public static final int SpecialCodeField=0x7f060031;
+        public static final int SpecialCodeField=0x7f060035;
         public static final int backpackItem=0x7f060030;
         public static final int backpackItemScrollView=0x7f06002f;
         public static final int buildItemImage=0x7f06000d;
@@ -149,7 +149,7 @@ public final class R {
         public static final int couponMycouponsButton=0x7f060014;
         public static final int couponUnavialbleButton=0x7f060013;
         public static final int frameLayout1=0x7f06000c;
-        public static final int frameLayout2=0x7f06003b;
+        public static final int frameLayout2=0x7f06003f;
         public static final int itemGetCloseButton=0x7f060023;
         public static final int itemGetFertilizerA=0x7f060019;
         public static final int itemGetFertilizerB=0x7f06001a;
@@ -181,28 +181,32 @@ public final class R {
         public static final int plantItemScrollView=0x7f060007;
         public static final int purchaseCloseDialog=0x7f060029;
         public static final int purchaseOkButton=0x7f06002b;
-        public static final int relativeLayout1=0x7f060034;
+        public static final int relativeLayout1=0x7f060038;
         public static final int shopCloseButton=0x7f06002c;
         public static final int shopItem=0x7f06002e;
+        public static final int shopItemImage=0x7f060032;
+        public static final int shopItemName=0x7f060033;
+        public static final int shopItemPrice=0x7f060031;
         public static final int shopItemScrollView=0x7f06002d;
-        public static final int specialCodeCancelButton=0x7f060032;
-        public static final int specialCodeOkButton=0x7f060033;
-        public static final int supplyCloseButton=0x7f060039;
-        public static final int supplyDialogAnimal=0x7f060036;
-        public static final int supplyDialogPlant=0x7f060037;
-        public static final int supplyDialogSeaAnimal=0x7f060038;
-        public static final int supplyLayout=0x7f060035;
+        public static final int shopItemTime=0x7f060034;
+        public static final int specialCodeCancelButton=0x7f060036;
+        public static final int specialCodeOkButton=0x7f060037;
+        public static final int supplyCloseButton=0x7f06003d;
+        public static final int supplyDialogAnimal=0x7f06003a;
+        public static final int supplyDialogPlant=0x7f06003b;
+        public static final int supplyDialogSeaAnimal=0x7f06003c;
+        public static final int supplyLayout=0x7f060039;
         public static final int textView1=0x7f060024;
-        public static final int tutorialBackButton=0x7f060042;
-        public static final int tutorialCloseButton=0x7f06003a;
-        public static final int tutorialNextButton=0x7f060043;
-        public static final int tutorialText=0x7f060044;
-        public static final int tutrialPage1=0x7f06003c;
-        public static final int tutrialPage2=0x7f06003d;
-        public static final int tutrialPage3=0x7f06003e;
-        public static final int tutrialPage4=0x7f06003f;
-        public static final int tutrialPage5=0x7f060040;
-        public static final int tutrialPage6=0x7f060041;
+        public static final int tutorialBackButton=0x7f060046;
+        public static final int tutorialCloseButton=0x7f06003e;
+        public static final int tutorialNextButton=0x7f060047;
+        public static final int tutorialText=0x7f060048;
+        public static final int tutrialPage1=0x7f060040;
+        public static final int tutrialPage2=0x7f060041;
+        public static final int tutrialPage3=0x7f060042;
+        public static final int tutrialPage4=0x7f060043;
+        public static final int tutrialPage5=0x7f060044;
+        public static final int tutrialPage6=0x7f060045;
     }
     public static final class layout {
         public static final int builddialog=0x7f030000;
@@ -214,9 +218,10 @@ public final class R {
         public static final int newspaperdialog=0x7f030006;
         public static final int purchasedialog=0x7f030007;
         public static final int shopdialog=0x7f030008;
-        public static final int specialcodedialog=0x7f030009;
-        public static final int supplydialog=0x7f03000a;
-        public static final int tutorialdialog=0x7f03000b;
+        public static final int shopitem=0x7f030009;
+        public static final int specialcodedialog=0x7f03000a;
+        public static final int supplydialog=0x7f03000b;
+        public static final int tutorialdialog=0x7f03000c;
     }
     public static final class string {
         public static final int app_name=0x7f050001;

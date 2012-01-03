@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" android:background="@drawable/plant_shop_time">
+
+    <TextView
+        android:id="@+id/shopItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price" android:layout_gravity="right"/>
+
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/shopItemImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/itemid10"
+            android:visibility="visible" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/shopItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="7"
+        android:maxLines="1"
+        android:text="Name" android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/shopItemTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" android:layout_gravity="center"/>
+
+</LinearLayout>

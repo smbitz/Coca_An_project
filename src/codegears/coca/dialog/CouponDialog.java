@@ -83,12 +83,16 @@ public class CouponDialog extends Activity implements OnClickListener {
 			LinearLayout layout = new LinearLayout(CouponDialog.this);
 			layout.setLayoutParams( new Gallery.LayoutParams(parent.getWidth() / 2, LayoutParams.FILL_PARENT) );
 			layout.setOrientation( LinearLayout.VERTICAL );
+			
+			
+			
 			TextView text1 = new TextView(CouponDialog.this);
 			text1.setText( data[position / 2] );
 			TextView text2 = new TextView(CouponDialog.this);
 			text2.setText( data[position / 2 + 1] );
 			layout.addView( text1 );
 			layout.addView( text2 );
+			
 			return layout;
 		}
 	}

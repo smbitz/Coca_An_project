@@ -48,7 +48,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 		
 		closeButton = (ImageButton) this.findViewById(R.id.plantCloseButton);
 		closeButton.setOnClickListener(this);
-		LinearLayout itemLayout = (LinearLayout)this.findViewById( R.id.plantItem );
+		itemLayout = (LinearLayout)this.findViewById( R.id.plantItem );
 		
 		//Check land type
 		getLandType = getIntent().getExtras().getString( GET_EXTRA_LAND_TYPE );
