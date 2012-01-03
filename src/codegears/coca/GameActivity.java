@@ -12,6 +12,7 @@ import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolic
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
+import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.extension.input.touch.controller.MultiTouch;
 import org.anddev.andengine.extension.input.touch.controller.MultiTouchController;
@@ -119,13 +120,13 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public void onLoadResources() {
-		BitmapTextureAtlas mDefaultFarmMapTextureAtlas = new BitmapTextureAtlas( 8, 8 );
+		BitmapTextureAtlas mDefaultFarmMapTextureAtlas = new BitmapTextureAtlas( 512, 512 );
 		BitmapTextureAtlas mFarmMapTextureAtlas = new BitmapTextureAtlas( 512, 512 );
-		BitmapTextureAtlas mFarmMapNotOccupyTextureAtlas = new BitmapTextureAtlas( 512, 512 );
+		BitmapTextureAtlas mFarmMapNotOccupyTextureAtlas = new BitmapTextureAtlas( 32, 32 );
 		BitmapTextureAtlas mCouponButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
 		BitmapTextureAtlas mSpecialCodeButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
 		BitmapTextureAtlas mSoundButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas mShopButtonTextureAtlas = new BitmapTextureAtlas( 256, 256 );
+		BitmapTextureAtlas mShopButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
 
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath( "gfx/" );
 		TextureRegion mDefaultFarmMapTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
@@ -150,7 +151,9 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 						mShopButtonTextureAtlas, this, "shop.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_SHOPBUTTON, mShopTextureRegion );
 
+		this.mEngine.getTextureManager().loadTexture( mDefaultFarmMapTextureAtlas );
 		this.mEngine.getTextureManager().loadTexture( mFarmMapTextureAtlas );
+		this.mEngine.getTextureManager().loadTexture( mFarmMapNotOccupyTextureAtlas );
 		this.mEngine.getTextureManager().loadTexture( mCouponButtonTextureAtlas );
 		this.mEngine.getTextureManager().loadTexture( mSpecialCodeButtonTextureAtlas );
 		this.mEngine.getTextureManager().loadTexture( mSoundButtonTextureAtlas );
