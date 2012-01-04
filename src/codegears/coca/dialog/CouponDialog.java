@@ -57,19 +57,21 @@ public class CouponDialog extends Activity implements OnClickListener {
 		private String[] data;
 		
 		public GalleryAdapter(){
-			data = new String[20];
+			/*data = new String[20];
 			for(int i = 0; i < 20 ; i++){
 				data[i] = "Hello Gallery";
-			}
+			}*/
 		}
 		@Override
 		public int getCount() {
-			return data.length / 2;
+			//return data.length / 2;
+			return couponItem.size() / 2;
 		}
 
 		@Override
 		public Object getItem( int position ) {
-			return data[position];
+			//return data[position];
+			return couponItem.get(position);
 		}
 
 		@Override
@@ -82,13 +84,89 @@ public class CouponDialog extends Activity implements OnClickListener {
 			LinearLayout layout = new LinearLayout(CouponDialog.this);
 			layout.setLayoutParams( new Gallery.LayoutParams(parent.getWidth() / 2, LayoutParams.FILL_PARENT) );
 			layout.setOrientation( LinearLayout.VERTICAL );
+
+			//Set data Item1
+		  Item fetchCouponItem1 = couponItem.get( position / 2 );
+			ImageView newImageView1 = new ImageView(CouponDialog.this);
 			
-			TextView text1 = new TextView(CouponDialog.this);
+			if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m5010_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_CHINESE_CABBAGE_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m5020_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_PUMPKIN_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m5030_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_BABY_CORN_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m5040_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_STRAW_MUSHROOMS_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m5050_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_CHICKEN_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m5060_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_PIG_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m5070_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_COW_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m5080_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_SHEEP_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m5090_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_OSTRICH_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m50100_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_FISH_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m50110_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_SQUID_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m50120_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_SCALLOPS_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m50130_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_SHRIMP_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m50140_hd);
+			}else if( fetchCouponItem1.getId().equals(ItemManager.ITEM_ID_OYSTER_COUPON ) ){
+				newImageView1.setImageResource(R.drawable.m50150_hd);
+			}
+			
+			layout.addView( newImageView1 );
+			
+		  //Set data Item2
+			Item fetchCouponItem2 = couponItem.get( position / 2+1 );
+			ImageView newImageView2 = new ImageView(CouponDialog.this);
+			
+			if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m5010_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_CHINESE_CABBAGE_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m5020_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_PUMPKIN_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m5030_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_BABY_CORN_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m5040_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_STRAW_MUSHROOMS_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m5050_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_CHICKEN_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m5060_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_PIG_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m5070_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_COW_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m5080_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_SHEEP_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m5090_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_OSTRICH_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m50100_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_FISH_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m50110_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_SQUID_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m50120_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_SCALLOPS_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m50130_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_SHRIMP_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m50140_hd);
+			}else if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_OYSTER_COUPON ) ){
+				newImageView2.setImageResource(R.drawable.m50150_hd);
+			}
+			
+			layout.addView( newImageView2 );
+			
+			/*TextView text1 = new TextView(CouponDialog.this);
 			text1.setText( data[position / 2] );
 			TextView text2 = new TextView(CouponDialog.this);
 			text2.setText( data[position / 2 + 1] );
 			layout.addView( text1 );
-			layout.addView( text2 );
+			layout.addView( text2 );*/
 			
 			return layout;
 		}
