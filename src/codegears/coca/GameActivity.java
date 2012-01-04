@@ -62,6 +62,9 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	private static final String PUT_EXTRA_ITEM_ID = "ITEM_ID";
 	private static final String PUT_EXTRA_ITEM_QUANTITY = "ITEM_QUANTITY";
 	private static final String PUT_EXTRA_LAND_TYPE = "tileLandType";
+	private static final String PUT_EXTRA_BUILD_ID = "BUILD_ID";
+	private static final String PUT_EXTRA_SUPPLY_PERIOD = "SUPPLY_PERIOD";
+	private static final String PUT_EXTRA_BUILD_PERIOD = "BUILD_PERIOD";
 	
 	private ZoomCamera mZoomCamera;
 	private Scene mMainScene;
@@ -262,7 +265,6 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 				String itemForBuildId = data.getStringExtra( BuildDialog.ITEM_ID );
 				String buildingId = app.getBuildingManager().getBuildingIdFromItemBuild( itemForBuildId );
 				Building building = app.getBuildingManager().getMatchBuilding(buildingId);
-				System.out.println(building.getBuildName());
 				currentPlayer.build( activeTile, building );
 				//update farmSprite
 			}
@@ -292,7 +294,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public void onBuildRequest( Tile data ) {
 		activeTile = data;
 		Intent intent = new Intent(this, BuildDialog.class);
-		intent.putExtra( PUT_EXTRA_LAND_TYPE, data.getLandType() );
+		intent.putExtra( PUT_EXTRA_LAND_TYPE, activeTile.getLandType() );
 		this.startActivityForResult( intent, REQUEST_BUILD );
 	}
 
@@ -300,6 +302,9 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public void onAddItemRequest( Tile data ) {
 		activeTile = data;
 		Intent intent = new Intent(this, SupplyBoxDialog.class);
+		intent.putExtra( PUT_EXTRA_BUILD_ID, activeTile.getBuildingId() );
+		intent.putExtra( PUT_EXTRA_SUPPLY_PERIOD, String.valueOf( activeTile.getSupply() ));
+		intent.putExtra( PUT_EXTRA_BUILD_PERIOD, String.valueOf( activeTile.getProgress() ));
 		this.startActivity( intent );
 	}
 

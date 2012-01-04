@@ -14,6 +14,22 @@ import codegears.coca.util.NetworkThreadUtil.NetworkThreadListener;
 public class BuildingManager implements NetworkThreadListener {
 
 	private static final String BUILDING_URL = "BUILDING_URL";
+
+	public static final String BUILDING_ID_MORNING_GLORY = "10";
+	public static final String BUILDING_ID_CHINESE_CABBAGE = "20";
+	public static final String BUILDING_ID_PUMPKIN = "30";
+	public static final String BUILDING_ID_BABY_CORN = "40";
+	public static final String BUILDING_ID_STRAW_MUSHROOMS = "50";
+	public static final String BUILDING_ID_CHICKEN = "60";
+	public static final String BUILDING_ID_PIG = "70";
+	public static final String BUILDING_ID_COW = "80";
+	public static final String BUILDING_ID_SHEEP = "90";
+	public static final String BUILDING_ID_OSTRICH = "100";
+	public static final String BUILDING_ID_FISH = "110";
+	public static final String BUILDING_ID_SQUID = "120";
+	public static final String BUILDING_ID_SCALLOPS = "130";
+	public static final String BUILDING_ID_SHRIMP = "140";
+	public static final String BUILDING_ID_OYSTER = "150";
 	
 	private LoadListener listener;
 	private ArrayList<Building> building;

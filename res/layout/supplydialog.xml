@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#7F000000"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -29,7 +29,7 @@
             <FrameLayout
                 android:id="@+id/supplyLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_centerHorizontal="true">
+                android:layout_height="fill_parent" android:layout_centerHorizontal="true">
 
                 <LinearLayout
                     android:id="@+id/supplyDialogAnimal"
@@ -60,6 +60,114 @@
                     android:orientation="vertical"
                     android:visibility="invisible" >
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout19"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout5"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="vertical" >
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout7"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" >
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1" >
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:id="@+id/supplyBuildingImage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/itemid160" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="3" >
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:id="@+id/supplyBuildingName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TextView" />
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout21"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" android:layout_weight="1">
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/supplySupplyPeriod"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TextView" />
+
+                            <TextView
+                                android:id="@+id/supplyBuildPeriod"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TextView" />
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout22"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" android:layout_weight="5">
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="2" >
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout20"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.7"
+                        android:orientation="vertical" >
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </FrameLayout>
 
             <ImageButton
@@ -72,17 +180,80 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout5"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" android:layout_weight="2">
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/linearLayout3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/plant_popup_corp" android:layout_gravity="center">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linearLayout16"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" android:layout_weight="1">
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout11"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent" android:background="@drawable/plant_popup_corp">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout9"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <ImageButton
+                        android:id="@+id/supplyItem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/image_popup_plant01" android:background="@null"/>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent" android:layout_weight="1">
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/supplyExtraItem1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/image_popup_plant02" android:background="@null"/>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1" >
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/supplyExtraItem2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/image_popup_plant03" android:background="@null"/>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent" android:layout_weight="1">
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/supplyMoveItem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/image_popup_move" android:background="@null"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout15"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" android:layout_weight="1">
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

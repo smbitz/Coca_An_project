@@ -57,21 +57,22 @@ public class CouponDialog extends Activity implements OnClickListener {
 		private String[] data;
 		
 		public GalleryAdapter(){
-			/*data = new String[20];
+			data = new String[20];
 			for(int i = 0; i < 20 ; i++){
-				data[i] = "Hello Gallery";
-			}*/
+				data[i] = "Hello Gallery : "+i;
+			}
 		}
+		
 		@Override
 		public int getCount() {
-			//return data.length / 2;
-			return couponItem.size() / 2;
+			return data.length / 2;
+			//return couponItem.size() / 2;
 		}
 
 		@Override
 		public Object getItem( int position ) {
-			//return data[position];
-			return couponItem.get(position);
+			return data[position];
+			//return couponItem.get(position);
 		}
 
 		@Override
@@ -84,7 +85,7 @@ public class CouponDialog extends Activity implements OnClickListener {
 			LinearLayout layout = new LinearLayout(CouponDialog.this);
 			layout.setLayoutParams( new Gallery.LayoutParams(parent.getWidth() / 2, LayoutParams.FILL_PARENT) );
 			layout.setOrientation( LinearLayout.VERTICAL );
-
+			
 			//Set data Item1
 		  Item fetchCouponItem1 = couponItem.get( position / 2 );
 			ImageView newImageView1 = new ImageView(CouponDialog.this);
@@ -124,7 +125,7 @@ public class CouponDialog extends Activity implements OnClickListener {
 			layout.addView( newImageView1 );
 			
 		  //Set data Item2
-			Item fetchCouponItem2 = couponItem.get( position / 2+1 );
+			Item fetchCouponItem2 = couponItem.get( position / 2 + 1 );
 			ImageView newImageView2 = new ImageView(CouponDialog.this);
 			
 			if( fetchCouponItem2.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY_COUPON ) ){
