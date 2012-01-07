@@ -27,7 +27,7 @@ import android.widget.LinearLayout;
 public class BuildDialog extends Activity implements OnClickListener {
 	
 	public static final String ITEM_ID = "ITEM_ID";
-	private static final String GET_EXTRA_LAND_TYPE = "tileLandType";
+	public static final String EXTRA_LAND_TYPE = "tileLandType";
 	
 	private ArrayList<Item> itemList;
 	private ArrayList<BuildItem> buildItemList;
@@ -54,7 +54,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 		itemLayout = (LinearLayout)this.findViewById( R.id.plantItem );
 		
 		//Check land type
-		getLandType = getIntent().getExtras().getString( GET_EXTRA_LAND_TYPE );
+		getLandType = getIntent().getExtras().getString( EXTRA_LAND_TYPE );
 		
 	  //Set Item on item layout.
 		if( getLandType.equals(Tile.LAND_TYPE_LAND) ){

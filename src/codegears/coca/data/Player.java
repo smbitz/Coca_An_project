@@ -478,4 +478,13 @@ public class Player implements NetworkThreadListener {
 			backpack.add(newItemQuantityPair);
 		}
 	}
+	
+	public void supply(Tile tile){
+	}
+	
+	public void extra1(Tile tile){
+	}
+	
+	public void extra2(Tile tile){
+	}
 }

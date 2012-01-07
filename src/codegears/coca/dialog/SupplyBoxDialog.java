@@ -11,6 +11,7 @@ import codegears.coca.data.ItemManager;
 import codegears.coca.data.Player;
 import codegears.coca.util.MilliSecToHour;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -21,9 +22,14 @@ import android.widget.TextView;
 
 public class SupplyBoxDialog extends Activity implements OnClickListener{
 	
-	private static final String PUT_EXTRA_BUILD_ID = "BUILD_ID";
-	private static final String PUT_EXTRA_SUPPLY_PERIOD = "SUPPLY_PERIOD";
-	private static final String PUT_EXTRA_BUILD_PERIOD = "BUILD_PERIOD";
+	public static final String EXTRA_BUILD_ID = "BUILD_ID";
+	public static final String EXTRA_SUPPLY_PERIOD = "SUPPLY_PERIOD";
+	public static final String EXTRA_BUILD_PERIOD = "BUILD_PERIOD";
+	
+	public static final int RESULT_SUPPLY = 5;
+	public static final int RESULT_EXTRA1 = 6;
+	public static final int RESULT_EXTRA2 = 7;
+	public static final int RESULT_MOVE = 8;
 	
 	private ArrayList<Item> supplyItem;
 	private Player currentPlayer;
@@ -54,9 +60,9 @@ public class SupplyBoxDialog extends Activity implements OnClickListener{
 		currentPlayer = app.getCurrentPlayer();
 		
 		//Get intent extra.
-		getBuildId = getIntent().getExtras().getString( PUT_EXTRA_BUILD_ID );
-		getSupplyPeriod = getIntent().getExtras().getString( PUT_EXTRA_SUPPLY_PERIOD );
-		getBuildPeriod = getIntent().getExtras().getString( PUT_EXTRA_BUILD_PERIOD );
+		getBuildId = getIntent().getExtras().getString( EXTRA_BUILD_ID );
+		getSupplyPeriod = getIntent().getExtras().getString( EXTRA_SUPPLY_PERIOD );
+		getBuildPeriod = getIntent().getExtras().getString( EXTRA_BUILD_PERIOD );
 		
 		closeButton = (ImageButton) findViewById(R.id.supplyCloseButton);
 		closeButton.setOnClickListener(this);
@@ -150,13 +156,17 @@ public class SupplyBoxDialog extends Activity implements OnClickListener{
 		if( v.equals(closeButton) ){
 			this.finish();
 		}else if( v.equals(supplyItemButton) ){
-			
+			this.setResult( RESULT_SUPPLY );
+			this.finish();
 		}else if( v.equals(extraItem1Button) ){
-			
+			this.setResult( RESULT_EXTRA1 );
+			this.finish();			
 		}else if( v.equals(extraItem2Button) ){
-			
+			this.setResult( RESULT_EXTRA2 );
+			this.finish();			
 		}else if( v.equals(moveButton) ){
-			
+			this.setResult( RESULT_MOVE );
+			this.finish();			
 		}
 	}
 }

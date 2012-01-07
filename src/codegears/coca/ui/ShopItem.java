@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 public class ShopItem extends LinearLayout {
 	
+	private String itemId;
 	private TextView nameText;
 	private TextView priceText;
 	private TextView timeText;
@@ -33,8 +34,20 @@ public class ShopItem extends LinearLayout {
 		timeText.setTextColor(Color.BLACK);
 	}
 	
+	public void setItemId(String id){
+		itemId = id;
+	}
+	
+	public String getItemId(){
+		return itemId;
+	}
+	
 	public void setItemName(String name){
 		nameText.setText( name );
+	}
+	
+	public String getItemName(){
+		return nameText.getText().toString();
 	}
 	
 	public void setItemPrice(String price){
