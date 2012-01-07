@@ -147,6 +147,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public Scene onLoadScene() {
 		app = (MyApp)this.getApplication();
 		currentPlayer = app.getCurrentPlayer();
+		System.out.println("Start");
+		currentPlayer.updateToServer();
 		
 		mEngine.registerUpdateHandler( new FPSLogger() );
 
