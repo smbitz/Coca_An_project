@@ -55,17 +55,11 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public static final int REQUEST_ADD_ITEM = 3;
 	public static final int REQUEST_SUPPLY = 4;
 	public static final int REQUEST_HARVEST = 5;
+	public static final int REQUEST_SHOP = 6;
 	
 	private static final int FIX_SCENE_WIDTH = 480;
 	private static final int FIX_SCENE_HEIGHT = 320;
-	
-	private static final String PUT_EXTRA_ITEM_ID = "ITEM_ID";
-	private static final String PUT_EXTRA_ITEM_QUANTITY = "ITEM_QUANTITY";
-	private static final String PUT_EXTRA_LAND_TYPE = "tileLandType";
-	private static final String PUT_EXTRA_BUILD_ID = "BUILD_ID";
-	private static final String PUT_EXTRA_SUPPLY_PERIOD = "SUPPLY_PERIOD";
-	private static final String PUT_EXTRA_BUILD_PERIOD = "BUILD_PERIOD";
-	
+		
 	private ZoomCamera mZoomCamera;
 	private Scene mMainScene;
 
@@ -526,6 +520,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public Scene onLoadScene() {
 		app = (MyApp)this.getApplication();
 		currentPlayer = app.getCurrentPlayer();
+		System.out.println("Start");
+		currentPlayer.updateToServer();
 		
 		mEngine.registerUpdateHandler( new FPSLogger() );
 
@@ -535,7 +531,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		couponButton = new ButtonSprite( 200, 0, textureCollection.get( TextureVar.TEXTURE_COUPONBUTTON ) );
 		specialCodeButton = new ButtonSprite( 300, 5, textureCollection.get( TextureVar.TEXTURE_SPECIALCODEBUTTON ) );
 		soundButton = new ButtonSprite( 390, 5, textureCollection.get( TextureVar.TEXTURE_SOUNDBUTTON ) );
-		shopButton = new ButtonSprite( 0, 0, textureCollection.get( TextureVar.TEXTURE_SHOPBUTTON ) );
+		shopButton = new ButtonSprite( 0, -120, textureCollection.get( TextureVar.TEXTURE_SHOPBUTTON ) );
 		farmMapSprite = new FarmSprite( textureCollection );
 		farmMapSprite.setPlayer( currentPlayer );
 		farmMapSprite.setFarmTileListener(this);
@@ -599,7 +595,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			this.startActivityForResult( i, REQUEST_SPECIALCODE );
 		} else if ( buttonSprite == this.shopButton ) {
 			Intent i = new Intent( this, ShopDialog.class);
-			this.startActivity( i );
+			this.startActivityForResult( i, REQUEST_SHOP );
 		} 
 	}
 
@@ -643,15 +639,32 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			}
 		} else if(requestCode == REQUEST_SPECIALCODE){
 			if(resultCode == Activity.RESULT_OK){
-				String itemId = data.getStringExtra( PUT_EXTRA_ITEM_ID );
-				int itemQuantity = data.getIntExtra( PUT_EXTRA_ITEM_QUANTITY, 0 );
+				String itemId = data.getStringExtra( SpecialCodeDialog.PUT_EXTRA_ITEM_ID );
+				int itemQuantity = data.getIntExtra( SpecialCodeDialog.PUT_EXTRA_ITEM_QUANTITY, 0 );
 				Intent intent = new Intent(this, ItemGetDialog.class);
-				intent.putExtra( PUT_EXTRA_ITEM_ID, itemId );
-				intent.putExtra( PUT_EXTRA_ITEM_QUANTITY, itemQuantity );
-				this.startActivity( intent );
-				
+				intent.putExtra( SpecialCodeDialog.PUT_EXTRA_ITEM_ID, itemId );
+				intent.putExtra( SpecialCodeDialog.PUT_EXTRA_ITEM_QUANTITY, itemQuantity );
+				this.startActivity( intent );	
 				//add item to player
-				app.getCurrentPlayer().addItemToBackpack(itemId, itemQuantity);
+				currentPlayer.addItemToBackpack(itemId, itemQuantity);
+			}
+		} else if(requestCode == REQUEST_ADD_ITEM){
+			if(resultCode == SupplyBoxDialog.RESULT_SUPPLY){
+				currentPlayer.supply(activeTile);
+			} else if(resultCode == SupplyBoxDialog.RESULT_EXTRA1){
+				currentPlayer.extra1(activeTile);
+			} else if(resultCode == SupplyBoxDialog.RESULT_EXTRA2){
+				currentPlayer.extra2(activeTile);
+			} else if(resultCode == SupplyBoxDialog.RESULT_MOVE){
+				//enter move state
+			}
+		} else if(requestCode == REQUEST_SHOP){
+			if(resultCode == ShopDialog.RESULT_BUY){
+				String itemId = data.getStringExtra( ShopDialog.EXTRA_ITEM_ID );
+				currentPlayer.buy( itemId, 1 );
+			} else if(resultCode == ShopDialog.RESULT_SELL){
+				String itemId = data.getStringExtra( ShopDialog.EXTRA_ITEM_ID );
+				currentPlayer.sell( itemId, 1 );
 			}
 		}
 	}
@@ -667,7 +680,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public void onBuildRequest( Tile data ) {
 		activeTile = data;
 		Intent intent = new Intent(this, BuildDialog.class);
-		intent.putExtra( PUT_EXTRA_LAND_TYPE, activeTile.getLandType() );
+		intent.putExtra( BuildDialog.EXTRA_LAND_TYPE, activeTile.getLandType() );
 		this.startActivityForResult( intent, REQUEST_BUILD );
 	}
 
@@ -675,10 +688,10 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public void onAddItemRequest( Tile data ) {
 		activeTile = data;
 		Intent intent = new Intent(this, SupplyBoxDialog.class);
-		intent.putExtra( PUT_EXTRA_BUILD_ID, activeTile.getBuildingId() );
-		intent.putExtra( PUT_EXTRA_SUPPLY_PERIOD, String.valueOf( activeTile.getSupply() ));
-		intent.putExtra( PUT_EXTRA_BUILD_PERIOD, String.valueOf( activeTile.getProgress() ));
-		this.startActivity( intent );
+		intent.putExtra( SupplyBoxDialog.EXTRA_BUILD_ID, activeTile.getBuildingId() );
+		intent.putExtra( SupplyBoxDialog.EXTRA_SUPPLY_PERIOD, String.valueOf( activeTile.getSupply() ));
+		intent.putExtra( SupplyBoxDialog.EXTRA_BUILD_PERIOD, String.valueOf( activeTile.getProgress() ));
+		this.startActivityForResult( intent, REQUEST_ADD_ITEM );
 	}
 
 	@Override

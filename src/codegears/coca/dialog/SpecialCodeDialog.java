@@ -22,6 +22,9 @@ public class SpecialCodeDialog extends Activity implements OnClickListener, Netw
 
 	private static final String USE_SPECIAL_CODE_URL = "USE_SPECIAL_CODE_URL";
 
+	public  static final String PUT_EXTRA_ITEM_ID = "ITEM_ID";
+	public static final String PUT_EXTRA_ITEM_QUANTITY = "ITEM_QUANTITY";
+
 	private Player currentPlayer;
 	private MyApp app;
 	private EditText codeField;
@@ -70,8 +73,8 @@ public class SpecialCodeDialog extends Activity implements OnClickListener, Netw
 			String returnItemId = returnData[0];
 			int returnItemQuantity = Integer.parseInt( returnData[1] );
 			Intent intent = new Intent();
-			intent.putExtra( "ITEM_ID", returnItemId );
-			intent.putExtra( "ITEM_QUANTITY", returnItemQuantity );
+			intent.putExtra( PUT_EXTRA_ITEM_ID, returnItemId );
+			intent.putExtra( PUT_EXTRA_ITEM_QUANTITY, returnItemQuantity );
 			this.setResult( Activity.RESULT_OK, intent );
 			this.finish();
 		} else if ( result.equals( "fail" ) ) {

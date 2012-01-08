@@ -20,6 +20,10 @@ public class ItemExchangeItem {
 		return this.id;
 	}
 	
+	public int getQuantity(){
+		return quantity;
+	}
+	
 	public void setItem(Item setValue){
 		this.item = setValue;
 	}

@@ -1,22 +1,45 @@
 package codegears.coca.data;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.ByteArrayBuffer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import codegears.coca.LoadListener;
 import codegears.coca.MyApp;
+import codegears.coca.util.NetworkThread2Listener;
 import codegears.coca.util.NetworkThreadUtil;
+import codegears.coca.util.NetworkThreadUtil2;
 import codegears.coca.util.NetworkUtil;
 import codegears.coca.util.NetworkThreadUtil.NetworkThreadListener;
 
-public class Player implements NetworkThreadListener {
+public class Player implements NetworkThreadListener, NetworkThread2Listener {
 
 	public static final int NUMBER_PERCENTS_TO_ADD_SUPPLY = 95;
 	public static final int QTY_USE_EXTRA = 1;
@@ -27,6 +50,7 @@ public class Player implements NetworkThreadListener {
 	public static final int TILE_MAX_X = 8;
 	public static final int TILE_MAX_Y = 8;
 	private static final String PLAYER_URL = "PLAYER_URL";
+	private static final String NETWORK_UPDATE = "NETWORK_UPDATE"; 
 	
 	private String facebookId;
 	private int exp;
@@ -446,11 +470,22 @@ public class Player implements NetworkThreadListener {
 			playerElement.appendChild(backpackElement);
 			doc.appendChild(playerElement);
 			
-			//Send Data To Server
-	    
+			//--- Transform XML Document to string ----//
+			TransformerFactory tf = TransformerFactory.newInstance();
+			Transformer transformer = tf.newTransformer();
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			StringWriter writer = new StringWriter();
+			transformer.transform(new DOMSource(doc), new StreamResult(writer));
+			String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
 			
+			//---- Send Data To Server ----//
+	    NetworkThreadUtil2 nThread = new NetworkThreadUtil2(NETWORK_UPDATE);
+	    nThread.setListener( this );
+	    nThread.sendRawBody( "http://www.freehand.in.th/test.php", output );
 		} catch (ParserConfigurationException pce) {
-				pce.printStackTrace();
+			pce.printStackTrace();
+		} catch ( TransformerException e ) {
+			e.printStackTrace();
 		}
 	}
 
@@ -477,5 +512,27 @@ public class Player implements NetworkThreadListener {
 			newItemQuantityPair.setItem(app.getItemManager().getMatchItem(itemId));
 			backpack.add(newItemQuantityPair);
 		}
+	}
+	
+	public void supply(Tile tile){
+	}
+	
+	public void extra1(Tile tile){
+	}
+	
+	public void extra2(Tile tile){
+	}
+
+	@Override
+	public void onNetworkThreadComplete( String referenceKey, Document doc ) {
+	}
+
+	@Override
+	public void onNetworkThreadComplete( String referenceKey, String raw ) {
+		System.out.println(raw);
+	}
+
+	@Override
+	public void onNetworkThreadFail( String referenceKey ) {
 	}
 }

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import codegears.coca.MyApp;
 import codegears.coca.R;
 import codegears.coca.data.BuildingManager;
-import codegears.coca.data.TextureVar;
 import codegears.coca.data.Item;
 import codegears.coca.data.ItemManager;
 import codegears.coca.data.ItemQuantityPair;
@@ -13,19 +12,25 @@ import codegears.coca.data.Player;
 import codegears.coca.ui.ShopItem;
 import codegears.coca.util.MilliSecToHour;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 public class ShopDialog extends Activity implements OnClickListener {
+
+	public static final int RESULT_BUY = 4;
+	public static final int RESULT_SELL = 5;
+	
+	public static final String EXTRA_ITEM_ID = "ITEM_ID";
 	
 	private ArrayList<Item> shopItem;
 	private ArrayList<ItemQuantityPair> backpackItem;
+	private ArrayList<ShopItem> shopLayoutList;
+	private ArrayList<ShopItem> backpackLayoutList;
 	private Player currentPlayer;
 	private MyApp app;
 	private BuildingManager bManager;
@@ -37,6 +42,8 @@ public class ShopDialog extends Activity implements OnClickListener {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.shopdialog);
     
+    shopLayoutList = new ArrayList<ShopItem>();
+    backpackLayoutList = new ArrayList<ShopItem>();
     app = (MyApp)this.getApplication();
     bManager = app.getBuildingManager();
     currentPlayer = app.getCurrentPlayer();
@@ -52,8 +59,11 @@ public class ShopDialog extends Activity implements OnClickListener {
     for(Item fetchShopItem:shopItem){
     	ShopItem newShopItem = new ShopItem(this);
     	newShopItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
+    	newShopItem.setItemId( fetchShopItem.getId() );
     	newShopItem.setItemName(fetchShopItem.getName());
     	newShopItem.setItemPrice(String.valueOf(fetchShopItem.getPrice()));
+    	newShopItem.setClickable( true );
+    	newShopItem.setOnClickListener( this );
     	
     	//Set Image Item
     	if(fetchShopItem.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY_SEED)){
@@ -114,17 +124,21 @@ public class ShopDialog extends Activity implements OnClickListener {
     	}
     	
     	shopLayout.addView(newShopItem);
+    	shopLayoutList.add( newShopItem );
     }
     
     //Build backpack dialog
     for(ItemQuantityPair fetchBackpackItem:backpackItem){
     	ShopItem newBackpackItem = new ShopItem(this);
     	newBackpackItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
+    	newBackpackItem.setItemId( fetchBackpackItem.getItem().getId() );
     	newBackpackItem.setItemName(fetchBackpackItem.getItem().getName());
     	newBackpackItem.setItemPrice(String.valueOf(fetchBackpackItem.getItem().getSellPrice()));
     	newBackpackItem.setItemTime("");
     	newBackpackItem.setItemBackground(R.drawable.plant_shop_nontime);
     	newBackpackItem.setShopButton(R.drawable.button_sell);
+    	newBackpackItem.setClickable( true );
+    	newBackpackItem.setOnClickListener( this );
   		
     //Set ItemQuantity
     if(fetchBackpackItem.getQuantity()>0){
@@ -207,6 +221,7 @@ public class ShopDialog extends Activity implements OnClickListener {
 		}
     	
   		backpackLayout.addView(newBackpackItem);
+  		backpackLayoutList.add( newBackpackItem );
     }
 	}
 
@@ -214,6 +229,22 @@ public class ShopDialog extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		if( v.equals(closeButton) ){
 			this.finish();
+		}
+		for(ShopItem shopLayout:shopLayoutList){
+			if(v.equals(shopLayout)){
+				Intent intent = new Intent();
+				intent.putExtra( EXTRA_ITEM_ID, shopLayout.getItemId() );
+				this.setResult( RESULT_BUY, intent );
+				this.finish();
+			}
+		}
+		for(ShopItem backpackLayout:backpackLayoutList){
+			if(v.equals(backpackLayout)){
+				Intent intent = new Intent();
+				intent.putExtra( EXTRA_ITEM_ID, backpackLayout.getItemId() );
+				this.setResult( RESULT_SELL, intent );
+				this.finish();
+			}
 		}
 	}
 }
