@@ -67,14 +67,16 @@ public class FarmSprite extends Sprite {
 		int setY = 0;
 		int loop = 0;
 		for(Tile tileData:tileList){
-			AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ) );
+			//AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ) );
+			AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection );
 			tile.setData( tileData );
 			farmTileList.add( tile );
 			if( !tileData.getIsOccupy() ){
 				int indexX = loop % 8;
 				int indexY = loop / 8;
 				if((indexX % 2 == 0) && (indexY % 2 == 0)){
-					AbstractFarmTile purchaseTile = new PurchaseTile(setX, setY, textureCollection.get( TextureVar.TEXTURE_FARM ));
+					//AbstractFarmTile purchaseTile = new PurchaseTile(setX, setY, tr );
+					AbstractFarmTile purchaseTile = FarmTileBuilder.createFarmTile(setX, setY, tileData, textureCollection);
 					purchaseTile.setData( tileData );
 					purchaseTileList.add( purchaseTile );
 				}
