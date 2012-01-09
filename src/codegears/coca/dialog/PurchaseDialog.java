@@ -5,6 +5,7 @@ import codegears.coca.MyApp;
 import codegears.coca.R;
 import codegears.coca.data.Player;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,12 +30,18 @@ public class PurchaseDialog extends Activity implements OnClickListener {
     app = (MyApp)this.getApplication();
     currentPlayer = app.getCurrentPlayer();
     
-    moneyText = (TextView) this.findViewById( R.id.MoneyText );
-    levelText = (TextView) this.findViewById( R.id.LevelText );
+    moneyText = (TextView) this.findViewById( R.id.purchaseMoneyText );
+    levelText = (TextView) this.findViewById( R.id.purchaseLevelText );
     okButton = (ImageButton) this.findViewById( R.id.purchaseOkButton );
     okButton.setOnClickListener( this );
     closeButton = (ImageButton) this.findViewById( R.id.purchaseCloseDialog );
     closeButton.setOnClickListener( this );
+    
+    levelText.setText( "Level "+String.valueOf(currentPlayer.getLevelRequiredForPurchaseTile()) );
+    levelText.setTextColor(Color.RED);
+    
+    moneyText.setText( String.valueOf(currentPlayer.getMoneyRequiredForPurchaseTile()) );
+    moneyText.setTextColor(Color.BLACK);
     
     if(currentPlayer.isAllowToPurchase()){
     	okButton.setVisibility( View.VISIBLE );

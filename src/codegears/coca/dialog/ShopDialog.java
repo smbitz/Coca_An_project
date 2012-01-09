@@ -64,6 +64,7 @@ public class ShopDialog extends Activity implements OnClickListener {
     	newShopItem.setItemPrice(String.valueOf(fetchShopItem.getPrice()));
     	newShopItem.setClickable( true );
     	newShopItem.setOnClickListener( this );
+    	newShopItem.getShopButton().setOnClickListener( this );
     	
     	//Set Image Item
     	if(fetchShopItem.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY_SEED)){
@@ -139,6 +140,7 @@ public class ShopDialog extends Activity implements OnClickListener {
     	newBackpackItem.setShopButton(R.drawable.button_sell);
     	newBackpackItem.setClickable( true );
     	newBackpackItem.setOnClickListener( this );
+    	newBackpackItem.getShopButton().setOnClickListener( this );
   		
     //Set ItemQuantity
     if(fetchBackpackItem.getQuantity()>0){
@@ -227,11 +229,11 @@ public class ShopDialog extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		if( v.equals(closeButton) ){
+		if( v.equals( closeButton ) ){
 			this.finish();
 		}
 		for(ShopItem shopLayout:shopLayoutList){
-			if(v.equals(shopLayout)){
+			if( v.equals( shopLayout.getShopButton() )){
 				Intent intent = new Intent();
 				intent.putExtra( EXTRA_ITEM_ID, shopLayout.getItemId() );
 				this.setResult( RESULT_BUY, intent );
@@ -239,7 +241,7 @@ public class ShopDialog extends Activity implements OnClickListener {
 			}
 		}
 		for(ShopItem backpackLayout:backpackLayoutList){
-			if(v.equals(backpackLayout)){
+			if( v.equals( backpackLayout.getShopButton() )){
 				Intent intent = new Intent();
 				intent.putExtra( EXTRA_ITEM_ID, backpackLayout.getItemId() );
 				this.setResult( RESULT_SELL, intent );

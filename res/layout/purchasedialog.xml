@@ -10,12 +10,6 @@
         android:orientation="vertical" android:layout_weight="1">
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/LevelText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Money" />
-
 	<LinearLayout
 	    android:id="@+id/linearLayout1"
 	    android:layout_width="wrap_content"
@@ -34,11 +28,24 @@
 		    android:id="@+id/linearLayout3"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
-		    android:orientation="vertical" android:layout_weight="4">
+		    android:orientation="vertical" android:layout_weight="6.5">
 		</LinearLayout>
 
 		<TextView
-		    android:id="@+id/MoneyText"
+		    android:id="@+id/purchaseLevelText"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="Money" android:layout_gravity="center"/>
+
+		<LinearLayout
+		    android:id="@+id/linearLayout7"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" android:layout_weight="0.5">
+		</LinearLayout>
+
+		<TextView
+		    android:id="@+id/purchaseMoneyText"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="Money" android:layout_gravity="center"/>
@@ -47,7 +54,7 @@
 		    android:id="@+id/linearLayout4"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
-		    android:orientation="vertical" android:layout_weight="1">
+		    android:orientation="vertical" android:layout_weight="2">
 		</LinearLayout>
 		
 	</LinearLayout>

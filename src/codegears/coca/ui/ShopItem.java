@@ -34,20 +34,24 @@ public class ShopItem extends LinearLayout {
 		timeText.setTextColor(Color.BLACK);
 	}
 	
-	public void setItemId(String id){
-		itemId = id;
-	}
-	
 	public String getItemId(){
 		return itemId;
+	}
+	
+	public String getItemName(){
+		return nameText.getText().toString();
+	}
+	
+	public ImageButton getShopButton(){
+		return shopButton;
 	}
 	
 	public void setItemName(String name){
 		nameText.setText( name );
 	}
 	
-	public String getItemName(){
-		return nameText.getText().toString();
+	public void setItemId(String id){
+		itemId = id;
 	}
 	
 	public void setItemPrice(String price){

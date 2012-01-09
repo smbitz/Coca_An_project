@@ -27,7 +27,7 @@ public class FarmSprite extends Sprite {
 	private float startedZoomFactor;
 	
 	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection){
-		super(0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_DEFAULT));
+		super(0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT));
 		farmTileList = new ArrayList<AbstractFarmTile>();
 		purchaseTileList = new ArrayList<AbstractFarmTile>();
 		textureCollection = getTextureCollection;

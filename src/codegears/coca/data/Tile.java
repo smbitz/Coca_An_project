@@ -37,10 +37,10 @@ public class Tile {
 		landType = node.getAttributes().getNamedItem("land_type").getNodeValue();
 		isOccupy = Boolean.valueOf(node.getAttributes().getNamedItem("is_occupy").getNodeValue());
 		buildingId = node.getAttributes().getNamedItem("building_id").getNodeValue();
-		progress = Integer.parseInt(node.getAttributes().getNamedItem("progress").getNodeValue());
-		supply = Integer.parseInt(node.getAttributes().getNamedItem("supply_left").getNodeValue());
+		progress = Integer.parseInt(node.getAttributes().getNamedItem("progress").getNodeValue())*1000;
+		supply = Integer.parseInt(node.getAttributes().getNamedItem("supply_left").getNodeValue())*1000;
 		extraId = node.getAttributes().getNamedItem("extra_id").getNodeValue();
-		rottenPeriod = Integer.parseInt(node.getAttributes().getNamedItem("rotten_period").getNodeValue());
+		rottenPeriod = Integer.parseInt(node.getAttributes().getNamedItem("rotten_period").getNodeValue())*1000;
 	}
 	
 	public int getBuildingStatus(){

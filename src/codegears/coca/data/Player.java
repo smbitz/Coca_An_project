@@ -41,6 +41,8 @@ import codegears.coca.util.NetworkThreadUtil.NetworkThreadListener;
 
 public class Player implements NetworkThreadListener, NetworkThread2Listener {
 
+	private static final String PLAYER_UPDATE_URL = "PLAYER_UPDATE_URL";
+	
 	public static final int NUMBER_PERCENTS_TO_ADD_SUPPLY = 95;
 	public static final int QTY_USE_EXTRA = 1;
 	public static final int QTY_USE_SUPPLY = 1;
@@ -188,7 +190,7 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 				int yieldItemQty = arrayGetYieldItem.getQuantity();
 				
 				int extraQuantity = 0;
-				
+
 			  //Match with all item id can have extra item
 				if(yieldItemId.equals(ItemManager.ITEM_ID_MORNING_GLORY)||
 					 yieldItemId.equals(ItemManager.ITEM_ID_CHINESE_CABBAGE)||
@@ -318,7 +320,7 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		return currentPlayerLevel;
 	}
 
-	private int getLevelRequiredForPurchaseTile() {
+	public int getLevelRequiredForPurchaseTile() {
 		int currentPlayerFarm = getCurrentPlayerFarm();
 		int requireLevel = 5*currentPlayerFarm;
 		return requireLevel;
@@ -336,27 +338,41 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		return totalPlayerFarm;
 	}
 
-	private int getMoneyRequiredForPurchaseTile() {
+	public int getMoneyRequiredForPurchaseTile() {
 		int currentPlayerFarm = getCurrentPlayerFarm();
 		int requireMoney = (int) (500+(500*Math.pow(currentPlayerFarm, 2)));
 		return requireMoney;
 	}
 	
   //---- add extraItem to targetTile
-	public Boolean addExtraItem(Tile targetTile, Item extraItem){
+	public Boolean addExtraItem1(Tile targetTile){
 		String extraItemId1 = targetTile.getBuilding().getExtraItem1().getId();
+		
+		if(isItemEnough( extraItemId1, QTY_USE_EXTRA )){
+			int searchExtra = searchBackpackItem( extraItemId1 );
+			
+			if(searchExtra>=0){
+				int currentExtraQty = backpack.get( searchExtra ).getQuantity();
+				backpack.get( searchExtra ).setItemQuantity( currentExtraQty-1 );
+				targetTile.setExtraId( extraItemId1 );
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public Boolean addExtraItem2(Tile targetTile){
 		String extraItemId2 = targetTile.getBuilding().getExtraItem2().getId();
 		
-		if(extraItem.getId().equals(extraItemId1)||extraItem.getId()==extraItemId2){
-			if(isItemEnough(extraItem.getId(), QTY_USE_EXTRA)){
-				int searchExtra = searchBackpackItem(extraItem.getId());
-				
-				if(searchExtra>=0){
-					int currentExtraQty = backpack.get(searchExtra).getQuantity();
-					backpack.get(searchExtra).setItemQuantity(currentExtraQty-1);
-					targetTile.setExtraId(extraItem.getId());
-					return true;
-				}
+		if(isItemEnough( extraItemId2, QTY_USE_EXTRA )){
+			int searchExtra = searchBackpackItem( extraItemId2 );
+			
+			if( searchExtra>=0 ){
+				int currentExtraQty = backpack.get( searchExtra ).getQuantity();
+				backpack.get( searchExtra ).setItemQuantity(currentExtraQty-1);
+				targetTile.setExtraId( extraItemId2 );
+				return true;
 			}
 		}
 		
@@ -481,7 +497,7 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 			//---- Send Data To Server ----//
 	    NetworkThreadUtil2 nThread = new NetworkThreadUtil2(NETWORK_UPDATE);
 	    nThread.setListener( this );
-	    nThread.sendRawBody( "http://www.freehand.in.th/test.php", output );
+	    nThread.sendRawBody( app.getConfig().get( PLAYER_UPDATE_URL ).toString(), output );
 		} catch (ParserConfigurationException pce) {
 			pce.printStackTrace();
 		} catch ( TransformerException e ) {
@@ -512,15 +528,6 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 			newItemQuantityPair.setItem(app.getItemManager().getMatchItem(itemId));
 			backpack.add(newItemQuantityPair);
 		}
-	}
-	
-	public void supply(Tile tile){
-	}
-	
-	public void extra1(Tile tile){
-	}
-	
-	public void extra2(Tile tile){
 	}
 
 	@Override

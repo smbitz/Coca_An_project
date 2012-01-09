@@ -52,10 +52,10 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public static final int REQUEST_PURCHASETILE = 1;
 	public static final int REQUEST_BUILD = 2;
 	public static final int REQUEST_SPECIALCODE = 3;
-	public static final int REQUEST_ADD_ITEM = 3;
-	public static final int REQUEST_SUPPLY = 4;
-	public static final int REQUEST_HARVEST = 5;
-	public static final int REQUEST_SHOP = 6;
+	public static final int REQUEST_ADD_ITEM = 4;
+	public static final int REQUEST_SUPPLY = 5;
+	public static final int REQUEST_HARVEST = 6;
+	public static final int REQUEST_SHOP = 7;
 	
 	private static final int FIX_SCENE_WIDTH = 480;
 	private static final int FIX_SCENE_HEIGHT = 320;
@@ -103,13 +103,13 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public void onLoadResources() {
-		BitmapTextureAtlas mDefaultFarmMapTextureAtlas = new BitmapTextureAtlas( 512, 512 );
+		BitmapTextureAtlas mDefaultFarmMapTextureAtlas = new BitmapTextureAtlas( 2048, 2048 );
 		BitmapTextureAtlas mFarmMapTextureAtlas = new BitmapTextureAtlas( 512, 256 );
 		BitmapTextureAtlas mFarmMapNotOccupyTextureAtlas = new BitmapTextureAtlas( 32, 32 );
 		BitmapTextureAtlas mCouponButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
 		BitmapTextureAtlas mSpecialCodeButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas mSoundButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas mShopButtonTextureAtlas = new BitmapTextureAtlas( 512, 128 );
+		BitmapTextureAtlas mSoundButtonTextureAtlas = new BitmapTextureAtlas( 128, 64 );
+		BitmapTextureAtlas mShopButtonTextureAtlas = new BitmapTextureAtlas( 1024, 256 );
 		
 		//Texture tile.
 		//Vege
@@ -197,7 +197,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath( "gfx/" );
 		TextureRegion mDefaultFarmMapTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mDefaultFarmMapTextureAtlas, this, "defaultFarmSprite.png", 0, 0 );
-		textureCollection.put( TextureVar.TEXTURE_FARM_DEFAULT, mDefaultFarmMapTextureRegion );
+		textureCollection.put( TextureVar.TEXTURE_FARM_MAP_DEFAULT, mDefaultFarmMapTextureRegion );
 		TextureRegion mFarmMapTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 						mFarmMapTextureAtlas, this, "T08.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_FARM, mFarmMapTextureRegion );
@@ -205,13 +205,13 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 				mFarmMapNotOccupyTextureAtlas, this, "farmNotOccupy.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_FARM_NOTOCCUPY, mFarmMapNotOccupyTextureRegion );
 		TextureRegion mCouponButtonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-						mCouponButtonTextureAtlas, this, "couponButton.png", 0, 0 );
+						mCouponButtonTextureAtlas, this, "button_coupon.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_COUPONBUTTON, mCouponButtonTextureRegion );
 		TextureRegion mSpecialCodeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-						mSpecialCodeButtonTextureAtlas, this, "specialCodeButton.png", 0, 0 );
+						mSpecialCodeButtonTextureAtlas, this, "button_code.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_SPECIALCODEBUTTON, mSpecialCodeTextureRegion );
 		TextureRegion mSoundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-						mSoundButtonTextureAtlas, this, "sound.png", 0, 0 );
+						mSoundButtonTextureAtlas, this, "button_opensound.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_SOUNDBUTTON, mSoundTextureRegion );
 		TextureRegion mShopTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 						mShopButtonTextureAtlas, this, "map_market.png", 0, 0 );
@@ -628,6 +628,9 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			if(resultCode == Activity.RESULT_OK){
 				currentPlayer.purchase( activeTile );
 				//update farmSprite
+				
+				//update player to server
+				currentPlayer.updateToServer();
 			} 
 		} else if(requestCode == REQUEST_BUILD){
 			if(resultCode == Activity.RESULT_OK){
@@ -635,7 +638,11 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 				String buildingId = app.getBuildingManager().getBuildingIdFromItemBuild( itemForBuildId );
 				Building building = app.getBuildingManager().getMatchBuilding(buildingId);
 				currentPlayer.build( activeTile, building );
+				
 				//update farmSprite
+				
+				//update player to server
+				currentPlayer.updateToServer();
 			}
 		} else if(requestCode == REQUEST_SPECIALCODE){
 			if(resultCode == Activity.RESULT_OK){
@@ -647,17 +654,23 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 				this.startActivity( intent );	
 				//add item to player
 				currentPlayer.addItemToBackpack(itemId, itemQuantity);
+				
+				//update player to server
+				currentPlayer.updateToServer();
 			}
 		} else if(requestCode == REQUEST_ADD_ITEM){
 			if(resultCode == SupplyBoxDialog.RESULT_SUPPLY){
-				currentPlayer.supply(activeTile);
+				currentPlayer.addSupply(activeTile);
 			} else if(resultCode == SupplyBoxDialog.RESULT_EXTRA1){
-				currentPlayer.extra1(activeTile);
+				currentPlayer.addExtraItem1(activeTile);
 			} else if(resultCode == SupplyBoxDialog.RESULT_EXTRA2){
-				currentPlayer.extra2(activeTile);
+				currentPlayer.addExtraItem2(activeTile);
 			} else if(resultCode == SupplyBoxDialog.RESULT_MOVE){
 				//enter move state
 			}
+			
+			//update player to server
+			currentPlayer.updateToServer();
 		} else if(requestCode == REQUEST_SHOP){
 			if(resultCode == ShopDialog.RESULT_BUY){
 				String itemId = data.getStringExtra( ShopDialog.EXTRA_ITEM_ID );
@@ -666,6 +679,9 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 				String itemId = data.getStringExtra( ShopDialog.EXTRA_ITEM_ID );
 				currentPlayer.sell( itemId, 1 );
 			}
+			
+			//update player to server
+			currentPlayer.updateToServer();
 		}
 	}
 
@@ -698,12 +714,18 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public void onSupplyRequest( Tile data ) {
 		currentPlayer.addSupply(data);
 		//display supply animation
+		
+		//update player to server
+		currentPlayer.updateToServer();
 	}
 
 	@Override
 	public void onHarvestRequest( Tile data ) {
 		currentPlayer.harvest(data);
 		//display harvest animation
+		
+		//update player to server
+		currentPlayer.updateToServer();
 	}
 
 }
