@@ -56,6 +56,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public static final int REQUEST_SUPPLY = 5;
 	public static final int REQUEST_HARVEST = 6;
 	public static final int REQUEST_SHOP = 7;
+	public static final int REQUEST_COUPON = 8;
 	
 	private static final int FIX_SCENE_WIDTH = 480;
 	private static final int FIX_SCENE_HEIGHT = 320;
@@ -589,7 +590,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public void onClick( ButtonSprite buttonSprite ) {
 		if ( buttonSprite == this.couponButton ) {
 			Intent i = new Intent( this, CouponDialog.class );
-			this.startActivity( i );
+			this.startActivityForResult( i, REQUEST_COUPON );
 		} else if ( buttonSprite == this.specialCodeButton ) {
 			Intent i = new Intent( this, SpecialCodeDialog.class );
 			this.startActivityForResult( i, REQUEST_SPECIALCODE );
@@ -682,6 +683,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			
 			//update player to server
 			currentPlayer.updateToServer();
+		} else if(requestCode == REQUEST_COUPON){
+			
 		}
 	}
 

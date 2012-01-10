@@ -11,8 +11,10 @@ import codegears.coca.data.Player;
 import codegears.coca.ui.CouponItem;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
@@ -75,11 +77,12 @@ public class CouponDialog extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if( v.equals(closeButton) ){
+			this.setResult( Activity.RESULT_CANCELED );
 			this.finish();
 		}
 	}
 	
-	private class GalleryAdapter extends BaseAdapter {
+	private class GalleryAdapter extends BaseAdapter implements OnTouchListener {
 
 		private ArrayList<CouponItem> data;
 		
@@ -123,20 +126,29 @@ public class CouponDialog extends Activity implements OnClickListener {
 			layout.addView( layoutInner2 );
 			
 			CouponItem item1 = new CouponItem(CouponDialog.this, data.get(position * 4));
+			item1.setOnTouchListener( this );
 			layoutInner1.addView( item1 );
 			if(position * 4 + 1 < data.size()){
 				CouponItem item2 = new CouponItem(CouponDialog.this, data.get(position * 4 + 1));
+				item2.setOnTouchListener( this );
 				layoutInner1.addView( item2 );
 			}
 			if(position * 4 + 2 < data.size()){
 				CouponItem item2 = new CouponItem(CouponDialog.this, data.get(position * 4 + 2));
+				item2.setOnTouchListener( this );
 				layoutInner2.addView( item2 );
 			}
 			if(position * 4 + 3 < data.size()){
 				CouponItem item2 = new CouponItem(CouponDialog.this, data.get(position * 4 + 3));
+				item2.setOnTouchListener( this );
 				layoutInner2.addView( item2 );
 			}
 			return layout;
+		}
+
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			return false;
 		}
 	}
 }
