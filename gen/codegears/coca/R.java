@@ -273,7 +273,8 @@ public final class R {
         public static final int shopitem=0x7f03000a;
         public static final int specialcodedialog=0x7f03000b;
         public static final int supplydialog=0x7f03000c;
-        public static final int tutorialdialog=0x7f03000d;
+        public static final int test=0x7f03000d;
+        public static final int tutorialdialog=0x7f03000e;
     }
     public static final class string {
         public static final int app_name=0x7f050001;

@@ -9,6 +9,7 @@ import codegears.coca.data.ItemExchangeItem;
 import codegears.coca.data.ItemManager;
 import codegears.coca.data.Player;
 import codegears.coca.ui.CouponItem;
+import codegears.coca.ui.ToggleImageButton;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -34,6 +35,7 @@ public class CouponDialog extends Activity implements OnClickListener {
 	private ImageButton closeButton;
 	private Gallery gallery;
 	private GalleryAdapter adapter;
+	private ToggleImageButton allButton;
 	
 	public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -72,6 +74,10 @@ public class CouponDialog extends Activity implements OnClickListener {
     adapter = new GalleryAdapter( );
     adapter.setData(allCouponList);
     gallery.setAdapter( adapter );
+    
+    allButton = (ToggleImageButton)this.findViewById( R.id.couponAllCouponButton );
+    allButton.setResource( R.drawable.text_allcoupons_animation01, R.drawable.text_allcoupons_animation02 );
+    allButton.setOnClickListener( this );
 	}
 
 	@Override
@@ -79,6 +85,8 @@ public class CouponDialog extends Activity implements OnClickListener {
 		if( v.equals(closeButton) ){
 			this.setResult( Activity.RESULT_CANCELED );
 			this.finish();
+		} else if(v.equals( allButton )){
+			//display all coupon
 		}
 	}
 	

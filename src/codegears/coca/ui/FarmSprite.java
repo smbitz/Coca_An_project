@@ -25,28 +25,36 @@ public class FarmSprite extends Sprite {
 	private float startedPositionX;
 	private float startedPositionY;
 	private float startedZoomFactor;
+	private boolean startTouch;
 	
 	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection){
 		super(0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT));
 		farmTileList = new ArrayList<AbstractFarmTile>();
 		purchaseTileList = new ArrayList<AbstractFarmTile>();
 		textureCollection = getTextureCollection;
+		startTouch = false;
 	}
 	
 	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY ){
 		if(pSceneTouchEvent.getPointerID() != 0){
-			System.out.println("MULTI TOUCH");
 			return false;
 		}
 		if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN){
+			System.out.println("Touch Down Farm");
 			startedMouseTouchX = pSceneTouchEvent.getX();
 			startedMouseTouchY = pSceneTouchEvent.getY();
 			startedPositionX = this.getX();
 			startedPositionY = this.getY();
+			startTouch = true;
 		} else if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_MOVE){
-			this.setPosition( startedPositionX - (startedMouseTouchX - pSceneTouchEvent.getX() ), startedPositionY - (startedMouseTouchY - pSceneTouchEvent.getY()));
+			if(startTouch){
+				this.setPosition( startedPositionX - (startedMouseTouchX - pSceneTouchEvent.getX() ), startedPositionY - (startedMouseTouchY - pSceneTouchEvent.getY()));
+			}
+		} else if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_UP){
+			System.out.println("Touch Up Farm");
+			startTouch = false;
 		}
-		return true;
+		return false;
 	}
 	
 	public void setFarmTileListener(FarmTileListener listener){
@@ -97,6 +105,58 @@ public class FarmSprite extends Sprite {
 		for(AbstractFarmTile tile:purchaseTileList){
 			this.attachChild( tile );
 		}
+	}
+	
+	public void update(Scene scene){
+		for(AbstractFarmTile tile:farmTileList){
+			this.detachChild( tile );
+			scene.unregisterTouchArea( tile );
+		}
+		farmTileList.clear();
+		for(AbstractFarmTile tile:purchaseTileList){
+			this.detachChild( tile );
+			scene.unregisterTouchArea( tile );
+		}
+		purchaseTileList.clear();
+		ArrayList<Tile> tileList = currentPlayer.getTile();
+		//---- Create FarmTile ----//
+		int setX = 0;
+		int setY = 0;
+		int loop = 0;
+		for(Tile tileData:tileList){
+			//AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ) );
+			AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection );
+			tile.setData( tileData );
+			farmTileList.add( tile );
+			if( !tileData.getIsOccupy() ){
+				int indexX = loop % 8;
+				int indexY = loop / 8;
+				if((indexX % 2 == 0) && (indexY % 2 == 0)){
+					//AbstractFarmTile purchaseTile = new PurchaseTile(setX, setY, tr );
+					AbstractFarmTile purchaseTile = FarmTileBuilder.createFarmTile(setX, setY, tileData, textureCollection);
+					purchaseTile.setData( tileData );
+					purchaseTileList.add( purchaseTile );
+				}
+			}
+			
+			//Set Tile Position
+			setX+=TextureVar.TILE_WIDTH;
+			if(setX==TextureVar.ALL_TILE_WIDTH){
+				setX = 0;
+				setY+=TextureVar.TILE_HEIGHT;
+			}
+			loop++;
+		}
+		//---- add All tile to farmMap in proper order ----//
+		for(AbstractFarmTile tile:farmTileList){
+			this.attachChild( tile );
+			scene.registerTouchArea( tile );
+		}
+		for(AbstractFarmTile tile:purchaseTileList){
+			this.attachChild( tile );
+			scene.registerTouchArea( tile );
+		}
+		this.setFarmTileListener( this.tileListener );
 	}
 
 	public void registerChildTouchArea(Scene scene){

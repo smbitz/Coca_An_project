@@ -1,9 +1,13 @@
 package codegears.coca;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.ZoomCamera;
+import org.anddev.andengine.engine.handler.timer.ITimerCallback;
+import org.anddev.andengine.engine.handler.timer.TimerHandler;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
@@ -45,6 +49,7 @@ import codegears.coca.ui.FarmTileListener;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 
 public class GameActivity extends BaseGameActivity implements ButtonListener,
 				IPinchZoomDetectorListener, IOnSceneTouchListener, FarmTileListener {
@@ -75,6 +80,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	private float mPinchZoomStartedCameraZoomFactor;
 
 	private HashMap<String, TextureRegion> textureCollection;
+	
+	private Timer myTimer;
 	
 	private MyApp app;
 	//---- Data Variable ----//
@@ -573,7 +580,23 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	}
 
 	@Override
+	public void onPause(){
+		super.onPause();
+
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+	}
+	
+	@Override
 	public void onLoadComplete() {
+		mMainScene.registerUpdateHandler( new TimerHandler( 0.1f, new ITimerCallback(){
+					public void onTimePassed(final TimerHandler handler){
+						farmMapSprite.update( mMainScene );
+					}}
+		));
 		//open newspaper
 		//if(currentPlayer.getIsNew()){
 			//open tutorial
@@ -639,10 +662,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 				String buildingId = app.getBuildingManager().getBuildingIdFromItemBuild( itemForBuildId );
 				Building building = app.getBuildingManager().getMatchBuilding(buildingId);
 				currentPlayer.build( activeTile, building );
-				
-				//update farmSprite
-				
-				//update player to server
+				farmMapSprite.update( mMainScene );
 				currentPlayer.updateToServer();
 			}
 		} else if(requestCode == REQUEST_SPECIALCODE){
