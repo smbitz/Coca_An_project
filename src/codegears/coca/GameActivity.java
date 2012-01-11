@@ -149,58 +149,58 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		//Land Animal
 		BitmapTextureAtlas tileAtlasCorralLandAnimal = new BitmapTextureAtlas( 512, 256 );
 		
-		BitmapTextureAtlas tileAtlasChicken01 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasChicken02 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasChicken03 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasChicken04 = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas tileAtlasChicken01 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasChicken02 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasChicken03 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasChicken04 = new BitmapTextureAtlas( 512, 256 );
 		
-		BitmapTextureAtlas tileAtlasPig01 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasPig02 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasPig03 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasPig04 = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas tileAtlasPig01 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasPig02 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasPig03 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasPig04 = new BitmapTextureAtlas( 512, 256 );
 		
-		BitmapTextureAtlas tileAtlasCow01 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasCow02 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasCow03 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasCow04 = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas tileAtlasCow01 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasCow02 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasCow03 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasCow04 = new BitmapTextureAtlas( 512, 256 );
 		
-		BitmapTextureAtlas tileAtlasSheep01 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasSheep02 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasSheep03 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasSheep04 = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas tileAtlasSheep01 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasSheep02 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasSheep03 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasSheep04 = new BitmapTextureAtlas( 512, 256 );
 		
-		BitmapTextureAtlas tileAtlasOstrich01 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasOstrich02 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasOstrich03 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasOstrich04 = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas tileAtlasOstrich01 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasOstrich02 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasOstrich03 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasOstrich04 = new BitmapTextureAtlas( 512, 256 );
 		
 		//Sea Animal
 		BitmapTextureAtlas tileAtlasCorralSeaAnimal = new BitmapTextureAtlas( 512, 256 );
 		
-		BitmapTextureAtlas tileAtlasFish01 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasFish02 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasFish03 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasFish04 = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas tileAtlasFish01 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasFish02 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasFish03 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasFish04 = new BitmapTextureAtlas( 512, 256 );
 		
-		BitmapTextureAtlas tileAtlasSquid01 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasSquid02 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasSquid03 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasSquid04 = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas tileAtlasSquid01 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasSquid02 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasSquid03 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasSquid04 = new BitmapTextureAtlas( 512, 256 );
 		
-		BitmapTextureAtlas tileAtlasScallops01 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasScallops02 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasScallops03 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasScallops04 = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas tileAtlasScallops01 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasScallops02 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasScallops03 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasScallops04 = new BitmapTextureAtlas( 512, 256 );
 		
-		BitmapTextureAtlas tileAtlasShrimp01 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasShrimp02 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasShrimp03 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasShrimp04 = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas tileAtlasShrimp01 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasShrimp02 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasShrimp03 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasShrimp04 = new BitmapTextureAtlas( 512, 256 );
 		
-		BitmapTextureAtlas tileAtlasOyster01 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasOyster02 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasOyster03 = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas tileAtlasOyster04 = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas tileAtlasOyster01 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasOyster02 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasOyster03 = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas tileAtlasOyster04 = new BitmapTextureAtlas( 512, 256 );
 		
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath( "gfx/" );
 		TextureRegion mDefaultFarmMapTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
@@ -298,68 +298,68 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		textureCollection.put( TextureVar.TEXTURE_TILE_CORRAL_LAND_ANIMAL ,tileRegionCorralLandAnimal );
 		
 		TextureRegion tileRegionChicken01 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasChicken01, this, "60.png", 0, 0 );
+				tileAtlasChicken01, this, "t_60_1_0_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_CHIKEN_01 ,tileRegionChicken01 );
 		TextureRegion tileRegionChicken02 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasChicken02, this, "60.png", 0, 0 );
+				tileAtlasChicken02, this, "t_60_1_1_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_CHIKEN_02 ,tileRegionChicken02 );
 		TextureRegion tileRegionChicken03 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasChicken03, this, "60.png", 0, 0 );
+				tileAtlasChicken03, this, "t_60_1_2_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_CHIKEN_03 ,tileRegionChicken03 );
 		TextureRegion tileRegionChicken04 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasChicken04, this, "60.png", 0, 0 );
+				tileAtlasChicken04, this, "t_60_1_3_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_CHIKEN_04 ,tileRegionChicken04 );
 		
 		TextureRegion tileRegionPig01 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasPig01, this, "60.png", 0, 0 );
+				tileAtlasPig01, this, "t_70_1_0_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_PIG_01 ,tileRegionPig01 );
 		TextureRegion tileRegionPig02 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasPig02, this, "60.png", 0, 0 );
+				tileAtlasPig02, this, "t_70_1_1_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_PIG_02 ,tileRegionPig02 );
 		TextureRegion tileRegionPig03 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasPig03, this, "60.png", 0, 0 );
+				tileAtlasPig03, this, "t_70_1_2_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_PIG_03 ,tileRegionPig03 );
 		TextureRegion tileRegionPig04 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasPig04, this, "60.png", 0, 0 );
+				tileAtlasPig04, this, "t_70_1_3_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_PIG_04 ,tileRegionPig04 );
 		
 		TextureRegion tileRegionCow01 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasCow01, this, "60.png", 0, 0 );
+				tileAtlasCow01, this, "t_80_1_0_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_COW_01 ,tileRegionCow01 );
 		TextureRegion tileRegionCow02 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasCow02, this, "60.png", 0, 0 );
+				tileAtlasCow02, this, "t_80_1_1_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_COW_02 ,tileRegionCow02 );
 		TextureRegion tileRegionCow03 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasCow03, this, "60.png", 0, 0 );
+				tileAtlasCow03, this, "t_80_1_2_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_COW_03 ,tileRegionCow03 );
 		TextureRegion tileRegionCow04 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasCow04, this, "60.png", 0, 0 );
+				tileAtlasCow04, this, "t_80_1_3_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_COW_04 ,tileRegionCow04 );
 		
 		TextureRegion tileRegionSheep01 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasSheep01, this, "60.png", 0, 0 );
+				tileAtlasSheep01, this, "t_90_1_0_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SHEEP_01 ,tileRegionSheep01 );
 		TextureRegion tileRegionSheep02 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasSheep02, this, "60.png", 0, 0 );
+				tileAtlasSheep02, this, "t_90_1_1_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SHEEP_02 ,tileRegionSheep02 );
 		TextureRegion tileRegionSheep03 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasSheep03, this, "60.png", 0, 0 );
+				tileAtlasSheep03, this, "t_90_1_2_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SHEEP_03 ,tileRegionSheep03 );
 		TextureRegion tileRegionSheep04 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasSheep04, this, "60.png", 0, 0 );
+				tileAtlasSheep04, this, "t_90_1_3_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SHEEP_04 ,tileRegionSheep04 );
 		
 		TextureRegion tileRegionOstrich01 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasOstrich01, this, "60.png", 0, 0 );
+				tileAtlasOstrich01, this, "t_100_1_0_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_OSTRICH_01 ,tileRegionOstrich01 );
 		TextureRegion tileRegionOstrich02 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasOstrich02, this, "60.png", 0, 0 );
+				tileAtlasOstrich02, this, "t_100_1_1_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_OSTRICH_02 ,tileRegionOstrich02 );
 		TextureRegion tileRegionOstrich03 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasOstrich03, this, "60.png", 0, 0 );
+				tileAtlasOstrich03, this, "t_100_1_2_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_OSTRICH_03 ,tileRegionOstrich03 );
 		TextureRegion tileRegionOstrich04 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasOstrich04, this, "60.png", 0, 0 );
+				tileAtlasOstrich04, this, "t_100_1_3_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_OSTRICH_04 ,tileRegionOstrich04 );
 
 		//Sea Animal
@@ -368,68 +368,68 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		textureCollection.put( TextureVar.TEXTURE_TILE_CORRAL_SEA_ANIMAL ,tileRegionCorralSeaAnimal );
 		
 		TextureRegion tileRegionFish01 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasFish01, this, "60.png", 0, 0 );
+				tileAtlasFish01, this, "t_110_1_0_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_FISH_01 ,tileRegionFish01 );
 		TextureRegion tileRegionFish02 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasFish02, this, "60.png", 0, 0 );
+				tileAtlasFish02, this, "t_110_1_1_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_FISH_02 ,tileRegionFish02 );
 		TextureRegion tileRegionFish03 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasFish03, this, "60.png", 0, 0 );
+				tileAtlasFish03, this, "t_110_1_2_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_FISH_03 ,tileRegionFish03 );
 		TextureRegion tileRegionFish04 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasFish04, this, "60.png", 0, 0 );
+				tileAtlasFish04, this, "t_110_1_3_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_FISH_04 ,tileRegionFish04 );
 		
 		TextureRegion tileRegionSquid01 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasSquid01, this, "60.png", 0, 0 );
+				tileAtlasSquid01, this, "t_120_1_0_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SQUID_01 ,tileRegionSquid01 );
 		TextureRegion tileRegionSquid02 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasSquid02, this, "60.png", 0, 0 );
+				tileAtlasSquid02, this, "t_120_1_1_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SQUID_02 ,tileRegionSquid02 );
 		TextureRegion tileRegionSquid03 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasSquid03, this, "60.png", 0, 0 );
+				tileAtlasSquid03, this, "t_120_1_2_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SQUID_03 ,tileRegionSquid03 );
 		TextureRegion tileRegionSquid04 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasSquid04, this, "60.png", 0, 0 );
+				tileAtlasSquid04, this, "t_120_1_3_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SQUID_04 ,tileRegionSquid04 );
 		
 		TextureRegion tileRegionScallops01 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasScallops01, this, "60.png", 0, 0 );
+				tileAtlasScallops01, this, "t_130_1_0_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SCALLOPS_01 ,tileRegionScallops01 );
 		TextureRegion tileRegionScallops02 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasScallops02, this, "60.png", 0, 0 );
+				tileAtlasScallops02, this, "t_130_1_1_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SCALLOPS_02 ,tileRegionScallops02 );
 		TextureRegion tileRegionScallops03 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasScallops03, this, "60.png", 0, 0 );
+				tileAtlasScallops03, this, "t_130_1_2_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SCALLOPS_03 ,tileRegionScallops03 );
 		TextureRegion tileRegionScallops04 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasScallops04, this, "60.png", 0, 0 );
+				tileAtlasScallops04, this, "t_130_1_3_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SCALLOPS_04 ,tileRegionScallops04 );
 		
 		TextureRegion tileRegionShrimp01 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasShrimp01, this, "60.png", 0, 0 );
+				tileAtlasShrimp01, this, "t_140_1_0_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SHRIMP_01 ,tileRegionShrimp01 );
 		TextureRegion tileRegionShrimp02 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasShrimp02, this, "60.png", 0, 0 );
+				tileAtlasShrimp02, this, "t_140_1_1_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SHRIMP_02 ,tileRegionShrimp02 );
 		TextureRegion tileRegionShrimp03 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasShrimp03, this, "60.png", 0, 0 );
+				tileAtlasShrimp03, this, "t_140_1_2_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SHRIMP_03 ,tileRegionShrimp03 );
 		TextureRegion tileRegionShrimp04 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasShrimp04, this, "60.png", 0, 0 );
+				tileAtlasShrimp04, this, "t_140_1_3_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_SHRIMP_04 ,tileRegionShrimp04 );
 		
 		TextureRegion tileRegionOyster01 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasOyster01, this, "60.png", 0, 0 );
+				tileAtlasOyster01, this, "t_150_1_0_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_OYSTER_01 ,tileRegionOyster01 );
 		TextureRegion tileRegionOyster02 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasOyster02, this, "60.png", 0, 0 );
+				tileAtlasOyster02, this, "t_150_1_1_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_OYSTER_02 ,tileRegionOyster02 );
 		TextureRegion tileRegionOyster03 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasOyster03, this, "60.png", 0, 0 );
+				tileAtlasOyster03, this, "t_150_1_2_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_OYSTER_03 ,tileRegionOyster03 );
 		TextureRegion tileRegionOyster04 = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				tileAtlasOyster04, this, "60.png", 0, 0 );
+				tileAtlasOyster04, this, "t_150_1_3_hd.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_TILE_OYSTER_04 ,tileRegionOyster04 );
 		
 		this.mEngine.getTextureManager().loadTexture( mDefaultFarmMapTextureAtlas );
