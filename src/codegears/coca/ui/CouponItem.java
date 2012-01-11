@@ -25,6 +25,10 @@ public class CouponItem extends LinearLayout {
 		this.setData( clone.id, clone.state );
 	}
 	
+	public int getState(){
+		return state;
+	}
+	
 	public void setData(String id, int state){
 		this.id = id;
 		this.state = state;

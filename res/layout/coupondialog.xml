@@ -27,17 +27,17 @@
 				android:src="@drawable/text_allcoupons_animation02"
 				android:background="@null" />
 
-			<ImageButton android:id="@+id/couponAvilableButton"
+			<codegears.coca.ui.ToggleImageButton android:id="@+id/couponAvilableButton"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:src="@drawable/text_available_animation02"
 				android:background="@null" />
 
-			<ImageButton android:id="@+id/couponUnavialbleButton"
+			<codegears.coca.ui.ToggleImageButton android:id="@+id/couponUnavialbleButton"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:src="@drawable/text_unavialble_animation02"
 				android:background="@null" />
 
-			<ImageButton android:id="@+id/couponMycouponsButton"
+			<codegears.coca.ui.ToggleImageButton android:id="@+id/couponMycouponsButton"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:src="@drawable/text_mycoupons_animation02"
 				android:background="@null" />

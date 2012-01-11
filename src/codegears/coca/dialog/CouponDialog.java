@@ -36,6 +36,10 @@ public class CouponDialog extends Activity implements OnClickListener {
 	private Gallery gallery;
 	private GalleryAdapter adapter;
 	private ToggleImageButton allButton;
+	private ToggleImageButton availableButton;
+	private ToggleImageButton unavailableButton;
+	private ToggleImageButton myCouponButton;
+	
 	
 	public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -76,8 +80,18 @@ public class CouponDialog extends Activity implements OnClickListener {
     gallery.setAdapter( adapter );
     
     allButton = (ToggleImageButton)this.findViewById( R.id.couponAllCouponButton );
-    allButton.setResource( R.drawable.text_allcoupons_animation01, R.drawable.text_allcoupons_animation02 );
+    allButton.setResource( R.drawable.text_allcoupons_animation02, R.drawable.text_allcoupons_animation01 );
     allButton.setOnClickListener( this );
+    allButton.setChecked( true );
+    availableButton = (ToggleImageButton)this.findViewById( R.id.couponAvilableButton );
+    availableButton.setResource( R.drawable.text_available_animation02, R.drawable.text_available_animation01 );
+    availableButton.setOnClickListener( this );
+    unavailableButton = (ToggleImageButton)this.findViewById( R.id.couponUnavialbleButton );
+    unavailableButton.setResource( R.drawable.text_unavialble_animation02, R.drawable.text_unavialble_animation01 );
+    unavailableButton.setOnClickListener( this );
+    myCouponButton = (ToggleImageButton)this.findViewById( R.id.couponMycouponsButton );
+    myCouponButton.setResource( R.drawable.text_mycoupons_animation02, R.drawable.text_mycoupons_animation01 );
+    myCouponButton.setOnClickListener( this );
 	}
 
 	@Override
@@ -86,11 +100,46 @@ public class CouponDialog extends Activity implements OnClickListener {
 			this.setResult( Activity.RESULT_CANCELED );
 			this.finish();
 		} else if(v.equals( allButton )){
-			//display all coupon
+			allButton.setChecked( true );
+			availableButton.setChecked( false );
+			unavailableButton.setChecked( false );
+			myCouponButton.setChecked( false );
+	    adapter.setData(allCouponList);
+	    adapter.notifyDataSetChanged();
+		} else if(v.equals( unavailableButton )){
+			allButton.setChecked( false );
+			availableButton.setChecked( false );
+			unavailableButton.setChecked( true );
+			myCouponButton.setChecked( false );
+	    adapter.setData(unavailableList);
+	    adapter.notifyDataSetChanged();
+		} else if(v.equals( availableButton )){
+			allButton.setChecked( false );
+			availableButton.setChecked( true );
+			unavailableButton.setChecked( false );
+			myCouponButton.setChecked( false );
+	    adapter.setData(availableList);
+	    adapter.notifyDataSetChanged();
+		} else if(v.equals( myCouponButton )){
+			allButton.setChecked( false );
+			availableButton.setChecked( false );
+			unavailableButton.setChecked( false );
+			myCouponButton.setChecked( true );
+	    adapter.setData(myCouponList);
+	    adapter.notifyDataSetChanged();
+		} else {
+			if(v instanceof CouponItem){
+				CouponItem item = (CouponItem)v;
+				if(item.getState() == CouponItem.STATE_AVAILABLE){
+					//exchange
+				} else if(item.getState() == CouponItem.STATE_MYCOUPON){
+					//view code
+				}
+			}
 		}
 	}
 	
-	private class GalleryAdapter extends BaseAdapter implements OnTouchListener {
+	private class GalleryAdapter extends BaseAdapter {
 
 		private ArrayList<CouponItem> data;
 		
@@ -134,29 +183,25 @@ public class CouponDialog extends Activity implements OnClickListener {
 			layout.addView( layoutInner2 );
 			
 			CouponItem item1 = new CouponItem(CouponDialog.this, data.get(position * 4));
-			item1.setOnTouchListener( this );
+			item1.setOnClickListener( CouponDialog.this );
 			layoutInner1.addView( item1 );
 			if(position * 4 + 1 < data.size()){
 				CouponItem item2 = new CouponItem(CouponDialog.this, data.get(position * 4 + 1));
-				item2.setOnTouchListener( this );
+				item2.setOnClickListener( CouponDialog.this );
 				layoutInner1.addView( item2 );
 			}
 			if(position * 4 + 2 < data.size()){
 				CouponItem item2 = new CouponItem(CouponDialog.this, data.get(position * 4 + 2));
-				item2.setOnTouchListener( this );
+				item2.setOnClickListener( CouponDialog.this );
 				layoutInner2.addView( item2 );
 			}
 			if(position * 4 + 3 < data.size()){
 				CouponItem item2 = new CouponItem(CouponDialog.this, data.get(position * 4 + 3));
-				item2.setOnTouchListener( this );
+				item2.setOnClickListener( CouponDialog.this );
 				layoutInner2.addView( item2 );
 			}
 			return layout;
 		}
 
-		@Override
-		public boolean onTouch(View v, MotionEvent event) {
-			return false;
-		}
 	}
 }

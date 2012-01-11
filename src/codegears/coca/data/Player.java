@@ -64,6 +64,7 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 	private ArrayList<Tile> tileList;
 	private ArrayList<ItemQuantityPair> backpack;
 	private MyApp app;
+	private long lastUpdateTime;
 
 	public Player(MyApp app){
 		this.app = app;
@@ -541,5 +542,15 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 
 	@Override
 	public void onNetworkThreadFail( String referenceKey ) {
+	}
+	
+	
+	public void start(long startTime){
+		lastUpdateTime = startTime;
+	}
+	
+	public void update(long currentTime){
+		int elapse = (int)(currentTime - lastUpdateTime);
+		lastUpdateTime = currentTime;
 	}
 }

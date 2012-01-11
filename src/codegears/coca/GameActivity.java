@@ -578,23 +578,14 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 		return mMainScene;
 	}
-
-	@Override
-	public void onPause(){
-		super.onPause();
-
-	}
-	
-	@Override
-	public void onResume(){
-		super.onResume();
-	}
 	
 	@Override
 	public void onLoadComplete() {
+		currentPlayer.start(System.currentTimeMillis());
 		mMainScene.registerUpdateHandler( new TimerHandler( 0.1f, new ITimerCallback(){
 					public void onTimePassed(final TimerHandler handler){
 						farmMapSprite.update( mMainScene );
+						currentPlayer.update(System.currentTimeMillis());
 					}}
 		));
 		//open newspaper
