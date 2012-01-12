@@ -56,7 +56,12 @@ public class CouponDialog extends Activity implements OnClickListener {
     	CouponItem cItem = new CouponItem(this);
     	boolean enoughItemToExchange = true;
     	for(ItemExchangeItem exchangeItem:coupon.getExchangeItem()){
-    		if(currentPlayer.searchBackpackItem( exchangeItem.getId() ) < exchangeItem.getQuantity()){
+    		int searchBackpackId = currentPlayer.searchBackpackItem( exchangeItem.getId() );
+    		if(searchBackpackId>=0){
+    			if(currentPlayer.getBackpack().get( searchBackpackId ).getQuantity() < exchangeItem.getQuantity()){
+      			enoughItemToExchange = false;
+      		}
+    		}else{
     			enoughItemToExchange = false;
     		}
     	}
