@@ -190,7 +190,8 @@ public final class R {
         public static final int couponMycouponsButton=0x7f060014;
         public static final int couponUnavialbleButton=0x7f060013;
         public static final int frameLayout1=0x7f06000c;
-        public static final int frameLayout2=0x7f06005d;
+        public static final int frameLayout2=0x7f06005e;
+        public static final int gallery1=0x7f06005c;
         public static final int imageView1=0x7f060021;
         public static final int itemGetCloseButton=0x7f06002c;
         public static final int itemGetFertilizerA=0x7f060025;
@@ -262,16 +263,16 @@ public final class R {
         public static final int supplyMoveItem=0x7f06005a;
         public static final int supplySupplyPeriod=0x7f06004e;
         public static final int textView1=0x7f06002d;
-        public static final int tutorialBackButton=0x7f060064;
-        public static final int tutorialCloseButton=0x7f06005c;
-        public static final int tutorialNextButton=0x7f060065;
-        public static final int tutorialText=0x7f060066;
-        public static final int tutrialPage1=0x7f06005e;
-        public static final int tutrialPage2=0x7f06005f;
-        public static final int tutrialPage3=0x7f060060;
-        public static final int tutrialPage4=0x7f060061;
-        public static final int tutrialPage5=0x7f060062;
-        public static final int tutrialPage6=0x7f060063;
+        public static final int tutorialBackButton=0x7f060065;
+        public static final int tutorialCloseButton=0x7f06005d;
+        public static final int tutorialNextButton=0x7f060066;
+        public static final int tutorialText=0x7f060067;
+        public static final int tutrialPage1=0x7f06005f;
+        public static final int tutrialPage2=0x7f060060;
+        public static final int tutrialPage3=0x7f060061;
+        public static final int tutrialPage4=0x7f060062;
+        public static final int tutrialPage5=0x7f060063;
+        public static final int tutrialPage6=0x7f060064;
     }
     public static final class layout {
         public static final int builddialog=0x7f030000;

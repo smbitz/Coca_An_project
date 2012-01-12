@@ -8,7 +8,9 @@ import codegears.coca.data.Player;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,11 +37,13 @@ public class CouponItem extends LinearLayout {
 	
 	private String id;
 	private int state;
+	private boolean clickCheck;
 	
 	public CouponItem( Context context ) {
 		super( context );
 		View.inflate(context, R.layout.couponitem, this);
 		
+		clickCheck = false;
 		app = (MyApp) context.getApplicationContext();
 		iManager = app.getItemManager();
 		currentPlayer = app.getCurrentPlayer();
@@ -58,6 +62,21 @@ public class CouponItem extends LinearLayout {
 		couponItemCurrentQuantity.setTypeface(setFont);
 		couponItemRequireQuantity.setTextColor(Color.BLACK);
 		couponItemRequireQuantity.setTypeface(setFont);
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event){
+		super.onTouchEvent( event );
+		if(event.getAction() == MotionEvent.ACTION_DOWN){
+			clickCheck = true;
+			return true;
+		}
+		if(event.getAction() == MotionEvent.ACTION_UP){
+			if(clickCheck){
+				clickCheck = false;
+			}
+		}
+		return false;
 	}
 	
 	public CouponItem( Context context, CouponItem clone){
@@ -276,5 +295,7 @@ public class CouponItem extends LinearLayout {
 			}
 		} 
 	}
+
+
 
 }

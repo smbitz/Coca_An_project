@@ -134,6 +134,7 @@ public class CouponDialog extends Activity implements OnClickListener {
 	    adapter.notifyDataSetChanged();
 		} else {
 			if(v instanceof CouponItem){
+				System.out.println("Coupon Click");
 				CouponItem item = (CouponItem)v;
 				if(item.getState() == CouponItem.STATE_AVAILABLE){
 					//exchange

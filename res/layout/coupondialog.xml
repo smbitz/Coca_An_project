@@ -53,9 +53,8 @@
 				android:orientation="horizontal">
 			</LinearLayout>
 		</HorizontalScrollView>
-		<Gallery android:layout_height="wrap_content" android:id="@+id/Gallery"
-			android:layout_width="fill_parent" android:layout_weight="1"></Gallery>
-
+		<codegears.coca.ui.InterceptTouchGallery android:layout_height="wrap_content" android:id="@+id/Gallery"
+			android:layout_width="fill_parent" android:layout_weight="1" />
 		<LinearLayout android:id="@+id/linearLayout4"
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
 			android:orientation="vertical" android:layout_weight="1">
