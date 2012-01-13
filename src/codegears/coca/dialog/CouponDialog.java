@@ -11,6 +11,7 @@ import codegears.coca.data.Player;
 import codegears.coca.ui.CouponItem;
 import codegears.coca.ui.ToggleImageButton;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -138,6 +139,9 @@ public class CouponDialog extends Activity implements OnClickListener {
 				CouponItem item = (CouponItem)v;
 				if(item.getState() == CouponItem.STATE_AVAILABLE){
 					//exchange
+					Intent newIntent = new Intent( this, CouponItemExchangeDialog.class );
+					newIntent.putExtra( CouponItemExchangeDialog.COUPON_ITEM_ID, item.getCouponId() );
+					startActivity( newIntent );
 				} else if(item.getState() == CouponItem.STATE_MYCOUPON){
 					//view code
 				}

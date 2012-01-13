@@ -90,6 +90,12 @@ public static final String TEXTURE_TILE_CORRAL_SEA_ANIMAL = "TEXTURE_TILE_CORRAL
 	public static final String TEXTURE_TILE_OYSTER_03 = "TEXTURE_TILE_OYSTER_03";
 	public static final String TEXTURE_TILE_OYSTER_04 = "TEXTURE_TILE_OYSTER_04";
 	
+	public static final String TEXTURE_STATUS_BAR = "TEXTURE_STATUS_BAR";
+	public static final String TEXTURE_STATUS_BAR_MONEY = "TEXTURE_STATUS_BAR_MONEY";
+	public static final String TEXTURE_STATUS_BAR_EXP = "TEXTURE_STATUS_BAR_EXP";
+	public static final String TEXTURE_STATUS_BAR_NUMBER_LEVEL = "TEXTURE_STATUS_BAR_NUMBER_LEVEL";
+	public static final String TEXTURE_NUMBER_LEVEL_UP = "TEXTURE_NUMBER_LEVEL_UP";
+	
 	public static final int TILE_WIDTH = 200;
 	public static final int TILE_HEIGHT = 200;
 	public static final int ALL_TILE_WIDTH = 1600;

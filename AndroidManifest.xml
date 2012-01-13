@@ -26,7 +26,8 @@
 		<activity android:name=".dialog.TutorialDialog" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
 		<activity android:name=".dialog.PurchaseDialog" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
 		<activity android:name=".dialog.ItemGetDialog" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
-		<activity android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:name=".dialog.CouponItemGetDialog"></activity>
+		<activity android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" android:name=".dialog.CouponItemExchangeDialog"></activity>
+		<activity android:name=".dialog.CouponItemGetDialog" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
 	</application>
 
 </manifest>

@@ -26,6 +26,13 @@ public class LoadResource {
 		BitmapTextureAtlas mSoundButtonTextureAtlas = new BitmapTextureAtlas( 128, 64 );
 		BitmapTextureAtlas mShopButtonTextureAtlas = new BitmapTextureAtlas( 1024, 256 );
 		
+		//Status Bar
+		BitmapTextureAtlas mStatusBarTextureAtlas = new BitmapTextureAtlas( 512, 128 );
+		BitmapTextureAtlas mStatusBarMoneyTextureAtlas = new BitmapTextureAtlas( 256, 64 );
+		BitmapTextureAtlas mStatusBarExpTextureAtlas = new BitmapTextureAtlas( 256, 8 );
+		BitmapTextureAtlas mStatusNumberLevelTextureAtlas = new BitmapTextureAtlas( 512, 64 );
+		BitmapTextureAtlas mNumberLevelUpTextureAtlas = new BitmapTextureAtlas( 1024, 128 );
+		
 		//Texture tile.
 		//Vege
 		BitmapTextureAtlas tileAtlasMorningGlory01 = new BitmapTextureAtlas( 512, 256 );
@@ -131,6 +138,23 @@ public class LoadResource {
 		TextureRegion mShopTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 						mShopButtonTextureAtlas, context, "map_market.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_SHOPBUTTON, mShopTextureRegion );
+		
+		//Texture Status Bar
+		TextureRegion statusBar = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mStatusBarTextureAtlas, context, "controller_name.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_STATUS_BAR ,statusBar );
+		TextureRegion statusBarMoney = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mStatusBarMoneyTextureAtlas, context, "controller_monney.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_STATUS_BAR_MONEY ,statusBarMoney );
+		TextureRegion statusBarExp = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mStatusBarExpTextureAtlas, context, "bar_exp.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_STATUS_BAR_EXP ,statusBarExp );
+		TextureRegion statusBarNumberLevel = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mStatusNumberLevelTextureAtlas, context, "number_controller_level.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_STATUS_BAR_NUMBER_LEVEL ,statusBarNumberLevel );
+		TextureRegion statusLevelUp = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mNumberLevelUpTextureAtlas, context, "number_popup_level.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_NUMBER_LEVEL_UP ,statusLevelUp );
 		
 	  //Texture tile.
 		//Vege
@@ -346,6 +370,13 @@ public class LoadResource {
 		engine.getTextureManager().loadTexture( mSpecialCodeButtonTextureAtlas );
 		engine.getTextureManager().loadTexture( mSoundButtonTextureAtlas );
 		engine.getTextureManager().loadTexture( mShopButtonTextureAtlas );
+		
+		//Texture Status Bar
+		engine.getTextureManager().loadTexture( mStatusBarTextureAtlas );
+		engine.getTextureManager().loadTexture( mStatusBarMoneyTextureAtlas );
+		engine.getTextureManager().loadTexture( mStatusBarExpTextureAtlas );
+		engine.getTextureManager().loadTexture( mStatusNumberLevelTextureAtlas );
+		engine.getTextureManager().loadTexture( mNumberLevelUpTextureAtlas );
 		
 		//Texture tile.
 		//Vege

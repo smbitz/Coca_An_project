@@ -5,6 +5,7 @@ import codegears.coca.R;
 import codegears.coca.data.ItemExchangeItem;
 import codegears.coca.data.ItemManager;
 import codegears.coca.data.Player;
+import android.R.string;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -23,6 +24,8 @@ public class CouponItem extends LinearLayout {
 	
 	private static final String FONT_POSITION = "font/DB_HelvethaicaMon_X_Med_v3.2.ttf";
 	private static final String TEXT_IN_COUPON = "ต้องการไอเทม\n";
+	private static final String EXCHANGE_TEXT_COUPON_1 = "สามารถนำไปแลก\n";
+	private static final String EXCHANGE_TEXT_COUPON_2 = "ได้ที่โคคาสุกี้";
 	
 	private LinearLayout couponBackground;
 	private ImageView couponStatusImage;
@@ -86,6 +89,10 @@ public class CouponItem extends LinearLayout {
 	
 	public int getState(){
 		return state;
+	}
+	
+	public String getCouponId(){
+		return id;
 	}
 	
 	public void setData(String id, int state){
@@ -261,37 +268,85 @@ public class CouponItem extends LinearLayout {
 			}
 		}else if( state == STATE_MYCOUPON ){
 			couponBackground.setBackgroundResource(R.drawable.coupons_my_hd);
+			couponItemCurrentQuantity.setVisibility( couponItemCurrentQuantity.INVISIBLE );
+			couponStatusImage.setImageResource( R.drawable.text_available_hd );
+			couponItemRequireQuantity.setTextColor( R.color.orange );
 			
 			if( id.equals(ItemManager.ITEM_ID_MORNING_GLORY_COUPON ) ){
-				
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_MORNING_GLORY ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid160 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_CHINESE_CABBAGE_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_CHINESE_CABBAGE ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid170 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_PUMPKIN_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_PUMPKIN ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid180 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_BABY_CORN_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_BABY_CORN ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid190 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_STRAW_MUSHROOMS_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_STRAW_MUSHROOMS ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid200 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_CHICKEN_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_CHICKEN ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid210 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_PIG_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_PIG ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid220 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_COW_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_COW ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid230 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_SHEEP_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_SHEEP ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid240 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_OSTRICH_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_OSTRICH ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid250 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_FISH_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_FISH ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid260 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_SQUID_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_SQUID ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid270 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_SCALLOPS_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_SCALLOPS ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid280 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_SHRIMP_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_SHRIMP ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid290 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}else if( id.equals(ItemManager.ITEM_ID_OYSTER_COUPON ) ){
-
+				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_OYSTER ).getName();
+				couponItemImage.setImageResource( R.drawable.itemid300 );
+				couponItemName.setText( itemName );
+				couponItemRequireQuantity.setText( EXCHANGE_TEXT_COUPON_1+itemName+EXCHANGE_TEXT_COUPON_2 );
 			}
 		} 
 	}
