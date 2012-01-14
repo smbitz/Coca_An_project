@@ -26,6 +26,8 @@ import android.widget.LinearLayout;
 
 public class CouponDialog extends Activity implements OnClickListener {
 	
+	public static final int REQUEST_COUPON_OK = 2;
+	
 	private ArrayList<CouponItem> allCouponList;
 	private ArrayList<CouponItem> availableList;
 	private ArrayList<CouponItem> unavailableList;

@@ -1,11 +1,19 @@
 package codegears.coca.dialog;
 
+import java.util.HashMap;
+
+import org.w3c.dom.Document;
+
 import codegears.coca.MyApp;
 import codegears.coca.R;
 import codegears.coca.data.ItemExchangeItem;
 import codegears.coca.data.ItemManager;
 import codegears.coca.data.Player;
+import codegears.coca.util.NetworkThreadUtil;
+import codegears.coca.util.NetworkUtil;
+import codegears.coca.util.NetworkThreadUtil.NetworkThreadListener;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,11 +23,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CouponItemExchangeDialog extends Activity implements OnClickListener {
+public class CouponItemExchangeDialog extends Activity implements OnClickListener, NetworkThreadListener {
 
 	public static final String COUPON_ITEM_ID = "COUPON_ITEM_ID";
 	private static final String TEXT_IN_COUPON = "ต้องการไอเทม\n";
 	private static final String FONT_POSITION = "font/DB_HelvethaicaMon_X_Med_v3.2.ttf";
+	private static final String GENERATE_COUPON_URL = "GENERATE_COUPON_URL";
+	public static final String PUT_COUPON_CODE = "PUT_COUPON_CODE";
+	public static final String PUT_COUPON_ID = "PUT_COUPON_ID";
 	
 	private ImageView couponItemImage;
 	private TextView couponItemCurrentQuantity;
@@ -32,6 +43,7 @@ public class CouponItemExchangeDialog extends Activity implements OnClickListene
 	private MyApp app;
 	private ItemManager iManager;
 	private Player currentPlayer;
+	private String couponItemId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +54,7 @@ public class CouponItemExchangeDialog extends Activity implements OnClickListene
 		iManager = app.getItemManager();
 		currentPlayer = app.getCurrentPlayer();
 		
-		String couponItemId = this.getIntent().getExtras().get( COUPON_ITEM_ID ).toString();
+		couponItemId = this.getIntent().getExtras().get( COUPON_ITEM_ID ).toString();
 		
 		couponItemImage = (ImageView) findViewById( R.id.couponItemExchangeImage );
 		couponItemCurrentQuantity = (TextView) findViewById( R.id.couponItemExchangeCurrentQuantity );
@@ -148,11 +160,48 @@ public class CouponItemExchangeDialog extends Activity implements OnClickListene
 	
 	@Override
 	public void onClick(View v) {
-		if( v.equals( couponCancleButton ) ){
+		if( v.equals( couponOkButton ) ){
+			HashMap< String, String > dataMap = new HashMap<String, String>();
+			dataMap.put( "facebook_id", app.getFacebookId() );
+			dataMap.put( "item_id", couponItemId );
+			String postData = NetworkUtil.createPostData( dataMap );
+			NetworkThreadUtil.getRawData( app.getConfig().get( GENERATE_COUPON_URL ).toString(),
+					postData, this );
 			this.finish();
-		}else if( v.equals( couponOkButton ) ){
+		}else if( v.equals( couponCancleButton ) ){
+			this.setResult( Activity.RESULT_CANCELED );
 			this.finish();
 		}
+	}
+
+	@Override
+	public void onNetworkDocSuccess(String urlString, Document document) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onNetworkRawSuccess(String urlString, String result) {
+		// if return success
+		if ( !result.equals( "fail" ) ) {
+			String[] returnData = result.split( "," );
+			String couponCode = returnData[0];
+			String couponId = returnData[1];
+			Intent newIntent = new Intent( this, CouponItemGetDialog.class );
+			newIntent.putExtra( PUT_COUPON_CODE, couponCode );
+			newIntent.putExtra( PUT_COUPON_ID, couponId );
+			this.setResult( Activity.RESULT_OK, newIntent );
+			startActivity( newIntent );
+		} else if ( result.equals( "fail" ) ) {
+			// else if return fail
+			// display error message
+		}
+	}
+
+	@Override
+	public void onNetworkFail(String urlString) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

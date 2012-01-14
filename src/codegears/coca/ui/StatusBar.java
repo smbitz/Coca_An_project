@@ -20,11 +20,19 @@ public class StatusBar extends Sprite {
 	private float exp;	//0 - 1
 	
 	private Sprite levelBitmap;
+	private Sprite statusBarBitmap;
+	private Sprite moneyBarBitmap;
 	private ChangeableText nameText;
 	private Sprite expBar;
 	
 	public StatusBar( float pX, float pY, HashMap<String, TextureRegion> textureCollection, HashMap<String, Font> fontCollection ) {
 		super( pX, pY, textureCollection.get( TextureVar.TEXTURE_TILE_CHIKEN_01 ) );
+		//create status bar
+		statusBarBitmap = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR ));
+		this.attachChild( statusBarBitmap );
+		//create status bar
+		moneyBarBitmap = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR_MONEY ));
+		this.attachChild( moneyBarBitmap );
 		//create level bitmap
 		levelBitmap = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_TILE_BABY_CORN_01 ));
 		this.attachChild( levelBitmap );
@@ -32,7 +40,7 @@ public class StatusBar extends Sprite {
 		nameText = new ChangeableText(0, 0, fontCollection.get( "TEST_FONT" ), farmName);
 		this.attachChild( nameText );
 		//create exp bar
-		expBar = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_TILE_COW_01 ));
+		expBar = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR_EXP ));
 		this.attachChild( expBar );
 	}
 	

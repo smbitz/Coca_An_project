@@ -189,6 +189,32 @@ public class ItemManager implements NetworkThreadListener {
 		
 		return newArrayBuildItem;
 	}
+	
+	public ArrayList<Item> getCouponItem() {
+		ArrayList<Item> newArrayCouponItem = new ArrayList<Item>();
+		
+		for(Item fetchItem:item){
+			if(fetchItem.getId().equals(ITEM_ID_MORNING_GLORY_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_CHINESE_CABBAGE_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_PUMPKIN_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_BABY_CORN_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_STRAW_MUSHROOMS_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_CHICKEN_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_PIG_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_COW_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_SHEEP_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_OSTRICH_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_FISH_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_SQUID_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_SCALLOPS_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_SHRIMP_COUPON)||
+					 fetchItem.getId().equals(ITEM_ID_OYSTER_COUPON)){
+				newArrayCouponItem.add(fetchItem);
+			}
+		}
+		
+		return newArrayCouponItem;
+	}
 
 	public int howMoney(String id) {
 		for(Item matchItemId:item){

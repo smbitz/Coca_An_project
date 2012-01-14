@@ -1,5 +1,6 @@
 package codegears.coca;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,6 +37,7 @@ import org.anddev.andengine.opengl.texture.region.TextureRegionLibrary;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import codegears.coca.data.Building;
+import codegears.coca.data.Item;
 import codegears.coca.data.TextureVar;
 import codegears.coca.data.Player;
 import codegears.coca.data.Tile;
@@ -300,7 +302,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			//update player to server
 			currentPlayer.updateToServer();
 		} else if(requestCode == REQUEST_COUPON){
-			
+			ArrayList<Item> couponItem = app.getItemManager().getCouponItem();
 		}
 	}
 
