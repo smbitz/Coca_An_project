@@ -13,10 +13,8 @@ import codegears.coca.ui.ToggleImageButton;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
@@ -26,7 +24,7 @@ import android.widget.LinearLayout;
 
 public class CouponDialog extends Activity implements OnClickListener {
 	
-	public static final int REQUEST_COUPON_OK = 2;
+	public static final int REQUEST_COUPONITEMEXCHANGE = 3;
 	
 	private ArrayList<CouponItem> allCouponList;
 	private ArrayList<CouponItem> availableList;
@@ -101,7 +99,7 @@ public class CouponDialog extends Activity implements OnClickListener {
     myCouponButton.setResource( R.drawable.text_mycoupons_animation02, R.drawable.text_mycoupons_animation01 );
     myCouponButton.setOnClickListener( this );
 	}
-
+	
 	@Override
 	public void onClick(View v) {
 		if( v.equals(closeButton) ){
@@ -137,13 +135,12 @@ public class CouponDialog extends Activity implements OnClickListener {
 	    adapter.notifyDataSetChanged();
 		} else {
 			if(v instanceof CouponItem){
-				System.out.println("Coupon Click");
 				CouponItem item = (CouponItem)v;
 				if(item.getState() == CouponItem.STATE_AVAILABLE){
 					//exchange
 					Intent newIntent = new Intent( this, CouponItemExchangeDialog.class );
 					newIntent.putExtra( CouponItemExchangeDialog.COUPON_ITEM_ID, item.getCouponId() );
-					startActivity( newIntent );
+					this.startActivityForResult( newIntent, REQUEST_COUPONITEMEXCHANGE );
 				} else if(item.getState() == CouponItem.STATE_MYCOUPON){
 					//view code
 				}

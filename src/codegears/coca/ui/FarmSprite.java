@@ -40,7 +40,6 @@ public class FarmSprite extends Sprite {
 			return false;
 		}
 		if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN){
-			System.out.println("Touch Down Farm");
 			startedMouseTouchX = pSceneTouchEvent.getX();
 			startedMouseTouchY = pSceneTouchEvent.getY();
 			startedPositionX = this.getX();
@@ -51,7 +50,6 @@ public class FarmSprite extends Sprite {
 				this.setPosition( startedPositionX - (startedMouseTouchX - pSceneTouchEvent.getX() ), startedPositionY - (startedMouseTouchY - pSceneTouchEvent.getY()));
 			}
 		} else if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_UP){
-			System.out.println("Touch Up Farm");
 			startTouch = false;
 		}
 		return false;
@@ -176,5 +174,23 @@ public class FarmSprite extends Sprite {
 	
 	public void pinchZoom(float factor){
 		this.setScale( startedZoomFactor * factor); 
+	}
+	
+	public void setMoveState(){
+		for(AbstractFarmTile tile:farmTileList){
+			tile.setMoveState();
+		}
+		for(AbstractFarmTile tile:purchaseTileList){
+			tile.setMoveState();
+		}
+	}
+
+	public void setNormalState(){
+		for(AbstractFarmTile tile:farmTileList){
+			tile.setNormalState();
+		}
+		for(AbstractFarmTile tile:purchaseTileList){
+			tile.setNormalState();
+		}
 	}
 }

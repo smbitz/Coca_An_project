@@ -29,8 +29,8 @@ public class CouponItemExchangeDialog extends Activity implements OnClickListene
 	private static final String TEXT_IN_COUPON = "ต้องการไอเทม\n";
 	private static final String FONT_POSITION = "font/DB_HelvethaicaMon_X_Med_v3.2.ttf";
 	private static final String GENERATE_COUPON_URL = "GENERATE_COUPON_URL";
-	public static final String PUT_COUPON_CODE = "PUT_COUPON_CODE";
-	public static final String PUT_COUPON_ID = "PUT_COUPON_ID";
+	public static final String EXTRA_COUPON_CODE = "PUT_COUPON_CODE";
+	public static final String EXTRA_COUPON_ID = "PUT_COUPON_ID";
 	
 	private ImageView couponItemImage;
 	private TextView couponItemCurrentQuantity;
@@ -176,8 +176,7 @@ public class CouponItemExchangeDialog extends Activity implements OnClickListene
 
 	@Override
 	public void onNetworkDocSuccess(String urlString, Document document) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -187,11 +186,9 @@ public class CouponItemExchangeDialog extends Activity implements OnClickListene
 			String[] returnData = result.split( "," );
 			String couponCode = returnData[0];
 			String couponId = returnData[1];
-			Intent newIntent = new Intent( this, CouponItemGetDialog.class );
-			newIntent.putExtra( PUT_COUPON_CODE, couponCode );
-			newIntent.putExtra( PUT_COUPON_ID, couponId );
-			this.setResult( Activity.RESULT_OK, newIntent );
-			startActivity( newIntent );
+			//set player for received coupon
+			//currentPlayer......(couponId);
+			this.finish();
 		} else if ( result.equals( "fail" ) ) {
 			// else if return fail
 			// display error message

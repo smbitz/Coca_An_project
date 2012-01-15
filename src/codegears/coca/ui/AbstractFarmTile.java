@@ -6,6 +6,7 @@ import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
 import android.os.AsyncTask;
 
+import codegears.coca.GameActivity;
 import codegears.coca.data.TextureVar;
 import codegears.coca.data.Tile;
 
@@ -16,10 +17,12 @@ public class AbstractFarmTile extends Sprite {
 	private boolean startTouch;
 	private float touchX;
 	private float touchY;
+	private int state;
 
 	public AbstractFarmTile( float pX, float pY, TextureRegion pTextureRegion ) {
 		super( pX, pY, pTextureRegion );
 		startTouch = false;
+		state = GameActivity.STATE_NORMAL;
 	}
 
 	public void setFarmTileListener(FarmTileListener l){
@@ -32,6 +35,14 @@ public class AbstractFarmTile extends Sprite {
 
 	public Tile getData() {
 		return data;
+	}
+	
+	public void setMoveState(){
+		state = GameActivity.STATE_MOVE;
+	}
+	
+	public void setNormalState(){
+		state = GameActivity.STATE_NORMAL;
 	}
 	
 	private void processTouch(){
@@ -62,16 +73,18 @@ public class AbstractFarmTile extends Sprite {
 	public boolean onAreaTouched( TouchEvent pSceneTouchEvent, float pTouchAreaLocalX,
 					float pTouchAreaLocalY ) {
 		if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN){
-			System.out.println("Touch Down Tile");
 			startTouch = true;
 			touchX = pSceneTouchEvent.getX();
 			touchY = pSceneTouchEvent.getY();
 		}
 		if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_UP){
-			System.out.println("Touch Up Tile");
 			if((startTouch) && (30 >= Math.abs( touchX - pSceneTouchEvent.getX() )) &&
 							(30 >= Math.abs( touchY - pSceneTouchEvent.getY() ))){
-				processTouch();
+				if(state == GameActivity.STATE_NORMAL){
+					processTouch();
+				} else if(state == GameActivity.STATE_MOVE){
+					listener.onMoveRequest(data);
+				}
 				startTouch = false;
 			}
 		}	

@@ -23,7 +23,7 @@ public class CouponItemGetDialog extends Activity implements OnClickListener {
 		closeButton.setOnClickListener( this );
 		couponCode = (TextView) findViewById( R.id.couponItemGetTextCode );
 		
-		couponCode.setText( this.getIntent().getStringExtra( CouponItemExchangeDialog.PUT_COUPON_CODE ) );
+		couponCode.setText( this.getIntent().getStringExtra( CouponItemExchangeDialog.EXTRA_COUPON_CODE ) );
 		couponCode.setTextColor( Color.BLACK );
 	}
 

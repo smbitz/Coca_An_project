@@ -553,4 +553,7 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		int elapse = (int)(currentTime - lastUpdateTime);
 		lastUpdateTime = currentTime;
 	}
+	
+	public void swap(Tile tile1, Tile Tile2){
+	}
 }

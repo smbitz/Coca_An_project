@@ -49,6 +49,7 @@ import codegears.coca.dialog.ShopDialog;
 import codegears.coca.dialog.SpecialCodeDialog;
 import codegears.coca.dialog.SupplyBoxDialog;
 import codegears.coca.dialog.TutorialDialog;
+import codegears.coca.ui.AbstractFarmTile;
 import codegears.coca.ui.ButtonListener;
 import codegears.coca.ui.ButtonSprite;
 import codegears.coca.ui.FarmSprite;
@@ -61,6 +62,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.view.MotionEvent;
 
 public class GameActivity extends BaseGameActivity implements ButtonListener,
 				IPinchZoomDetectorListener, IOnSceneTouchListener, FarmTileListener {
@@ -76,7 +78,12 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	
 	private static final int FIX_SCENE_WIDTH = 480;
 	private static final int FIX_SCENE_HEIGHT = 320;
+	
+	public static final int STATE_NORMAL = 1;
+	public static final int STATE_MOVE = 2;
 		
+	private int state;
+	
 	private ZoomCamera mZoomCamera;
 	private Scene mMainScene;
 
@@ -133,6 +140,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		app = (MyApp)this.getApplication();
 		currentPlayer = app.getCurrentPlayer();
 		currentPlayer.updateToServer();
+		
+		state = STATE_NORMAL;
 		
 		mEngine.registerUpdateHandler( new FPSLogger() );
 
@@ -240,10 +249,12 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public boolean onSceneTouchEvent( Scene arg0, TouchEvent pSceneTouchEvent ) {
 		if ( this.mPinchZoomDetector != null ) {
 			this.mPinchZoomDetector.onTouchEvent( pSceneTouchEvent );
+			
 		}
 		return true;
 	}
 	
+
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		if(requestCode == REQUEST_PURCHASETILE){
@@ -286,6 +297,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 				currentPlayer.addExtraItem2(activeTile);
 			} else if(resultCode == SupplyBoxDialog.RESULT_MOVE){
 				//enter move state
+				state = STATE_MOVE;
+				farmMapSprite.setMoveState();
 			}
 			
 			//update player to server
@@ -347,6 +360,15 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		
 		//update player to server
 		currentPlayer.updateToServer();
+	}
+
+	@Override
+	public void onMoveRequest( Tile data ) {
+		System.out.println("MOVE");
+		state = STATE_NORMAL;
+		farmMapSprite.setNormalState();
+		currentPlayer.swap(activeTile, data);
+		farmMapSprite.update( mMainScene );
 	}
 
 }
