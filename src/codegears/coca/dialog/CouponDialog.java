@@ -1,6 +1,9 @@
 package codegears.coca.dialog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.w3c.dom.Document;
 
 import codegears.coca.MyApp;
 import codegears.coca.R;
@@ -10,6 +13,9 @@ import codegears.coca.data.ItemManager;
 import codegears.coca.data.Player;
 import codegears.coca.ui.CouponItem;
 import codegears.coca.ui.ToggleImageButton;
+import codegears.coca.util.NetworkThreadUtil;
+import codegears.coca.util.NetworkThreadUtil.NetworkThreadListener;
+import codegears.coca.util.NetworkUtil;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,9 +28,12 @@ import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-public class CouponDialog extends Activity implements OnClickListener {
+public class CouponDialog extends Activity implements OnClickListener, NetworkThreadListener {
 	
 	public static final int REQUEST_COUPONITEMEXCHANGE = 3;
+	private static final String VIEW_COUPON_URL = "VIEW_COUPON_URL";
+	private static final String EXTRA_COUPON_CODE = "PUT_COUPON_CODE";
+	private static final String EXTRA_COUPON_ID = "PUT_COUPON_ID";
 	
 	private ArrayList<CouponItem> allCouponList;
 	private ArrayList<CouponItem> availableList;
@@ -143,6 +152,12 @@ public class CouponDialog extends Activity implements OnClickListener {
 					this.startActivityForResult( newIntent, REQUEST_COUPONITEMEXCHANGE );
 				} else if(item.getState() == CouponItem.STATE_MYCOUPON){
 					//view code
+					HashMap< String, String > dataMap = new HashMap<String, String>();
+					dataMap.put( "facebook_id", app.getFacebookId() );
+					dataMap.put( "item_id", item.getCouponId() );
+					String postData = NetworkUtil.createPostData( dataMap );
+					NetworkThreadUtil.getRawData( app.getConfig().get( VIEW_COUPON_URL ).toString(),
+							postData, this );
 				}
 			}
 		}
@@ -212,5 +227,34 @@ public class CouponDialog extends Activity implements OnClickListener {
 			return layout;
 		}
 
+	}
+
+	@Override
+	public void onNetworkDocSuccess(String urlString, Document document) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onNetworkRawSuccess(String urlString, String result) {
+		if ( !result.equals( "fail" ) ) {
+			String[] returnData = result.split( "," );
+			String couponCode = returnData[0];
+			String couponId = returnData[1];
+			
+			Intent newIntent = new Intent( this, CouponItemGetDialog.class );
+			newIntent.putExtra( EXTRA_COUPON_CODE, couponCode);
+			newIntent.putExtra( EXTRA_COUPON_ID, couponId);
+			startActivity( newIntent );
+		} else if ( result.equals( "fail" ) ) {
+			// else if return fail
+			// display error message
+		}
+	}
+
+	@Override
+	public void onNetworkFail(String urlString) {
+		// TODO Auto-generated method stub
+		
 	}
 }

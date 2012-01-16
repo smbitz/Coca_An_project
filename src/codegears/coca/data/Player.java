@@ -53,6 +53,13 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 	public static final int TILE_MAX_Y = 8;
 	private static final String PLAYER_URL = "PLAYER_URL";
 	private static final String NETWORK_UPDATE = "NETWORK_UPDATE"; 
+	private static final int COUPON_RECEIVE_EACH_TIME = 1;
+	
+	private static final int RECEIVE_EXP_BUILD = 50;
+	private static final int RECEIVE_EXP_SUPPLY = 20;
+	private static final int RECEIVE_EXP_HARVEST = 100;
+	private static final int RECEIVE_EXP_BUY_SELL_ITEM = 10;
+	private static final int RECEIVE_EXP_EXCHANGE_COUPON = 500;
 	
 	private String facebookId;
 	private int exp;
@@ -64,12 +71,14 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 	private ArrayList<Tile> tileList;
 	private ArrayList<ItemQuantityPair> backpack;
 	private MyApp app;
+	private ItemManager iManager;
 	private long lastUpdateTime;
 
 	public Player(MyApp app){
 		this.app = app;
 		tileList = new ArrayList<Tile>();
 		backpack = new ArrayList<ItemQuantityPair>();
+		iManager = app.getItemManager();
 	}
 	
 	public void setFacebookId(String setValue){
@@ -165,11 +174,13 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 					if(backpack.get(i).getId().equals(building.getBuildItemId())){
 						backpack.get(i).setItemQuantity(backpack.get(i).getQuantity()-QTY_TO_BUILD);
 					}
-					currentTile.buildTile(building);
 				}
+				currentTile.buildTile(building);
+				reciveExp( RECEIVE_EXP_BUILD );
 			}else if(money>=(moneyItem*QTY_TO_BUILD)){
 				money-=(moneyItem*QTY_TO_BUILD);
 				currentTile.buildTile(building);
+				reciveExp( RECEIVE_EXP_BUILD );
 			}
 		}
 	}
@@ -237,12 +248,14 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 			
 		  //Clear Tile
 			tile.clearTile();
+			reciveExp( RECEIVE_EXP_HARVEST );
 		}else if(tile.getBuildingStatus()==Tile.BUILDING_ROTTED){
 		  //Harvest Money
 			this.money += getYieldMoney;
 			
 		  //Clear Tile
 			tile.clearTile();
+			reciveExp( RECEIVE_EXP_HARVEST );
 		}
 	}
 	
@@ -270,10 +283,12 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 					int currentQty = backpack.get(searchSupply).getQuantity();
 					backpack.get(searchSupply).setItemQuantity(currentQty-1);
 					tile.setSupply(tile.getBuilding().getSupplyPeriod());
+					reciveExp( RECEIVE_EXP_SUPPLY );
 				}
 			}else if(this.money > moneySupply){
 				this.money -= moneySupply;
 				tile.setSupply(tile.getBuilding().getSupplyPeriod());
+				reciveExp( RECEIVE_EXP_SUPPLY );
 			}
 		}
 	}
@@ -321,10 +336,23 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		return currentPlayerLevel;
 	}
 
+	//---- Calculate and return money required for purchase tile ----//
+	public int getMoneyRequiredForPurchaseTile() {
+		int currentPlayerFarm = getCurrentPlayerFarm();
+		int requireMoney = (int) (5000+(700*Math.pow(currentPlayerFarm, 3)));
+		return requireMoney;
+	}
+	
+	//---- Calculate and return level required for purchase tile ----//
 	public int getLevelRequiredForPurchaseTile() {
 		int currentPlayerFarm = getCurrentPlayerFarm();
-		int requireLevel = 5*currentPlayerFarm;
+		int requireLevel = 7*currentPlayerFarm;
 		return requireLevel;
+	}
+	
+	//---- Calculate exp for level up ----//
+	public int getCalculateExp(int getValue){
+		return (int) (200+(300*(Math.pow(getValue, 2))));
 	}
 
 	private int getCurrentPlayerFarm() {
@@ -337,12 +365,6 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		totalPlayerFarm -= QTY_START_FARM_PLAYER;
 		totalPlayerFarm = (totalPlayerFarm/BUY_EACH_AREA)+1;
 		return totalPlayerFarm;
-	}
-
-	public int getMoneyRequiredForPurchaseTile() {
-		int currentPlayerFarm = getCurrentPlayerFarm();
-		int requireMoney = (int) (500+(500*Math.pow(currentPlayerFarm, 2)));
-		return requireMoney;
 	}
 	
   //---- add extraItem to targetTile
@@ -421,6 +443,7 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 				backpack.add(newBackpack);
 			}
 			money -= (currentItem.getPrice()*quantity);
+			reciveExp( RECEIVE_EXP_BUY_SELL_ITEM );
 		}
 	}
 	
@@ -434,6 +457,7 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 			if(currentItemQty>=quantity){
 				backpack.get(itemPosition).setItemQuantity(backpack.get(itemPosition).getQuantity()-quantity);
 				money += (backpack.get(itemPosition).getItem().getSellPrice())*quantity;
+				reciveExp( RECEIVE_EXP_BUY_SELL_ITEM );
 			}
 		}
 	}
@@ -554,6 +578,74 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		lastUpdateTime = currentTime;
 	}
 	
-	public void swap(Tile tile1, Tile Tile2){
+	public void swap(Tile moveTile, Tile destinationTile){
+		destinationTile.setBuildingId(moveTile.getBuildingId());
+		destinationTile.setProgress(moveTile.getProgress());
+		destinationTile.setSupply(moveTile.getSupply());
+		destinationTile.setExtraId(moveTile.getExtraId());
+		destinationTile.setRottenPeriod(moveTile.getRottenPeriod());
+		destinationTile.setBuilding(moveTile.getBuilding());
+		
+		moveTile.clearTile();
+	}
+	
+	public void onExchangeReply(String couponId){
+		//reduce amount of item using for exchange
+		Item extraItem = iManager.getMatchItem(couponId);
+		for(int i = 0; i < extraItem.getExchangeItem().size(); i++){
+			int backpackNumber = findItemBackpackById(extraItem.getExchangeItem().get(i).getId());
+			int quantityToExchange = iManager.getMatchItem(couponId).getExchangeItem().get(i).getQuantity();
+			
+			this.backpack.get(backpackNumber).setItemQuantity(this.backpack.get(backpackNumber).getQuantity()-quantityToExchange);
+		}
+
+		//add coupon item to player backpack
+		this.addItemToBackpack(couponId, COUPON_RECEIVE_EACH_TIME);
+		reciveExp(RECEIVE_EXP_EXCHANGE_COUPON);
+	}
+	
+	//---- Find item in backpack ----//
+	private int findItemBackpackById(String findItemId){
+		for(int c = 0; c < backpack.size(); c++){
+			if(backpack.get(c).getId().equals(findItemId)){
+				return c;
+			}
+		}
+		
+		return -1;
+	}
+	
+	//---- Calculate level and exp when receive exp ---//
+	private void reciveExp(int expPoint){
+		//Check for next level
+		//if level up add level,exp and call levelup,exp event
+		if(isLevelUp(expPoint)){
+			exp += expPoint;
+			//Update exp bar
+			//Show level up dialog
+		}else{
+			//else add exp call exp event
+			exp += expPoint;
+			//Update exp bar
+		}
+	}
+	
+	//---- Check exp for next level ----//
+	private Boolean isLevelUp(int checkValue){
+		int currentLevel = getLevel();
+		int checkExp = exp+checkValue;
+		int checkLevel = 0;
+		int expForNextLevel = 0;
+		
+		while(checkExp>=expForNextLevel){
+			checkLevel++;
+			expForNextLevel = getCalculateExp( checkLevel );
+		}
+		
+		if(currentLevel<checkLevel){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

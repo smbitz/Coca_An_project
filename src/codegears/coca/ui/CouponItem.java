@@ -269,7 +269,7 @@ public class CouponItem extends LinearLayout {
 		}else if( state == STATE_MYCOUPON ){
 			couponBackground.setBackgroundResource(R.drawable.coupons_my_hd);
 			couponItemCurrentQuantity.setVisibility( couponItemCurrentQuantity.INVISIBLE );
-			couponStatusImage.setImageResource( R.drawable.text_available_hd );
+			couponStatusImage.setVisibility( couponStatusImage.INVISIBLE );
 			couponItemRequireQuantity.setTextColor( R.color.orange );
 			
 			if( id.equals(ItemManager.ITEM_ID_MORNING_GLORY_COUPON ) ){

@@ -314,8 +314,6 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			
 			//update player to server
 			currentPlayer.updateToServer();
-		} else if(requestCode == REQUEST_COUPON){
-			ArrayList<Item> couponItem = app.getItemManager().getCouponItem();
 		}
 	}
 

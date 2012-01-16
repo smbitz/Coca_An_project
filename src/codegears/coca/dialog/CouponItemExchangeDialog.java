@@ -188,7 +188,13 @@ public class CouponItemExchangeDialog extends Activity implements OnClickListene
 			String couponId = returnData[1];
 			//set player for received coupon
 			//currentPlayer......(couponId);
+			currentPlayer.onExchangeReply(couponId);
 			this.finish();
+			
+			Intent newIntent = new Intent( this, CouponItemGetDialog.class );
+			newIntent.putExtra( EXTRA_COUPON_CODE, couponCode);
+			newIntent.putExtra( EXTRA_COUPON_ID, couponId);
+			startActivity( newIntent );
 		} else if ( result.equals( "fail" ) ) {
 			// else if return fail
 			// display error message

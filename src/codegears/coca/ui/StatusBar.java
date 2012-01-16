@@ -34,8 +34,8 @@ public class StatusBar extends Sprite {
 		moneyBarBitmap = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR_MONEY ));
 		this.attachChild( moneyBarBitmap );
 		//create level bitmap
-		levelBitmap = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_TILE_BABY_CORN_01 ));
-		this.attachChild( levelBitmap );
+		//levelBitmap = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_TILE_BABY_CORN_01 ));
+		//this.attachChild( levelBitmap );
 		//create farmName text
 		nameText = new ChangeableText(0, 0, fontCollection.get( "TEST_FONT" ), farmName);
 		this.attachChild( nameText );
