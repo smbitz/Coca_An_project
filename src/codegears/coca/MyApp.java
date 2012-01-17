@@ -39,7 +39,7 @@ public class MyApp extends Application implements LoadListener {
 		isBManagerLoad = false;
 		isIManagerLoad = false;
 		isCurrentPlayerLoad = false;
-		facebookId = "2222";
+		facebookId = "3333";
 	}
 	
 	public void load(){

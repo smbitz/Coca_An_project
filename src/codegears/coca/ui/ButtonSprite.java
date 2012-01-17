@@ -24,11 +24,11 @@ public class ButtonSprite extends Sprite {
  		 switch(pSceneTouchEvent.getAction())
       {
           case MotionEvent.ACTION_DOWN:
-         	 			this.setVisible(false);
+         	 			//this.setVisible(false);
                 return true;
          
           case MotionEvent.ACTION_UP:
-         	 			this.setVisible(true);
+         	 			//this.setVisible(true);
          	 		  listener.onClick(this);
                 return true;
       }

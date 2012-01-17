@@ -76,8 +76,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public static final int REQUEST_SHOP = 7;
 	public static final int REQUEST_COUPON = 8;
 	
-	private static final int FIX_SCENE_WIDTH = 480;
-	private static final int FIX_SCENE_HEIGHT = 320;
+	private static final int FIX_SCENE_WIDTH = 960;
+	private static final int FIX_SCENE_HEIGHT = 640;
 	
 	public static final int STATE_NORMAL = 1;
 	public static final int STATE_MOVE = 2;
@@ -149,10 +149,10 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		mMainScene.setBackground( new ColorBackground( 0.09804f, 0.6274f, 0.8784f ) );
 
 		
-		couponButton = new ButtonSprite( 200, 0, textureCollection.get( TextureVar.TEXTURE_COUPONBUTTON ) );
-		specialCodeButton = new ButtonSprite( 300, 5, textureCollection.get( TextureVar.TEXTURE_SPECIALCODEBUTTON ) );
-		soundButton = new ButtonSprite( 390, 5, textureCollection.get( TextureVar.TEXTURE_SOUNDBUTTON ) );
-		shopButton = new ButtonSprite( 0, -120, textureCollection.get( TextureVar.TEXTURE_SHOPBUTTON ) );
+		couponButton = new ButtonSprite( 650, 0, textureCollection.get( TextureVar.TEXTURE_COUPONBUTTON ) );
+		specialCodeButton = new ButtonSprite( 750, 5, textureCollection.get( TextureVar.TEXTURE_SPECIALCODEBUTTON ) );
+		soundButton = new ButtonSprite( 850, 5, textureCollection.get( TextureVar.TEXTURE_SOUNDBUTTON ) );
+		shopButton = new ButtonSprite( 1250, 490, textureCollection.get( TextureVar.TEXTURE_SHOPBUTTON ) );
 		farmMapSprite = new FarmSprite( textureCollection );
 		
 		farmMapSprite.setPlayer( currentPlayer );

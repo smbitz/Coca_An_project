@@ -30,21 +30,21 @@
 		<LinearLayout
 		    android:id="@+id/linearLayout6"
 		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
+		    android:layout_height="fill_parent"
 		    android:layout_weight="1" >
 
 		    <LinearLayout
 		        android:id="@+id/linearLayout7"
-		        android:layout_width="wrap_content"
+		        android:layout_width="fill_parent"
 		        android:layout_height="fill_parent"
-		        android:layout_weight="1" >
+		        android:layout_weight="10" >
 		    </LinearLayout>
 
 		    <HorizontalScrollView
 		        android:id="@+id/plantItemScrollView"
 		        android:layout_width="fill_parent"
-		        android:layout_height="fill_parent"
-		        android:layout_weight="3" >
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1" >
 
 		        <LinearLayout
 		            android:id="@+id/plantItem"
@@ -56,9 +56,9 @@
 
 		    <LinearLayout
 		        android:id="@+id/linearLayout8"
-		        android:layout_width="wrap_content"
+		        android:layout_width="fill_parent"
 		        android:layout_height="fill_parent"
-		        android:layout_weight="1" >
+		        android:layout_weight="10" >
 		    </LinearLayout>
 
 		</LinearLayout>

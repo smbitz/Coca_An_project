@@ -24,7 +24,7 @@
             <ImageView
                 android:id="@+id/shopItemImage"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dip"
                 android:src="@drawable/itemid10"
                 android:visibility="visible" />
         </FrameLayout>

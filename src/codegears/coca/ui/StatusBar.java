@@ -31,16 +31,16 @@ public class StatusBar extends Sprite {
 		statusBarBitmap = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR ));
 		this.attachChild( statusBarBitmap );
 		//create status bar
-		moneyBarBitmap = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR_MONEY ));
+		moneyBarBitmap = new Sprite(300, 0, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR_MONEY ));
 		this.attachChild( moneyBarBitmap );
 		//create level bitmap
 		//levelBitmap = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_TILE_BABY_CORN_01 ));
 		//this.attachChild( levelBitmap );
 		//create farmName text
-		nameText = new ChangeableText(0, 0, fontCollection.get( "TEST_FONT" ), farmName);
+		nameText = new ChangeableText(5, 0, fontCollection.get( "TEST_FONT" ), farmName);
 		this.attachChild( nameText );
 		//create exp bar
-		expBar = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR_EXP ));
+		expBar = new Sprite(120, 60, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR_EXP ));
 		this.attachChild( expBar );
 	}
 	
