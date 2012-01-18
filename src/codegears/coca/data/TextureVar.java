@@ -96,7 +96,7 @@ public static final String TEXTURE_TILE_CORRAL_SEA_ANIMAL = "TEXTURE_TILE_CORRAL
 	public static final String TEXTURE_STATUS_BAR_NUMBER_LEVEL = "TEXTURE_STATUS_BAR_NUMBER_LEVEL";
 	public static final String TEXTURE_NUMBER_LEVEL_UP = "TEXTURE_NUMBER_LEVEL_UP";
 	
-	public static final int TILE_WIDTH = 200;
+	public static final int TILE_WIDTH = 137;
 	public static final int TILE_HEIGHT = 200;
-	public static final int ALL_TILE_WIDTH = 1600;
+	public static final int ALL_TILE_WIDTH = 1096;
 }

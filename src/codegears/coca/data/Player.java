@@ -81,6 +81,22 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		iManager = app.getItemManager();
 	}
 	
+	public String getName(){
+		return this.name;
+	}
+	
+	public int getExp(){
+		return this.exp;
+	}
+	
+	public int getMoney(){
+		return this.money;
+	}
+	
+	public void setName( String nameValue ){
+		this.name = nameValue;
+	}
+	
 	public void setFacebookId(String setValue){
 		this.facebookId = setValue;		
 	}
@@ -324,7 +340,7 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		}
 	}
 
-	private int getLevel() {
+	public int getLevel() {
 		int currentPlayerLevel = 0;
 		int expForNextLevel = 0;
 		

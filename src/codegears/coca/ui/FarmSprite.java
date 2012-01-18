@@ -26,9 +26,11 @@ public class FarmSprite extends Sprite {
 	private float startedPositionY;
 	private float startedZoomFactor;
 	private boolean startTouch;
+	private Sprite map;
 	
 	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection){
 		super(0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT));
+		//map = new Sprite( 0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT) );
 		farmTileList = new ArrayList<AbstractFarmTile>();
 		purchaseTileList = new ArrayList<AbstractFarmTile>();
 		textureCollection = getTextureCollection;
@@ -118,9 +120,11 @@ public class FarmSprite extends Sprite {
 		purchaseTileList.clear();
 		ArrayList<Tile> tileList = currentPlayer.getTile();
 		//---- Create FarmTile ----//
-		int setX = 0;
-		int setY = 0;
+		int setX = 880;
+		int setY = 530;
 		int loop = 0;
+		int countLine = 1;
+		int countLoop = 1;
 		for(Tile tileData:tileList){
 			//AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ) );
 			AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection );
@@ -139,10 +143,14 @@ public class FarmSprite extends Sprite {
 			
 			//Set Tile Position
 			setX+=TextureVar.TILE_WIDTH;
-			if(setX==TextureVar.ALL_TILE_WIDTH){
-				setX = 0;
-				setY+=TextureVar.TILE_HEIGHT;
+			setY+=70;
+			//if(setX==TextureVar.ALL_TILE_WIDTH+880){
+			if(countLoop%8==0&&countLoop>0){
+				setX = 880-(countLine*140);
+				setY = 530+(countLine*80);
+				countLine++;
 			}
+			countLoop++;
 			loop++;
 		}
 		//---- add All tile to farmMap in proper order ----//

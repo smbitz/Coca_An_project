@@ -27,6 +27,7 @@ public class MyApp extends Application implements LoadListener {
 	private boolean isIManagerLoad;
 	private boolean isCurrentPlayerLoad;
 	private String facebookId;
+	private String facebookName;
 	
 	private LoadListener listener;
 	
@@ -40,6 +41,7 @@ public class MyApp extends Application implements LoadListener {
 		isIManagerLoad = false;
 		isCurrentPlayerLoad = false;
 		facebookId = "3333";
+		facebookName = "Name";
 	}
 	
 	public void load(){
@@ -47,7 +49,8 @@ public class MyApp extends Application implements LoadListener {
 		bManager.load();
 		iManager.setLoadListener( this );
 		iManager.load();
-		currentPlayer.setFacebookId(facebookId);
+		currentPlayer.setFacebookId( facebookId );
+		currentPlayer.setName( facebookName );
 		currentPlayer.setLoadListener( this );
 		currentPlayer.load();
 	}
