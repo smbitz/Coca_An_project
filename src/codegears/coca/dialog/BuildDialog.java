@@ -13,6 +13,7 @@ import codegears.coca.ui.BuildItem;
 import codegears.coca.util.MilliSecToHour;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -81,7 +82,8 @@ public class BuildDialog extends Activity implements OnClickListener {
 							int itemPositionInBackpack = currentPlayer.searchBackpackItem(fetachItem.getId());
 							if(itemPositionInBackpack>=0){
 								int foundItemQuantity = currentPlayer.getBackpack().get(itemPositionInBackpack).getQuantity();
-								newBuildItem.setItemPrice(String.valueOf(foundItemQuantity));
+								newBuildItem.setItemTimeColor( this.getResources().getColor( R.color.dark_green ) );
+								newBuildItem.setItemPrice("x "+String.valueOf(foundItemQuantity));
 							}else{
 								newBuildItem.setItemPrice(String.valueOf(fetachItem.getPrice()));
 							}
@@ -131,7 +133,8 @@ public class BuildDialog extends Activity implements OnClickListener {
 							int itemPositionInBackpack = currentPlayer.searchBackpackItem(fetachItem.getId());
 							if(itemPositionInBackpack>=0){
 								int foundItemQuantity = currentPlayer.getBackpack().get(itemPositionInBackpack).getQuantity();
-								newBuildItem.setItemPrice(String.valueOf(foundItemQuantity));
+								newBuildItem.setItemTimeColor( this.getResources().getColor( R.color.dark_green ) );
+								newBuildItem.setItemPrice("x "+String.valueOf(foundItemQuantity));
 							}else{
 								newBuildItem.setItemPrice(String.valueOf(fetachItem.getPrice()));
 							}

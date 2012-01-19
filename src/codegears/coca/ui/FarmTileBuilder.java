@@ -11,9 +11,31 @@ import codegears.coca.data.Tile;
 
 public class FarmTileBuilder {
 
+	private static final int TILE_OCCUPY_SET_X = 160;
+	private static final int TILE_OCCUPY_SET_Y = 25;
+	private static final int TILE_BUILDING_SET_Y = 7;
+	
 	public static AbstractFarmTile createFarmTile(int pX, int pY, Tile tile, HashMap<String, TextureRegion> textureCollection){
-		
+
 		TextureRegion tr = null;
+		
+		if( tile.getBuildingId().equals( BuildingManager.BUILDING_ID_CHICKEN ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_PIG ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_COW ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_SHEEP ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_OSTRICH ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_MORNING_GLORY ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_CHINESE_CABBAGE ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_PUMPKIN ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_BABY_CORN ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_STRAW_MUSHROOMS ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_FISH ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_SQUID ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_SCALLOPS ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_SHRIMP ) ||
+				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_OYSTER ) ){
+			pY-=TILE_BUILDING_SET_Y;
+		}
 		
 		//if meat
 		if( tile.getBuildingId().equals( BuildingManager.BUILDING_ID_CHICKEN ) ){
@@ -175,7 +197,7 @@ public class FarmTileBuilder {
 			//return new VegeFarmTile(px, py, tr);
 		
 		//if sea
-		if( tile.getBuildingId().equals( BuildingManager.BUILDING_ID_FISH ) ){
+		else if( tile.getBuildingId().equals( BuildingManager.BUILDING_ID_FISH ) ){
 			tr = textureCollection.get( TextureVar.TEXTURE_TILE_CORRAL_SEA_ANIMAL );
 			TextureRegion animalTr = null;
 			if( tile.getBuildingStatus() == Tile.BUILDING_PROCESS1 ){
@@ -265,8 +287,10 @@ public class FarmTileBuilder {
 			//return new SeaFarmTile(px, py, tr);
 		
 		else if( tile.getIsOccupy() ){
-			return new FarmTile(pX, pY, textureCollection.get( TextureVar.TEXTURE_FARM ));
+			return new FarmTile(pX, pY, textureCollection.get( TextureVar.TEXTURE_EMPTY_FARM ));
 		}else{
+			pX-=TILE_OCCUPY_SET_X;
+			pY+=TILE_OCCUPY_SET_Y;
 			return new FarmTile(pX, pY, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ));
 		}
 		

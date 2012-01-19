@@ -14,6 +14,11 @@ import codegears.coca.data.Tile;
 
 public class FarmSprite extends Sprite {
 	
+	private static final int FARM_START_X = 880;
+	private static final int FARM_START_Y = 464;
+	private static final int FARM_INCREASE_X = 141;
+	private static final int FARM_INCREASE_Y = 71;
+	
 	private ArrayList<AbstractFarmTile> farmTileList;
 	private ArrayList<AbstractFarmTile> purchaseTileList;
 	private Player currentPlayer;
@@ -27,14 +32,17 @@ public class FarmSprite extends Sprite {
 	private float startedZoomFactor;
 	private boolean startTouch;
 	private Sprite map;
+	private Sprite iconBuyArea;
 	
 	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection){
 		super(0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT));
-		//map = new Sprite( 0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT) );
+		map = new Sprite( 0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT) );
+		map.setScale((float) 1.37);
 		farmTileList = new ArrayList<AbstractFarmTile>();
 		purchaseTileList = new ArrayList<AbstractFarmTile>();
 		textureCollection = getTextureCollection;
 		startTouch = false;
+		this.attachChild(map);
 	}
 	
 	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY ){
@@ -71,9 +79,11 @@ public class FarmSprite extends Sprite {
 		currentPlayer = p;
 		ArrayList<Tile> tileList = p.getTile();
 		//---- Create FarmTile ----//
-		int setX = 0;
-		int setY = 0;
+		int setX = FARM_START_X;
+		int setY = FARM_START_Y;
 		int loop = 0;
+		int countLine = 1;
+		int countLoop = 1;
 		for(Tile tileData:tileList){
 			//AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ) );
 			AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection );
@@ -91,11 +101,15 @@ public class FarmSprite extends Sprite {
 			}
 			
 			//Set Tile Position
-			setX+=TextureVar.TILE_WIDTH;
-			if(setX==TextureVar.ALL_TILE_WIDTH){
-				setX = 0;
-				setY+=TextureVar.TILE_HEIGHT;
+			setX+=FARM_INCREASE_X;//TextureVar.TILE_WIDTH;
+			setY+=FARM_INCREASE_Y;
+			//if(setX==TextureVar.ALL_TILE_WIDTH+880){
+			if(countLoop%8==0&&countLoop>0){
+				setX = FARM_START_X-(countLine*FARM_INCREASE_X);
+				setY = FARM_START_Y+(countLine*FARM_INCREASE_Y);
+				countLine++;
 			}
+			countLoop++;
 			loop++;
 		}
 		//---- add All tile to farmMap in proper order ----//
@@ -121,16 +135,17 @@ public class FarmSprite extends Sprite {
 		ArrayList<Tile> tileList = currentPlayer.getTile();
 		//---- Create FarmTile ----//
 		int setX = 880;
-		int setY = 530;
+		int setY = 464;
 		int loop = 0;
 		int countLine = 1;
 		int countLoop = 1;
 		for(Tile tileData:tileList){
-			//AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ) );
-			AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection );
-			tile.setData( tileData );
-			farmTileList.add( tile );
-			if( !tileData.getIsOccupy() ){
+			if( tileData.getIsOccupy() ){
+				//AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ) );
+				AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection );
+				tile.setData( tileData );
+				farmTileList.add( tile );
+			}else if( !tileData.getIsOccupy() ){
 				int indexX = loop % 8;
 				int indexY = loop / 8;
 				if((indexX % 2 == 0) && (indexY % 2 == 0)){
@@ -142,23 +157,23 @@ public class FarmSprite extends Sprite {
 			}
 			
 			//Set Tile Position
-			setX+=TextureVar.TILE_WIDTH;
-			setY+=70;
+			setX+=FARM_INCREASE_X;//TextureVar.TILE_WIDTH;
+			setY+=FARM_INCREASE_Y;
 			//if(setX==TextureVar.ALL_TILE_WIDTH+880){
 			if(countLoop%8==0&&countLoop>0){
-				setX = 880-(countLine*140);
-				setY = 530+(countLine*80);
+				setX = FARM_START_X-(countLine*FARM_INCREASE_X);
+				setY = FARM_START_Y+(countLine*FARM_INCREASE_Y);
 				countLine++;
 			}
 			countLoop++;
 			loop++;
 		}
 		//---- add All tile to farmMap in proper order ----//
-		for(AbstractFarmTile tile:farmTileList){
+		for(AbstractFarmTile tile:purchaseTileList){
 			this.attachChild( tile );
 			scene.registerTouchArea( tile );
 		}
-		for(AbstractFarmTile tile:purchaseTileList){
+		for(AbstractFarmTile tile:farmTileList){
 			this.attachChild( tile );
 			scene.registerTouchArea( tile );
 		}

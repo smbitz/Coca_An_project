@@ -20,11 +20,12 @@ public class LoadResource {
 	public static void loadTexture(Context context, Engine engine, HashMap<String, TextureRegion> textureCollection){
 		BitmapTextureAtlas mDefaultFarmMapTextureAtlas = new BitmapTextureAtlas( 2048, 2048 );
 		BitmapTextureAtlas mFarmMapTextureAtlas = new BitmapTextureAtlas( 512, 256 );
-		BitmapTextureAtlas mFarmMapNotOccupyTextureAtlas = new BitmapTextureAtlas( 32, 32 );
+		BitmapTextureAtlas mFarmMapNotOccupyTextureAtlas = new BitmapTextureAtlas( 2048, 1024 );
 		BitmapTextureAtlas mCouponButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
 		BitmapTextureAtlas mSpecialCodeButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
 		BitmapTextureAtlas mSoundButtonTextureAtlas = new BitmapTextureAtlas( 128, 64 );
 		BitmapTextureAtlas mShopButtonTextureAtlas = new BitmapTextureAtlas( 1024, 256 );
+		BitmapTextureAtlas mEmptyFarmTextureAtlas = new BitmapTextureAtlas( 512, 256 );
 		
 		//Status Bar
 		BitmapTextureAtlas mStatusBarTextureAtlas = new BitmapTextureAtlas( 512, 128 );
@@ -124,7 +125,7 @@ public class LoadResource {
 						mFarmMapTextureAtlas, context, "T08.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_FARM, mFarmMapTextureRegion );
 		TextureRegion mFarmMapNotOccupyTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				mFarmMapNotOccupyTextureAtlas, context, "farmNotOccupy.png", 0, 0 );
+				mFarmMapNotOccupyTextureAtlas, context, "tile_not_occupy.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_FARM_NOTOCCUPY, mFarmMapNotOccupyTextureRegion );
 		TextureRegion mCouponButtonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 						mCouponButtonTextureAtlas, context, "button_coupon.png", 0, 0 );
@@ -138,6 +139,10 @@ public class LoadResource {
 		TextureRegion mShopTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 						mShopButtonTextureAtlas, context, "map_market.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_SHOPBUTTON, mShopTextureRegion );
+		TextureRegion mEmptyFarmTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mEmptyFarmTextureAtlas, context, "empty_farm_texture.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_EMPTY_FARM, mEmptyFarmTextureRegion );
+		
 		
 		//Texture Status Bar
 		TextureRegion statusBar = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
@@ -370,6 +375,7 @@ public class LoadResource {
 		engine.getTextureManager().loadTexture( mSpecialCodeButtonTextureAtlas );
 		engine.getTextureManager().loadTexture( mSoundButtonTextureAtlas );
 		engine.getTextureManager().loadTexture( mShopButtonTextureAtlas );
+		engine.getTextureManager().loadTexture( mEmptyFarmTextureAtlas );
 		
 		//Texture Status Bar
 		engine.getTextureManager().loadTexture( mStatusBarTextureAtlas );

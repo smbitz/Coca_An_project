@@ -15,7 +15,7 @@
             android:id="@+id/linearLayout3"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" android:layout_weight="1">
+            android:orientation="vertical" android:layout_weight="2">
         </LinearLayout>
 
         <ImageButton
@@ -25,18 +25,48 @@
             android:layout_weight="1"
             android:src="@drawable/button_close" android:background="@null" android:layout_gravity="right"/>
 
-        <HorizontalScrollView
-            android:id="@+id/shopItemScrollView"
+        <LinearLayout
+            android:id="@+id/linearLayout9"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:layout_weight="3">
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
 
             <LinearLayout
-                android:id="@+id/shopItem"
+                android:id="@+id/linearLayout10"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="horizontal" >
+                android:layout_height="wrap_content"
+                android:layout_weight="9" >
             </LinearLayout>
-        </HorizontalScrollView>
+
+            <LinearLayout
+                android:id="@+id/linearLayout7"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <HorizontalScrollView
+                    android:id="@+id/shopItemScrollView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3" >
+
+                    <LinearLayout
+                        android:id="@+id/shopItem"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout8"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="9" >
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout6"
@@ -62,24 +92,54 @@
             android:orientation="vertical" android:layout_weight="1">
         </LinearLayout>
 
-        <HorizontalScrollView
-            android:id="@+id/backpackItemScrollView"
+        <LinearLayout
+            android:id="@+id/linearLayout13"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:layout_weight="2">
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
 
             <LinearLayout
-                android:id="@+id/backpackItem"
+                android:id="@+id/linearLayout14"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="horizontal" >
+                android:layout_height="wrap_content"
+                android:layout_weight="9" >
             </LinearLayout>
-        </HorizontalScrollView>
+
+            <LinearLayout
+                android:id="@+id/linearLayout11"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <HorizontalScrollView
+                    android:id="@+id/backpackItemScrollView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" >
+
+                    <LinearLayout
+                        android:id="@+id/backpackItem"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="horizontal" >
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout12"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="9" >
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout5"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:orientation="vertical" >
         </LinearLayout>
 

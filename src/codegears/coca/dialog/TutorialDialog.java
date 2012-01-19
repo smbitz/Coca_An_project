@@ -1,5 +1,6 @@
 package codegears.coca.dialog;
 
+import codegears.coca.MyApp;
 import codegears.coca.R;
 import android.app.Activity;
 import android.graphics.Color;
@@ -12,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TutorialDialog extends Activity implements OnClickListener {
+	public static final int TUTORIAL_ACTIVITY_CLOSE = 0;
+	
 	private static final String TUTORIAL_TEXT_1 = "สวัสดีครับ/ค่ะ ยินดีต้อนรับเข้าสู่ COCA LAND!\nพวกเราจะมาแนะนำวิธีการเล่นเกมส์";
 	private static final String TUTORIAL_TEXT_2 = "เราสามารถเริ่มต้นสร้างฟาร์มของเราง่าย ๆ\nด้วยการคลิกที่พื้นที่เพื่อเลือกพืชหรือสัตว์ที่ต้องการ";
 	private static final String TUTORIAL_TEXT_3 = "หลังจากนั้น เราต้องดูแล พืชผักและสัตว์เลี้ยงของเรา\nด้วยการรดน้ำหรือให้อาหาร เพื่อให้ได้ผลผลิตที่ดีที่สุด";
@@ -26,11 +29,13 @@ public class TutorialDialog extends Activity implements OnClickListener {
 	private static final int TUTORIAL_STATE_5 = 4;
 	private static final int TUTORIAL_STATE_6 = 5;
 	
-	private static final String FONT_POSITION = "font/DB_HelvethaicaMon_X_Med_v3.2.ttf";
+	private static final int TUTORIAL_TEXT_SIZE = 20;
 	
 	private ImageButton closeButton;
 	private ImageButton nextButton;
 	private ImageButton backButton;
+	
+	private MyApp app;
 	
 	private TextView tutorialText;
 	
@@ -47,6 +52,7 @@ public class TutorialDialog extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tutorialdialog);
+		app = (MyApp) this.getApplication();
 		
 		closeButton = (ImageButton) findViewById(R.id.tutorialCloseButton);
 		closeButton.setOnClickListener(this);
@@ -56,10 +62,9 @@ public class TutorialDialog extends Activity implements OnClickListener {
 		backButton.setOnClickListener(this);
 		
 		tutorialText = (TextView) findViewById(R.id.tutorialText);
-		Typeface setFont = Typeface.createFromAsset(getAssets(), FONT_POSITION);
 		tutorialText.setTextColor(Color.BLACK);
-		tutorialText.setTypeface(setFont);
-		tutorialText.setTextSize(20);
+		tutorialText.setTypeface( app.getTextFont() );
+		tutorialText.setTextSize( TUTORIAL_TEXT_SIZE );
 		tutorialText.setText(TUTORIAL_TEXT_1);
 		
 		currentTutorialState = 0;
@@ -75,6 +80,7 @@ public class TutorialDialog extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if( v.equals(closeButton) ){
+			this.setResult( TUTORIAL_ACTIVITY_CLOSE );
 			this.finish();
 		}else if( v.equals(nextButton) ){
 			if( currentTutorialState==TUTORIAL_STATE_1 ){

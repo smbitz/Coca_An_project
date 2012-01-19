@@ -144,7 +144,8 @@ public class ShopDialog extends Activity implements OnClickListener {
   		
     //Set ItemQuantity
     if(fetchBackpackItem.getQuantity()>0){
-    	newBackpackItem.setItemTime(String.valueOf(fetchBackpackItem.getQuantity()));
+    	newBackpackItem.setItemTimeColor( this.getResources().getColor( R.color.dark_green ) );
+    	newBackpackItem.setItemTime("x "+String.valueOf(fetchBackpackItem.getQuantity()));
     }
     	
     //Set Image Item

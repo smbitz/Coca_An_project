@@ -16,8 +16,11 @@ import codegears.coca.data.Tile;
 import codegears.coca.util.Config;
 import codegears.coca.util.NetworkUtil;
 import android.app.Application;
+import android.graphics.Typeface;
 
 public class MyApp extends Application implements LoadListener {
+	
+	private static final String FONT_POSITION = "font/DB_HelvethaicaMon_X_Med_v3.2.ttf";
 	
 	private BuildingManager bManager;
 	private ItemManager iManager;
@@ -28,6 +31,7 @@ public class MyApp extends Application implements LoadListener {
 	private boolean isCurrentPlayerLoad;
 	private String facebookId;
 	private String facebookName;
+	private Typeface textFont;
 	
 	private LoadListener listener;
 	
@@ -40,6 +44,7 @@ public class MyApp extends Application implements LoadListener {
 		isBManagerLoad = false;
 		isIManagerLoad = false;
 		isCurrentPlayerLoad = false;
+		textFont = Typeface.createFromAsset(getAssets(), FONT_POSITION);
 		facebookId = "3333";
 		facebookName = "Name";
 	}
@@ -77,6 +82,10 @@ public class MyApp extends Application implements LoadListener {
 	
 	public String getFacebookId(){
 		return facebookId;
+	}
+	
+	public Typeface getTextFont(){
+		return textFont;
 	}
 
 	@Override

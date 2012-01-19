@@ -44,6 +44,7 @@ import codegears.coca.data.Tile;
 import codegears.coca.dialog.BuildDialog;
 import codegears.coca.dialog.CouponDialog;
 import codegears.coca.dialog.ItemGetDialog;
+import codegears.coca.dialog.NewspaperDialog;
 import codegears.coca.dialog.PurchaseDialog;
 import codegears.coca.dialog.ShopDialog;
 import codegears.coca.dialog.SpecialCodeDialog;
@@ -75,6 +76,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public static final int REQUEST_HARVEST = 6;
 	public static final int REQUEST_SHOP = 7;
 	public static final int REQUEST_COUPON = 8;
+	public static final int REQUEST_TUTORUAL = 9;
 	
 	private static final int FIX_SCENE_WIDTH = 960;
 	private static final int FIX_SCENE_HEIGHT = 640;
@@ -152,8 +154,10 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		couponButton = new ButtonSprite( 750, 5, textureCollection.get( TextureVar.TEXTURE_COUPONBUTTON ) );
 		specialCodeButton = new ButtonSprite( 650, 15, textureCollection.get( TextureVar.TEXTURE_SPECIALCODEBUTTON ) );
 		soundButton = new ButtonSprite( 870, 15, textureCollection.get( TextureVar.TEXTURE_SOUNDBUTTON ) );
-		shopButton = new ButtonSprite( 1250, 490, textureCollection.get( TextureVar.TEXTURE_SHOPBUTTON ) );
+		shopButton = new ButtonSprite( 1440, 425, textureCollection.get( TextureVar.TEXTURE_SHOPBUTTON ) );
 		farmMapSprite = new FarmSprite( textureCollection );
+		
+		shopButton.setScale((float) 1.4);
 		
 		farmMapSprite.setPlayer( currentPlayer );
 		farmMapSprite.setFarmTileListener(this);
@@ -213,8 +217,11 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		//if(currentPlayer.getIsNew()){
 			//open tutorial
 			Intent i = new Intent(this, TutorialDialog.class);
-			startActivity(i);
-		//}
+			startActivityForResult(i, REQUEST_TUTORUAL);
+		//}else
+			//open Newpaper
+			//Intent newIntent = new Intent(this, NewspaperDialog.class);
+			//startActivity( newIntent );
 	}
 
 	public HashMap<String, TextureRegion> getTextureCollection(){
@@ -319,6 +326,11 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			
 			//update player to server
 			currentPlayer.updateToServer();
+		} else if(requestCode == REQUEST_TUTORUAL){
+			if(resultCode == TutorialDialog.TUTORIAL_ACTIVITY_CLOSE){
+				Intent newIntent = new Intent(this, NewspaperDialog.class);
+				startActivity( newIntent );
+			}
 		}
 	}
 
