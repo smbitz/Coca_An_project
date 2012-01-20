@@ -163,6 +163,15 @@ public class CouponDialog extends Activity implements OnClickListener, NetworkTh
 		}
 	}
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == REQUEST_COUPONITEMEXCHANGE){
+			if(resultCode == CouponItemExchangeDialog.COUPON_EXCHANGE_SUCCESS){
+				this.finish();
+			} 
+		}
+	}
+	
 	private class GalleryAdapter extends BaseAdapter {
 
 		private ArrayList<CouponItem> data;

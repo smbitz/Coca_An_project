@@ -31,6 +31,7 @@ public class CouponItemExchangeDialog extends Activity implements OnClickListene
 	private static final String GENERATE_COUPON_URL = "GENERATE_COUPON_URL";
 	public static final String EXTRA_COUPON_CODE = "PUT_COUPON_CODE";
 	public static final String EXTRA_COUPON_ID = "PUT_COUPON_ID";
+	public static final int COUPON_EXCHANGE_SUCCESS = 0;
 	
 	private ImageView couponItemImage;
 	private TextView couponItemCurrentQuantity;
@@ -189,6 +190,7 @@ public class CouponItemExchangeDialog extends Activity implements OnClickListene
 			//set player for received coupon
 			//currentPlayer......(couponId);
 			currentPlayer.onExchangeReply(couponId);
+			this.setResult( COUPON_EXCHANGE_SUCCESS );
 			this.finish();
 			
 			Intent newIntent = new Intent( this, CouponItemGetDialog.class );
