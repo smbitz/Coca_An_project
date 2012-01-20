@@ -21,7 +21,7 @@
 		    android:id="@+id/linearLayout7"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
-		    android:layout_weight="3"
+		    android:layout_weight="5"
 		    android:orientation="vertical" >
 		</LinearLayout>
 
@@ -36,7 +36,7 @@
 			    android:background="#10FFFFFF"
 			    android:inputType="numberDecimal"
 			    android:maxLength="8"
-			    android:maxLines="1" android:layout_width="fill_parent" android:layout_marginLeft="50dip" android:layout_marginRight="50dip">
+			    android:maxLines="1" android:layout_width="fill_parent" android:layout_marginLeft="50dip" android:layout_marginRight="50dip" android:textStyle="bold">
 
 			    <requestFocus />
 			</EditText>
@@ -47,8 +47,27 @@
 		    android:id="@+id/linearLayout6"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
-		    android:orientation="vertical" >
+		    android:orientation="horizontal" android:layout_weight="1">
+
+			<LinearLayout
+			    android:id="@+id/linearLayout5"
+			    android:layout_width="wrap_content"
+			    android:layout_height="fill_parent" android:layout_weight="1">
+			</LinearLayout>
+
+			<TextView
+			    android:id="@+id/SpecialCodeFail"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="center"/>
+
+			<LinearLayout
+			    android:id="@+id/linearLayout9"
+			    android:layout_width="wrap_content"
+			    android:layout_height="fill_parent"
+			    android:layout_weight="1" >
+			</LinearLayout>
+
 		</LinearLayout>
 
 	</LinearLayout>

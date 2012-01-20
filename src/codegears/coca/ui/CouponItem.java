@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ public class CouponItem extends LinearLayout {
 	private static final String EXCHANGE_TEXT_COUPON_1 = "สามารถนำไปแลก\n";
 	private static final String EXCHANGE_TEXT_COUPON_2 = "ได้ที่โคคาสุกี้";
 	
-	private LinearLayout couponBackground;
+	private FrameLayout couponBackground;
 	private ImageView couponStatusImage;
 	private ImageView couponItemImage;
 	private TextView couponItemName;
@@ -51,7 +52,7 @@ public class CouponItem extends LinearLayout {
 		iManager = app.getItemManager();
 		currentPlayer = app.getCurrentPlayer();
 		
-		couponBackground = (LinearLayout) findViewById(R.id.couponItemBackground);
+		couponBackground = (FrameLayout) findViewById(R.id.couponItemBackground);
 		couponStatusImage = (ImageView) findViewById(R.id.couponItemStatusImage);
 		couponItemImage = (ImageView) findViewById(R.id.couponItemImage);
 		couponItemName = (TextView) findViewById(R.id.couponItemName);
@@ -270,7 +271,7 @@ public class CouponItem extends LinearLayout {
 			couponBackground.setBackgroundResource(R.drawable.coupons_my_hd);
 			couponItemCurrentQuantity.setVisibility( couponItemCurrentQuantity.INVISIBLE );
 			couponStatusImage.setVisibility( couponStatusImage.INVISIBLE );
-			couponItemRequireQuantity.setTextColor( R.color.orange );
+			couponItemRequireQuantity.setTextColor( this.getResources().getColor( R.color.orange ) );
 			
 			if( id.equals(ItemManager.ITEM_ID_MORNING_GLORY_COUPON ) ){
 				String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_MORNING_GLORY ).getName();

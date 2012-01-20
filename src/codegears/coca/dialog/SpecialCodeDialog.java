@@ -12,16 +12,22 @@ import codegears.coca.util.NetworkThreadUtil.NetworkThreadListener;
 import codegears.coca.util.NetworkUtil;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class SpecialCodeDialog extends Activity implements OnClickListener, NetworkThreadListener {
 
 	private static final String USE_SPECIAL_CODE_URL = "USE_SPECIAL_CODE_URL";
-
+	private static final int TEXT_FAIL_SIZE = 18;
+	private static final int TEXT_CODE_SIZE = 20;
+	private static final String DEFAULT_TEXT_FAIL = "* รหัสคูปอง 8 หลัก";
+	private static final String TEXT_FAIL = "รหัสคูปองไม่ถูกต้อง กรุณาลองอีกครั้ง";
+	
 	public  static final String PUT_EXTRA_ITEM_ID = "ITEM_ID";
 	public static final String PUT_EXTRA_ITEM_QUANTITY = "ITEM_QUANTITY";
 
@@ -30,17 +36,30 @@ public class SpecialCodeDialog extends Activity implements OnClickListener, Netw
 	private EditText codeField;
 	private ImageButton okButton;
 	private ImageButton cancelButton;
+	private TextView failText;
 
 	@Override
 	public void onCreate( Bundle savedInstanceState ) {
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.specialcodedialog );
+
+		app = (MyApp) this.getApplication();
+		
 		codeField = (EditText) this.findViewById( R.id.SpecialCodeField );
 		okButton = (ImageButton) this.findViewById( R.id.specialCodeOkButton );
 		okButton.setOnClickListener( this );
 		cancelButton = (ImageButton) this.findViewById( R.id.specialCodeCancelButton );
 		cancelButton.setOnClickListener( this );
-
+		failText = (TextView) findViewById( R.id.SpecialCodeFail );
+		
+		codeField.setTextColor( this.getResources().getColor( R.color.dark_blue ) );
+		codeField.setTextSize( TEXT_CODE_SIZE );
+		
+		failText.setTypeface( app.getTextFont() );
+		failText.setTextColor( this.getResources().getColor( R.color.dark_blue ) );
+		failText.setTextSize( TEXT_FAIL_SIZE );
+		failText.setText( DEFAULT_TEXT_FAIL );
+		
 		app = (MyApp) this.getApplication();
 		currentPlayer = app.getCurrentPlayer();
 	}
@@ -80,6 +99,8 @@ public class SpecialCodeDialog extends Activity implements OnClickListener, Netw
 		} else if ( result.equals( "fail" ) ) {
 			// else if return fail
 			// display error message
+			//failText.setTextColor( this.getResources().getColor( R.color.orange ) );
+			//failText.setText( TEXT_FAIL );
 		}
 	}
 

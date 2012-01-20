@@ -45,7 +45,7 @@ public class MyApp extends Application implements LoadListener {
 		isIManagerLoad = false;
 		isCurrentPlayerLoad = false;
 		textFont = Typeface.createFromAsset(getAssets(), FONT_POSITION);
-		facebookId = "3333";
+		facebookId = "2222";
 		facebookName = "Name";
 	}
 	
