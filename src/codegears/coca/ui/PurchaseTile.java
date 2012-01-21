@@ -11,4 +11,9 @@ public class PurchaseTile extends AbstractFarmTile {
 		super( pX, pY, pTextureRegion );
 	}
 
+	@Override
+	protected boolean touchOnPreferedRegion(float localX, float localY){
+		System.out.println("Purchase Farm Touch");
+		return false;
+	}
 }

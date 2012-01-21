@@ -14,6 +14,9 @@ import codegears.coca.data.Tile;
 
 public class FarmSprite extends Sprite {
 	
+	private static final float ZOOM_MIN = 1.0f;
+	private static final float ZOOM_MAX = 1.0f;
+	
 	private static final int FARM_START_X = 880;
 	private static final int FARM_START_Y = 464;
 	private static final int FARM_INCREASE_X = 141;
@@ -31,12 +34,12 @@ public class FarmSprite extends Sprite {
 	private float startedPositionY;
 	private float startedZoomFactor;
 	private boolean startTouch;
-	private Sprite map;
+	private MapSprite map;
 	private Sprite iconBuyArea;
 	
 	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection){
 		super(0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT));
-		map = new Sprite( 0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT) );
+		map = new MapSprite( 0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT) );
 		map.setScale((float) 1.37);
 		farmTileList = new ArrayList<AbstractFarmTile>();
 		purchaseTileList = new ArrayList<AbstractFarmTile>();
@@ -45,6 +48,7 @@ public class FarmSprite extends Sprite {
 		this.attachChild(map);
 	}
 	
+	@Override
 	public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY ){
 		if(pSceneTouchEvent.getPointerID() != 0){
 			return false;
@@ -141,7 +145,6 @@ public class FarmSprite extends Sprite {
 		int countLoop = 1;
 		for(Tile tileData:tileList){
 			if( tileData.getIsOccupy() ){
-				//AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ) );
 				AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection );
 				tile.setData( tileData );
 				farmTileList.add( tile );
@@ -149,7 +152,6 @@ public class FarmSprite extends Sprite {
 				int indexX = loop % 8;
 				int indexY = loop / 8;
 				if((indexX % 2 == 0) && (indexY % 2 == 0)){
-					//AbstractFarmTile purchaseTile = new PurchaseTile(setX, setY, tr );
 					AbstractFarmTile purchaseTile = FarmTileBuilder.createFarmTile(setX, setY, tileData, textureCollection);
 					purchaseTile.setData( tileData );
 					purchaseTileList.add( purchaseTile );
@@ -181,6 +183,7 @@ public class FarmSprite extends Sprite {
 	}
 
 	public void registerChildTouchArea(Scene scene){
+		scene.registerTouchArea( map );
 		for(AbstractFarmTile tile:farmTileList){
 			if(tile.getData().getBuildingStatus() != Tile.BUILDING_NOTOCCUPY){
 				scene.registerTouchArea( tile );
@@ -196,7 +199,10 @@ public class FarmSprite extends Sprite {
 	}
 	
 	public void pinchZoom(float factor){
-		this.setScale( startedZoomFactor * factor); 
+		float zoom = startedZoomFactor * factor;
+		zoom = Math.min( zoom, ZOOM_MAX );
+		zoom = Math.max( zoom, ZOOM_MIN );
+		this.setScale( zoom); 
 	}
 	
 	public void setMoveState(){

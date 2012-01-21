@@ -18,7 +18,7 @@ public class FarmTileBuilder {
 	public static AbstractFarmTile createFarmTile(int pX, int pY, Tile tile, HashMap<String, TextureRegion> textureCollection){
 
 		TextureRegion tr = null;
-		
+
 		if( tile.getBuildingId().equals( BuildingManager.BUILDING_ID_CHICKEN ) ||
 				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_PIG ) ||
 				tile.getBuildingId().equals( BuildingManager.BUILDING_ID_COW ) ||
@@ -291,8 +291,8 @@ public class FarmTileBuilder {
 		}else{
 			pX-=TILE_OCCUPY_SET_X;
 			pY+=TILE_OCCUPY_SET_Y;
-			return new FarmTile(pX, pY, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ));
+			return new PurchaseTile(pX, pY, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ));
 		}
-		
+
 	}
 }

@@ -194,7 +194,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		mMainScene.registerTouchArea( specialCodeButton );
 		mMainScene.registerTouchArea( soundButton );
 		mMainScene.registerTouchArea( shopButton );
-		mMainScene.registerTouchArea( farmMapSprite );
+//		mMainScene.registerTouchArea( farmMapSprite );
 		
 		mMainScene.attachChild( statusBar );
 
@@ -379,7 +379,6 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public void onMoveRequest( Tile data ) {
-		System.out.println("MOVE");
 		state = STATE_NORMAL;
 		farmMapSprite.setNormalState();
 		currentPlayer.swap(activeTile, data);
