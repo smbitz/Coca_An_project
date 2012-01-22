@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.anddev.andengine.audio.music.Music;
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.ZoomCamera;
 import org.anddev.andengine.engine.handler.timer.ITimerCallback;
@@ -101,6 +102,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	private HashMap<String, TextureRegion> textureCollection;
 	private HashMap<String, Font> fontCollection;
+	private HashMap<String, Music> musicCollection;
 	
 	private Timer myTimer;
 	
@@ -113,13 +115,14 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public Engine onLoadEngine() {
 		textureCollection = new HashMap<String, TextureRegion>();
 		fontCollection =  new HashMap<String, Font>();
+		musicCollection = new HashMap<String, Music>();
 		int cameraWidth = FIX_SCENE_WIDTH;
 		int cameraHeight = FIX_SCENE_HEIGHT;
 
 		mZoomCamera = new ZoomCamera( 0, 0, cameraWidth, cameraHeight );
 
 		Engine engine = new Engine( new EngineOptions( true, ScreenOrientation.LANDSCAPE,
-						new FillResolutionPolicy(), mZoomCamera ) );
+						new FillResolutionPolicy(), mZoomCamera ).setNeedsMusic( true ) );
 		
 		try {
 			if ( MultiTouch.isSupported( this ) ) {
@@ -135,10 +138,13 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public void onLoadResources() {
 		LoadResource.loadTexture( this, this.mEngine, textureCollection );
 		LoadResource.loadFont( this, this.mEngine, fontCollection );
+		LoadResource.loadMusic(this, this.mEngine, musicCollection );
 	}
 
 	@Override
 	public Scene onLoadScene() {
+		musicCollection.get( "TEST_MUSIC" ).play();
+		
 		app = (MyApp)this.getApplication();
 		currentPlayer = app.getCurrentPlayer();
 		currentPlayer.updateToServer();

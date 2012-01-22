@@ -1,7 +1,10 @@
 package codegears.coca.util;
 
+import java.io.IOException;
 import java.util.HashMap;
 
+import org.anddev.andengine.audio.music.Music;
+import org.anddev.andengine.audio.music.MusicFactory;
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.opengl.font.Font;
 import org.anddev.andengine.opengl.texture.Texture;
@@ -475,5 +478,18 @@ public class LoadResource {
 		fontCollection.put( "TEST_FONT", font );
 		engine.getTextureManager().loadTexture( mFontTexture );
 		engine.getFontManager().loadFont(font);
+	}
+	
+	public static void loadMusic(Context context, Engine engine, HashMap<String, Music> musicCollection){
+		MusicFactory.setAssetBasePath( "mfx/" );
+		try {
+			Music m = MusicFactory.createMusicFromAsset( engine.getMusicManager(), context, "test.mp3" );
+			m.setLooping( true );
+			musicCollection.put( "TEST_MUSIC", m );
+		} catch ( IllegalStateException e ) {
+			e.printStackTrace();
+		} catch ( IOException e ) {	
+			e.printStackTrace();
+		}
 	}
 }
