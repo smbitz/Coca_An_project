@@ -12,6 +12,7 @@ import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -34,7 +35,7 @@ public class LoadResource {
 		BitmapTextureAtlas mStatusBarTextureAtlas = new BitmapTextureAtlas( 512, 128 );
 		BitmapTextureAtlas mStatusBarMoneyTextureAtlas = new BitmapTextureAtlas( 256, 64 );
 		BitmapTextureAtlas mStatusBarExpTextureAtlas = new BitmapTextureAtlas( 256, 8 );
-		BitmapTextureAtlas mStatusNumberLevelTextureAtlas = new BitmapTextureAtlas( 512, 64 );
+
 		BitmapTextureAtlas mNumberLevelUpTextureAtlas = new BitmapTextureAtlas( 1024, 128 );
 		
 		//Texture tile.
@@ -157,9 +158,6 @@ public class LoadResource {
 		TextureRegion statusBarExp = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mStatusBarExpTextureAtlas, context, "bar_exp.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_STATUS_BAR_EXP ,statusBarExp );
-		TextureRegion statusBarNumberLevel = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				mStatusNumberLevelTextureAtlas, context, "number_controller_level.png", 0, 0 );
-		textureCollection.put( TextureVar.TEXTURE_STATUS_BAR_NUMBER_LEVEL ,statusBarNumberLevel );
 		TextureRegion statusLevelUp = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mNumberLevelUpTextureAtlas, context, "number_popup_level.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_NUMBER_LEVEL_UP ,statusLevelUp );
@@ -384,7 +382,6 @@ public class LoadResource {
 		engine.getTextureManager().loadTexture( mStatusBarTextureAtlas );
 		engine.getTextureManager().loadTexture( mStatusBarMoneyTextureAtlas );
 		engine.getTextureManager().loadTexture( mStatusBarExpTextureAtlas );
-		engine.getTextureManager().loadTexture( mStatusNumberLevelTextureAtlas );
 		engine.getTextureManager().loadTexture( mNumberLevelUpTextureAtlas );
 		
 		//Texture tile.
@@ -491,5 +488,13 @@ public class LoadResource {
 		} catch ( IOException e ) {	
 			e.printStackTrace();
 		}
+	}
+	
+	public static void loadTiledTexture(Context context, Engine engine, HashMap<String, TiledTextureRegion> titedTextureCollection){
+		BitmapTextureAtlas mStatusNumberLevelTextureAtlas = new BitmapTextureAtlas( 512, 64 );
+		TiledTextureRegion statusBarNumberLevel = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+						mStatusNumberLevelTextureAtlas, context, "number_controller_level.png", 0, 0, 10, 1 );
+		titedTextureCollection.put( TextureVar.TILEDTEXTURE_STATUS_BAR_NUMBER_LEVEL ,statusBarNumberLevel );		
+		engine.getTextureManager().loadTexture( mStatusNumberLevelTextureAtlas );
 	}
 }

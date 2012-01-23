@@ -35,6 +35,7 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TextureRegionLibrary;
+import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import codegears.coca.data.Building;
@@ -101,6 +102,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	private float mPinchZoomStartedCameraZoomFactor;
 
 	private HashMap<String, TextureRegion> textureCollection;
+	private HashMap<String, TiledTextureRegion> tiledTextureCollection;
 	private HashMap<String, Font> fontCollection;
 	private HashMap<String, Music> musicCollection;
 	
@@ -116,6 +118,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		textureCollection = new HashMap<String, TextureRegion>();
 		fontCollection =  new HashMap<String, Font>();
 		musicCollection = new HashMap<String, Music>();
+		tiledTextureCollection = new HashMap<String, TiledTextureRegion>();
 		int cameraWidth = FIX_SCENE_WIDTH;
 		int cameraHeight = FIX_SCENE_HEIGHT;
 
@@ -137,6 +140,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	@Override
 	public void onLoadResources() {
 		LoadResource.loadTexture( this, this.mEngine, textureCollection );
+		LoadResource.loadTiledTexture(this, this.mEngine, tiledTextureCollection);
 		LoadResource.loadFont( this, this.mEngine, fontCollection );
 		LoadResource.loadMusic(this, this.mEngine, musicCollection );
 	}
@@ -174,7 +178,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 		farmMapSprite.attachChild( shopButton );
 
-		StatusBar statusBar = new StatusBar(0, 0, textureCollection, fontCollection);
+		StatusBar statusBar = new StatusBar(0, 0, textureCollection, fontCollection, tiledTextureCollection);
 		statusBar.setFarmName( currentPlayer.getName() );
 		statusBar.setLevel( currentPlayer.getLevel() );
 		statusBar.setExp( currentPlayer.getExp() );
