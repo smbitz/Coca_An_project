@@ -19,19 +19,45 @@
             android:id="@+id/linearLayout1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" android:layout_weight="0.5">
+            android:orientation="vertical" android:layout_weight="0.2">
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/newspaperImage"
+        <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:layout_weight="4"/>
+            android:layout_height="fill_parent" android:layout_weight="2">
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:layout_weight="10">
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/newspaperImage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="10" >
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" android:layout_weight="1">
+            android:orientation="vertical" android:layout_weight="0.4">
         </LinearLayout>
 
     </LinearLayout>

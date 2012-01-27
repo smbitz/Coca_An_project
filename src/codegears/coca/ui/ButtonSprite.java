@@ -7,7 +7,7 @@ import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import android.view.MotionEvent;
 
 public class ButtonSprite extends Sprite {
-
+	
 	private ButtonListener listener;
 	
 	public void setListener(ButtonListener l){
@@ -24,12 +24,11 @@ public class ButtonSprite extends Sprite {
  		 switch(pSceneTouchEvent.getAction())
       {
           case MotionEvent.ACTION_DOWN:
-         	 			//this.setVisible(false);
+          			listener.onClickDown(this);
                 return true;
          
           case MotionEvent.ACTION_UP:
-         	 			//this.setVisible(true);
-         	 		  listener.onClick(this);
+         	 		  listener.onClickUp(this);
                 return true;
       }
      

@@ -74,6 +74,8 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 	private ItemManager iManager;
 	private long lastUpdateTime;
 
+	private PlayerListener playerListener;
+	
 	public Player(MyApp app){
 		this.app = app;
 		tileList = new ArrayList<Tile>();
@@ -163,6 +165,10 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 	
 	public void setLoadListener(LoadListener listener){
 		this.listener = listener;
+	}
+	
+	public void setPlayerListener(PlayerListener setPlayerListener){
+		this.playerListener = setPlayerListener;
 	}
 
 	@Override
@@ -346,7 +352,7 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		
 		while(exp>=expForNextLevel){
 			currentPlayerLevel++;
-			expForNextLevel = (int) (50+(50*(Math.pow(currentPlayerLevel, 2))));
+			expForNextLevel = getCalculateExp( currentPlayerLevel );
 		}
 		
 		return currentPlayerLevel;
@@ -638,11 +644,14 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		if(isLevelUp(expPoint)){
 			exp += expPoint;
 			//Update exp bar
+			playerListener.onExpUp(this);
 			//Show level up dialog
+			playerListener.onLevelUp(this);
 		}else{
 			//else add exp call exp event
 			exp += expPoint;
 			//Update exp bar
+			playerListener.onExpUp(this);
 		}
 	}
 	

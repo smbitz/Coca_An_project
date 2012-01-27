@@ -40,6 +40,7 @@ import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 import codegears.coca.data.Building;
 import codegears.coca.data.Item;
+import codegears.coca.data.PlayerListener;
 import codegears.coca.data.TextureVar;
 import codegears.coca.data.Player;
 import codegears.coca.data.Tile;
@@ -57,6 +58,8 @@ import codegears.coca.ui.ButtonListener;
 import codegears.coca.ui.ButtonSprite;
 import codegears.coca.ui.FarmSprite;
 import codegears.coca.ui.FarmTileListener;
+import codegears.coca.ui.LevelUpPopUp;
+import codegears.coca.ui.LevelUpPopUpListener;
 import codegears.coca.ui.StatusBar;
 import codegears.coca.util.LoadResource;
 
@@ -68,7 +71,8 @@ import android.os.AsyncTask;
 import android.view.MotionEvent;
 
 public class GameActivity extends BaseGameActivity implements ButtonListener,
-				IPinchZoomDetectorListener, IOnSceneTouchListener, FarmTileListener {
+				IPinchZoomDetectorListener, IOnSceneTouchListener, FarmTileListener, 
+				PlayerListener, LevelUpPopUpListener {
 
 	public static final int REQUEST_PURCHASETILE = 1;
 	public static final int REQUEST_BUILD = 2;
@@ -80,12 +84,18 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public static final int REQUEST_COUPON = 8;
 	public static final int REQUEST_TUTORUAL = 9;
 	
-	private static final int FIX_SCENE_WIDTH = 960;
-	private static final int FIX_SCENE_HEIGHT = 640;
+	public static final int FIX_SCENE_WIDTH = 960;
+	public static final int FIX_SCENE_HEIGHT = 640;
 	
 	public static final int STATE_NORMAL = 1;
 	public static final int STATE_MOVE = 2;
-		
+	public static final int STATE_LEVELUP = 3;
+	
+	private static final Float SHOP_SCALE_SIZE = (float) 1.4;
+	
+	private static final float BUTTON_SCALE_SIZE_CLICK_DOWN = (float) 1.2;
+	private static final float BUTTON_SCALE_SIZE_CLICK_UP = 1;
+	
 	private int state;
 	
 	private ZoomCamera mZoomCamera;
@@ -109,6 +119,11 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	private Timer myTimer;
 	
 	private MyApp app;
+	private LevelUpPopUp levelUpPopUp;
+	private StatusBar statusBar;
+	
+	private TimerHandler gameTimerHandler;
+	
 	//---- Data Variable ----//
 	private Player currentPlayer;
 	private Tile activeTile;
@@ -147,11 +162,12 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public Scene onLoadScene() {
-		musicCollection.get( "TEST_MUSIC" ).play();
+		musicCollection.get( LoadResource.SOUND_BG ).play();
 		
 		app = (MyApp)this.getApplication();
 		currentPlayer = app.getCurrentPlayer();
 		currentPlayer.updateToServer();
+		currentPlayer.setPlayerListener( this );
 		
 		state = STATE_NORMAL;
 		
@@ -164,10 +180,12 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		couponButton = new ButtonSprite( 750, 5, textureCollection.get( TextureVar.TEXTURE_COUPONBUTTON ) );
 		specialCodeButton = new ButtonSprite( 650, 15, textureCollection.get( TextureVar.TEXTURE_SPECIALCODEBUTTON ) );
 		soundButton = new ButtonSprite( 870, 15, textureCollection.get( TextureVar.TEXTURE_SOUNDBUTTON ) );
-		shopButton = new ButtonSprite( 1440, 425, textureCollection.get( TextureVar.TEXTURE_SHOPBUTTON ) );
-		farmMapSprite = new FarmSprite( textureCollection );
+		shopButton = new ButtonSprite( 1435, 425, textureCollection.get( TextureVar.TEXTURE_SHOPBUTTON ) );
+		shopButton.setVisible( false );
+		farmMapSprite = new FarmSprite( textureCollection, tiledTextureCollection );
+		levelUpPopUp = new LevelUpPopUp( 0, 0, textureCollection, tiledTextureCollection);
 		
-		shopButton.setScale((float) 1.4);
+		shopButton.setScale( SHOP_SCALE_SIZE );
 		
 		farmMapSprite.setPlayer( currentPlayer );
 		farmMapSprite.setFarmTileListener(this);
@@ -175,10 +193,9 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		specialCodeButton.setListener( this );
 		soundButton.setListener( this );
 		shopButton.setListener( this );
+		levelUpPopUp.setListener( this );
 
-		farmMapSprite.attachChild( shopButton );
-
-		StatusBar statusBar = new StatusBar(0, 0, textureCollection, fontCollection, tiledTextureCollection);
+		statusBar = new StatusBar(0, 0, textureCollection, fontCollection, tiledTextureCollection);
 		statusBar.setFarmName( currentPlayer.getName() );
 		statusBar.setLevel( currentPlayer.getLevel() );
 		statusBar.setExp( currentPlayer.getExp() );
@@ -194,19 +211,21 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			this.mPinchZoomDetector = null;
 		}
 
+		farmMapSprite.attachChild( shopButton );
 		farmMapSprite.registerChildTouchArea(mMainScene);
 		mMainScene.attachChild( farmMapSprite );
 		mMainScene.attachChild( couponButton );
 		mMainScene.attachChild( specialCodeButton );
 		mMainScene.attachChild( soundButton );
+		mMainScene.attachChild( statusBar );
+		mMainScene.attachChild( levelUpPopUp );
 
 		mMainScene.registerTouchArea( couponButton );
 		mMainScene.registerTouchArea( specialCodeButton );
 		mMainScene.registerTouchArea( soundButton );
 		mMainScene.registerTouchArea( shopButton );
-//		mMainScene.registerTouchArea( farmMapSprite );
-		
-		mMainScene.attachChild( statusBar );
+		mMainScene.registerTouchArea( levelUpPopUp );
+		//mMainScene.registerTouchArea( farmMapSprite );
 
 		mMainScene.setOnSceneTouchListener(this);
 		mMainScene.setTouchAreaBindingEnabled( false );
@@ -217,12 +236,23 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	@Override
 	public void onLoadComplete() {
 		currentPlayer.start(System.currentTimeMillis());
-		mMainScene.registerUpdateHandler( new TimerHandler( 0.1f, new ITimerCallback(){
-					public void onTimePassed(final TimerHandler handler){
-						farmMapSprite.update( mMainScene );
-						currentPlayer.update(System.currentTimeMillis());
-					}}
-		));
+		gameTimerHandler = new TimerHandler( 0.1f, new ITimerCallback(){
+												public void onTimePassed(final TimerHandler handler){
+													if(state == STATE_LEVELUP){
+														//unregister
+														farmMapSprite.unRegisterChildTouchArea( mMainScene );
+														farmMapSprite.update( mMainScene );
+													} else {
+														//unregister
+														farmMapSprite.unRegisterChildTouchArea( mMainScene );
+														farmMapSprite.update( mMainScene );
+														//register
+														farmMapSprite.registerChildTouchArea( mMainScene );
+													}
+													currentPlayer.update(System.currentTimeMillis());
+												}}
+									 		 );
+		mMainScene.registerUpdateHandler( gameTimerHandler );
 		//open newspaper
 		//if(currentPlayer.getIsNew()){
 			//open tutorial
@@ -232,6 +262,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			//open Newpaper
 			//Intent newIntent = new Intent(this, NewspaperDialog.class);
 			//startActivity( newIntent );
+			
+		
 	}
 
 	public HashMap<String, TextureRegion> getTextureCollection(){
@@ -239,19 +271,34 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	}
 	
 	@Override
-	public void onClick( ButtonSprite buttonSprite ) {
+	public void onClickDown( ButtonSprite buttonSprite ) {
+		musicCollection.get( LoadResource.SOUND_BUTTON ).play();
 		if ( buttonSprite == this.couponButton ) {
+			buttonSprite.setScale( BUTTON_SCALE_SIZE_CLICK_DOWN );
+		} else if ( buttonSprite == this.specialCodeButton ) {
+			buttonSprite.setScale( BUTTON_SCALE_SIZE_CLICK_DOWN );
+		} else if ( buttonSprite == this.shopButton ) {
+			buttonSprite.setVisible( true );
+		}
+	}
+
+	@Override
+	public void onClickUp(ButtonSprite buttonSprite) {
+		if ( buttonSprite == this.couponButton ) {
+			buttonSprite.setScale( BUTTON_SCALE_SIZE_CLICK_UP );
 			Intent i = new Intent( this, CouponDialog.class );
 			this.startActivityForResult( i, REQUEST_COUPON );
 		} else if ( buttonSprite == this.specialCodeButton ) {
+			buttonSprite.setScale( BUTTON_SCALE_SIZE_CLICK_UP );
 			Intent i = new Intent( this, SpecialCodeDialog.class );
 			this.startActivityForResult( i, REQUEST_SPECIALCODE );
 		} else if ( buttonSprite == this.shopButton ) {
+			buttonSprite.setVisible( false );
 			Intent i = new Intent( this, ShopDialog.class);
 			this.startActivityForResult( i, REQUEST_SHOP );
-		} 
+		}
 	}
-
+	
 	@Override
 	public void onPinchZoom( PinchZoomDetector arg0, TouchEvent arg1, float pZoomFactor ) {
 		farmMapSprite.pinchZoom(pZoomFactor);
@@ -276,7 +323,6 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		return true;
 	}
 	
-
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		if(requestCode == REQUEST_PURCHASETILE){
@@ -293,7 +339,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 				String buildingId = app.getBuildingManager().getBuildingIdFromItemBuild( itemForBuildId );
 				Building building = app.getBuildingManager().getMatchBuilding(buildingId);
 				currentPlayer.build( activeTile, building );
-				farmMapSprite.update( mMainScene );
+				//farmMapSprite.update( mMainScene );
 				currentPlayer.updateToServer();
 			}
 		} else if(requestCode == REQUEST_SPECIALCODE){
@@ -385,6 +431,9 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		
 		//update player to server
 		currentPlayer.updateToServer();
+		
+		//Update farm
+		farmMapSprite.update( mMainScene );
 	}
 
 	@Override
@@ -392,7 +441,39 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		state = STATE_NORMAL;
 		farmMapSprite.setNormalState();
 		currentPlayer.swap(activeTile, data);
+		
+		///Update farm
 		farmMapSprite.update( mMainScene );
+	}
+
+	@Override
+	public void onLevelUp(Player player) {
+		this.state = STATE_LEVELUP;
+		farmMapSprite.unRegisterChildTouchArea( mMainScene );
+		mMainScene.unregisterTouchArea( shopButton );
+		mMainScene.unregisterTouchArea( couponButton );
+		mMainScene.unregisterTouchArea( soundButton );
+		mMainScene.unregisterTouchArea( specialCodeButton );
+		statusBar.setLevel( player.getLevel() );
+		statusBar.setMoney( player.getMoney() );
+		levelUpPopUp.setLevel( player.getLevel() );
+		levelUpPopUp.setVisible( mMainScene, true );
+	}
+
+	@Override
+	public void onExpUp(Player player) {
+		statusBar.setMoney( player.getMoney() );
+	}
+
+	@Override
+	public void onLevelPopUpCloseButtonClick() {
+		this.state = STATE_NORMAL;
+		farmMapSprite.registerChildTouchArea( mMainScene );
+		mMainScene.registerTouchArea( shopButton );
+		mMainScene.registerTouchArea( couponButton );
+		mMainScene.registerTouchArea( soundButton );
+		mMainScene.registerTouchArea( specialCodeButton );
+		levelUpPopUp.setVisible( mMainScene, false );
 	}
 
 }

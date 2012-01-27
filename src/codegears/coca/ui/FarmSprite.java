@@ -3,10 +3,14 @@ package codegears.coca.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.rmi.CORBA.Tie;
+
 import org.anddev.andengine.entity.scene.Scene;
+import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 import codegears.coca.data.TextureVar;
 import codegears.coca.data.Player;
@@ -22,10 +26,13 @@ public class FarmSprite extends Sprite {
 	private static final int FARM_INCREASE_X = 141;
 	private static final int FARM_INCREASE_Y = 71;
 	
+	private static final float MAP_SCALE = (float) 1.37;
+	
 	private ArrayList<AbstractFarmTile> farmTileList;
 	private ArrayList<AbstractFarmTile> purchaseTileList;
 	private Player currentPlayer;
 	private HashMap<String, TextureRegion> textureCollection;
+	private HashMap<String, TiledTextureRegion> tiledTextureCollection;
 	private FarmTileListener tileListener;
 	
 	private float startedMouseTouchX;
@@ -34,16 +41,21 @@ public class FarmSprite extends Sprite {
 	private float startedPositionY;
 	private float startedZoomFactor;
 	private boolean startTouch;
+	
 	private MapSprite map;
 	private Sprite iconBuyArea;
 	
-	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection){
+	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection, 
+			HashMap<String, TiledTextureRegion> gettiledTextureCollection){
 		super(0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT));
+		
 		map = new MapSprite( 0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT) );
-		map.setScale((float) 1.37);
+		map.setScale( MAP_SCALE );
+		
 		farmTileList = new ArrayList<AbstractFarmTile>();
 		purchaseTileList = new ArrayList<AbstractFarmTile>();
 		textureCollection = getTextureCollection;
+		tiledTextureCollection = gettiledTextureCollection;
 		startTouch = false;
 		this.attachChild(map);
 	}
@@ -89,11 +101,21 @@ public class FarmSprite extends Sprite {
 		int countLine = 1;
 		int countLoop = 1;
 		for(Tile tileData:tileList){
-			//AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ) );
-			AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection );
-			tile.setData( tileData );
-			farmTileList.add( tile );
-			if( !tileData.getIsOccupy() ){
+			if( tileData.getIsOccupy() ){
+				//AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ) );
+				AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection );
+				tile.setData( tileData );
+				
+				//Add Butterfly Animate
+				if( tileData.getBuildingStatus() != Tile.BUILDING_EMPTY &&
+						tileData.getBuildingStatus() != Tile.BUILDING_ROTTED ){
+					AnimatedSprite butterflyAnimate = new AnimatedSprite(50, 35, tiledTextureCollection.get( TextureVar.TEXTURE_BUTTERFLY_ANIMATE ).deepCopy());
+					butterflyAnimate.animate(100);
+					tile.attachChild( butterflyAnimate );
+				}
+				
+				farmTileList.add( tile );
+			}else	if( !tileData.getIsOccupy() ){
 				int indexX = loop % 8;
 				int indexY = loop / 8;
 				if((indexX % 2 == 0) && (indexY % 2 == 0)){
@@ -128,14 +150,13 @@ public class FarmSprite extends Sprite {
 	public void update(Scene scene){
 		for(AbstractFarmTile tile:farmTileList){
 			this.detachChild( tile );
-			scene.unregisterTouchArea( tile );
 		}
 		farmTileList.clear();
 		for(AbstractFarmTile tile:purchaseTileList){
 			this.detachChild( tile );
-			scene.unregisterTouchArea( tile );
 		}
 		purchaseTileList.clear();
+		
 		ArrayList<Tile> tileList = currentPlayer.getTile();
 		//---- Create FarmTile ----//
 		int setX = 880;
@@ -147,6 +168,15 @@ public class FarmSprite extends Sprite {
 			if( tileData.getIsOccupy() ){
 				AbstractFarmTile tile = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection );
 				tile.setData( tileData );
+				
+				//Add Butterfly Animate
+				if( tileData.getBuildingStatus() != Tile.BUILDING_EMPTY &&
+						tileData.getBuildingStatus() != Tile.BUILDING_ROTTED ){
+					AnimatedSprite butterflyAnimate = new AnimatedSprite(50, 35, tiledTextureCollection.get( TextureVar.TEXTURE_BUTTERFLY_ANIMATE ).deepCopy());
+					butterflyAnimate.animate(100);
+					tile.attachChild( butterflyAnimate );
+				}
+				
 				farmTileList.add( tile );
 			}else if( !tileData.getIsOccupy() ){
 				int indexX = loop % 8;
@@ -170,14 +200,13 @@ public class FarmSprite extends Sprite {
 			countLoop++;
 			loop++;
 		}
+		
 		//---- add All tile to farmMap in proper order ----//
 		for(AbstractFarmTile tile:purchaseTileList){
 			this.attachChild( tile );
-			scene.registerTouchArea( tile );
 		}
 		for(AbstractFarmTile tile:farmTileList){
 			this.attachChild( tile );
-			scene.registerTouchArea( tile );
 		}
 		this.setFarmTileListener( this.tileListener );
 	}
@@ -190,7 +219,19 @@ public class FarmSprite extends Sprite {
 			}
 		}
 		for(AbstractFarmTile tile:purchaseTileList){
-			scene.registerTouchArea( tile );
+				scene.registerTouchArea( tile );
+		}
+	}
+	
+	public void unRegisterChildTouchArea(Scene scene){
+		scene.unregisterTouchArea( map );
+		for(AbstractFarmTile tile:farmTileList){
+			if(tile.getData().getBuildingStatus() != Tile.BUILDING_NOTOCCUPY){
+				scene.unregisterTouchArea( tile );
+			}
+		}
+		for(AbstractFarmTile tile:purchaseTileList){
+				scene.unregisterTouchArea( tile );
 		}
 	}
 	

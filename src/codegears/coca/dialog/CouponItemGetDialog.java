@@ -18,6 +18,7 @@ public class CouponItemGetDialog extends Activity implements OnClickListener {
 	private static final String FONT_POSITION = "font/DB_HelvethaicaMon_X_Med_v3.2.ttf";
 	private static final String EXCHANGE_TEXT_COUPON_1 = "สามารถนำไปแลก\n";
 	private static final String EXCHANGE_TEXT_COUPON_2 = "ได้ที่โคคาสุกี้";
+	private static final int COUPON_CODE_SIZE = 30;
 	
 	private ImageButton closeButton;
 	private ImageView couponImage;
@@ -58,8 +59,7 @@ public class CouponItemGetDialog extends Activity implements OnClickListener {
 		couponName.setTextColor( Color.BLACK );
 		couponDetail.setTextColor( Color.BLACK );
 		
-		couponName.setTextSize(20);
-		couponCode.setTextSize(30);
+		couponCode.setTextSize( COUPON_CODE_SIZE );
 		
 		if( couponItemId.equals(ItemManager.ITEM_ID_MORNING_GLORY_COUPON ) ){
 			String itemName = iManager.getMatchItem( ItemManager.ITEM_ID_MORNING_GLORY ).getName();

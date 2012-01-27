@@ -14,9 +14,12 @@ import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 import codegears.coca.data.TextureVar;
+import codegears.coca.util.LoadResource;
 
 public class StatusBar extends Sprite {
 
+	private static final String TEXT_AFTER_NAME = "'s Land";
+	
 	private String farmName = "Test Farm Name";
 	private int level;
 	private float exp;	//0 - 1
@@ -43,13 +46,11 @@ public class StatusBar extends Sprite {
 		//levelBitmap = new Sprite(0, 0, textureCollection.get( TextureVar.TEXTURE_TILE_BABY_CORN_01 ));
 		//this.attachChild( levelBitmap );
 		//create farmName text
-		nameText = new ChangeableText( 150, 20, fontCollection.get( "TEST_FONT" ), farmName);
-		nameText.setColor(0, 0, 0);
+		nameText = new ChangeableText( 150, 20, fontCollection.get( LoadResource.STATUS_BAR_FONT ), farmName);
 		this.attachChild( nameText );
 		
 		//Money text
-		moneyText = new ChangeableText(370, 30, fontCollection.get( "TEST_FONT" ), farmName);
-		moneyText.setColor(0, 0, 0);
+		moneyText = new ChangeableText(370, 30, fontCollection.get( LoadResource.STATUS_BAR_FONT ), farmName);
 		this.attachChild( moneyText );
 		
 		//create exp bar
@@ -62,8 +63,8 @@ public class StatusBar extends Sprite {
 	}
 	
 	public void setFarmName(String name){
-		this.farmName = name;
-		nameText.setText( name );
+		this.farmName = name+TEXT_AFTER_NAME;
+		nameText.setText( name+TEXT_AFTER_NAME );
 	}
 	
 	public void setLevel(int level){

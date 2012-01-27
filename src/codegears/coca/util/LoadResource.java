@@ -17,11 +17,27 @@ import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import codegears.coca.MyApp;
 import codegears.coca.data.TextureVar;
 
 public class LoadResource {
+	
+	public static final String STATUS_BAR_FONT = "STATUS_BAR_FONT";
+	
+	public static final String SOUND_BG = "SOUND_BG";
+	public static final String SOUND_BONUS = "SOUND_BONUS";
+	public static final String SOUND_BUTTON = "SOUND_BUTTON";
+	public static final String SOUND_CHOOSE_CLICK = "SOUND_CHOOSE_CLICK";
+	public static final String SOUND_COIN = "SOUND_COIN";
+	public static final String SOUND_LAND_CLICK = "SOUND_LAND_CLICK";
+	public static final String SOUND_LEVEL_UP = "SOUND_LEVEL_UP";
+	public static final String SOUND_ON_OF = "SOUND_ON_OF";
+	
+	private static MyApp app;
 
 	public static void loadTexture(Context context, Engine engine, HashMap<String, TextureRegion> textureCollection){
+		app = (MyApp) context.getApplicationContext();
+		
 		BitmapTextureAtlas mDefaultFarmMapTextureAtlas = new BitmapTextureAtlas( 2048, 2048 );
 		BitmapTextureAtlas mFarmMapTextureAtlas = new BitmapTextureAtlas( 512, 256 );
 		BitmapTextureAtlas mFarmMapNotOccupyTextureAtlas = new BitmapTextureAtlas( 2048, 1024 );
@@ -30,13 +46,14 @@ public class LoadResource {
 		BitmapTextureAtlas mSoundButtonTextureAtlas = new BitmapTextureAtlas( 128, 64 );
 		BitmapTextureAtlas mShopButtonTextureAtlas = new BitmapTextureAtlas( 1024, 256 );
 		BitmapTextureAtlas mEmptyFarmTextureAtlas = new BitmapTextureAtlas( 512, 256 );
+		BitmapTextureAtlas mLevelUpTextureAtlas = new BitmapTextureAtlas( 1024, 512 );
+		BitmapTextureAtlas mCloseButtonTextureAtlas = new BitmapTextureAtlas( 64, 64 );
+		BitmapTextureAtlas mBackgroundDialogTextureAtlas = new BitmapTextureAtlas( 16, 16 );
 		
 		//Status Bar
 		BitmapTextureAtlas mStatusBarTextureAtlas = new BitmapTextureAtlas( 512, 128 );
 		BitmapTextureAtlas mStatusBarMoneyTextureAtlas = new BitmapTextureAtlas( 256, 64 );
 		BitmapTextureAtlas mStatusBarExpTextureAtlas = new BitmapTextureAtlas( 256, 8 );
-
-		BitmapTextureAtlas mNumberLevelUpTextureAtlas = new BitmapTextureAtlas( 1024, 128 );
 		
 		//Texture tile.
 		//Vege
@@ -146,7 +163,15 @@ public class LoadResource {
 		TextureRegion mEmptyFarmTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mEmptyFarmTextureAtlas, context, "empty_farm_texture.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_EMPTY_FARM, mEmptyFarmTextureRegion );
-		
+		TextureRegion mLevelUpTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mLevelUpTextureAtlas, context, "popup_level_up.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_LEVEL_UP_DIALOG, mLevelUpTextureRegion );
+		TextureRegion mCloseButtonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mCloseButtonTextureAtlas, context, "button_close.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_CLOSE_BUTTON, mCloseButtonTextureRegion );
+		TextureRegion mBackgroundDialogTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mBackgroundDialogTextureAtlas, context, "background_dialog.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_BACKGROUND_DIALOG, mBackgroundDialogTextureRegion );
 		
 		//Texture Status Bar
 		TextureRegion statusBar = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
@@ -158,9 +183,6 @@ public class LoadResource {
 		TextureRegion statusBarExp = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mStatusBarExpTextureAtlas, context, "bar_exp.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_STATUS_BAR_EXP ,statusBarExp );
-		TextureRegion statusLevelUp = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				mNumberLevelUpTextureAtlas, context, "number_popup_level.png", 0, 0 );
-		textureCollection.put( TextureVar.TEXTURE_NUMBER_LEVEL_UP ,statusLevelUp );
 		
 	  //Texture tile.
 		//Vege
@@ -377,12 +399,14 @@ public class LoadResource {
 		engine.getTextureManager().loadTexture( mSoundButtonTextureAtlas );
 		engine.getTextureManager().loadTexture( mShopButtonTextureAtlas );
 		engine.getTextureManager().loadTexture( mEmptyFarmTextureAtlas );
+		engine.getTextureManager().loadTexture( mLevelUpTextureAtlas );
+		engine.getTextureManager().loadTexture( mCloseButtonTextureAtlas );
+		engine.getTextureManager().loadTexture( mBackgroundDialogTextureAtlas );
 		
 		//Texture Status Bar
 		engine.getTextureManager().loadTexture( mStatusBarTextureAtlas );
 		engine.getTextureManager().loadTexture( mStatusBarMoneyTextureAtlas );
 		engine.getTextureManager().loadTexture( mStatusBarExpTextureAtlas );
-		engine.getTextureManager().loadTexture( mNumberLevelUpTextureAtlas );
 		
 		//Texture tile.
 		//Vege
@@ -473,16 +497,40 @@ public class LoadResource {
 		Texture mFontTexture = new BitmapTextureAtlas(512, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		Font font = new Font(mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
 		fontCollection.put( "TEST_FONT", font );
+		Font statusBarFont = new Font(mFontTexture, app.getTextFont(), 30, true, Color.BLACK);
+		fontCollection.put( STATUS_BAR_FONT, statusBarFont );
 		engine.getTextureManager().loadTexture( mFontTexture );
 		engine.getFontManager().loadFont(font);
+		engine.getFontManager().loadFont(statusBarFont);
 	}
 	
 	public static void loadMusic(Context context, Engine engine, HashMap<String, Music> musicCollection){
 		MusicFactory.setAssetBasePath( "mfx/" );
 		try {
-			Music m = MusicFactory.createMusicFromAsset( engine.getMusicManager(), context, "test.mp3" );
-			m.setLooping( true );
-			musicCollection.put( "TEST_MUSIC", m );
+			Music mBG = MusicFactory.createMusicFromAsset( engine.getMusicManager(), context, "bg.mp3" );
+			mBG.setLooping( true );
+			musicCollection.put( SOUND_BG, mBG );
+			Music mBonus = MusicFactory.createMusicFromAsset( engine.getMusicManager(), context, "bonus.mp3" );
+			mBonus.setLooping( false );
+			musicCollection.put( SOUND_BONUS, mBonus );
+			Music mButton = MusicFactory.createMusicFromAsset( engine.getMusicManager(), context, "button.mp3" );
+			mButton.setLooping( false );
+			musicCollection.put( SOUND_BUTTON, mButton );
+			Music mChooseClick = MusicFactory.createMusicFromAsset( engine.getMusicManager(), context, "choose_click.mp3" );
+			mChooseClick.setLooping( false );
+			musicCollection.put( SOUND_CHOOSE_CLICK, mChooseClick );
+			Music mCoin = MusicFactory.createMusicFromAsset( engine.getMusicManager(), context, "coin.mp3" );
+			mCoin.setLooping( false );
+			musicCollection.put( SOUND_COIN, mCoin );
+			Music mLandClick = MusicFactory.createMusicFromAsset( engine.getMusicManager(), context, "Land_click.mp3" );
+			mLandClick.setLooping( false );
+			musicCollection.put( SOUND_LAND_CLICK, mLandClick );
+			Music mLevelUp = MusicFactory.createMusicFromAsset( engine.getMusicManager(), context, "level_up.mp3" );
+			mLevelUp.setLooping( false );
+			musicCollection.put( SOUND_LEVEL_UP, mLevelUp );
+			Music mOnOff = MusicFactory.createMusicFromAsset( engine.getMusicManager(), context, "on_off.mp3" );
+			mOnOff.setLooping( false );
+			musicCollection.put( SOUND_ON_OF, mOnOff );
 		} catch ( IllegalStateException e ) {
 			e.printStackTrace();
 		} catch ( IOException e ) {	
@@ -492,9 +540,21 @@ public class LoadResource {
 	
 	public static void loadTiledTexture(Context context, Engine engine, HashMap<String, TiledTextureRegion> titedTextureCollection){
 		BitmapTextureAtlas mStatusNumberLevelTextureAtlas = new BitmapTextureAtlas( 512, 64 );
+		BitmapTextureAtlas mNumberLevelUpTextureAtlas = new BitmapTextureAtlas( 1024, 128 );
+		BitmapTextureAtlas mButterflyAnimateTextureAtlas = new BitmapTextureAtlas( 1024, 1024 );
+		
 		TiledTextureRegion statusBarNumberLevel = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
 						mStatusNumberLevelTextureAtlas, context, "number_controller_level.png", 0, 0, 10, 1 );
-		titedTextureCollection.put( TextureVar.TILEDTEXTURE_STATUS_BAR_NUMBER_LEVEL ,statusBarNumberLevel );		
+		titedTextureCollection.put( TextureVar.TILEDTEXTURE_STATUS_BAR_NUMBER_LEVEL ,statusBarNumberLevel );
+		TiledTextureRegion numberLevelUp = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+						mNumberLevelUpTextureAtlas, context, "number_popup_level.png", 0, 0, 10, 1 );
+		titedTextureCollection.put( TextureVar.TILEDTEXTURE_NUMBER_LEVEL_UP ,numberLevelUp );
+		TiledTextureRegion mButterflyAnimateTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(
+				mButterflyAnimateTextureAtlas, context, "butterfly_animation.png", 0, 0, 4, 9 );
+		titedTextureCollection.put( TextureVar.TEXTURE_BUTTERFLY_ANIMATE ,mButterflyAnimateTextureRegion );
+		
 		engine.getTextureManager().loadTexture( mStatusNumberLevelTextureAtlas );
+		engine.getTextureManager().loadTexture( mNumberLevelUpTextureAtlas );
+		engine.getTextureManager().loadTexture( mButterflyAnimateTextureAtlas );
 	}
 }

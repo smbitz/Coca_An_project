@@ -9,6 +9,7 @@ public class TextureVar {
 	public static final String TEXTURE_SOUNDBUTTON = "TEXTURE_SOUNDBUTTON";
 	public static final String TEXTURE_SHOPBUTTON = "TEXTURE_SHOPBUTTON";
 	public static final String TEXTURE_EMPTY_FARM = "TEXTURE_EMPTY_FARM";
+	public static final String TEXTURE_LEVEL_UP_DIALOG = "TEXTURE_LEVEL_UP_DIALOG";
 	
   //Texture tile.
 	//Vege
@@ -95,5 +96,8 @@ public static final String TEXTURE_TILE_CORRAL_SEA_ANIMAL = "TEXTURE_TILE_CORRAL
 	public static final String TEXTURE_STATUS_BAR_MONEY = "TEXTURE_STATUS_BAR_MONEY";
 	public static final String TEXTURE_STATUS_BAR_EXP = "TEXTURE_STATUS_BAR_EXP";
 	public static final String TILEDTEXTURE_STATUS_BAR_NUMBER_LEVEL = "TEXTURE_STATUS_BAR_NUMBER_LEVEL";
-	public static final String TEXTURE_NUMBER_LEVEL_UP = "TEXTURE_NUMBER_LEVEL_UP";
+	public static final String TILEDTEXTURE_NUMBER_LEVEL_UP = "TEXTURE_NUMBER_LEVEL_UP";
+	public static final String TEXTURE_CLOSE_BUTTON = "TEXTURE_CLOSE_BUTTON";
+	public static final String TEXTURE_BACKGROUND_DIALOG = "TEXTURE_BACKGROUND_DIALOG";
+	public static final String TEXTURE_BUTTERFLY_ANIMATE = "TEXTURE_BUTTERFLY_ANIMATE";
 }

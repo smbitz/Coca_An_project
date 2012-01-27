@@ -99,8 +99,14 @@ public class SpecialCodeDialog extends Activity implements OnClickListener, Netw
 		} else if ( result.equals( "fail" ) ) {
 			// else if return fail
 			// display error message
-			//failText.setTextColor( this.getResources().getColor( R.color.orange ) );
-			//failText.setText( TEXT_FAIL );
+			this.runOnUiThread(new Runnable(){
+						public void run(){
+							failText.setTextColor( SpecialCodeDialog.this.getResources().getColor( R.color.orange ) );
+							failText.setText( TEXT_FAIL );
+							
+						}
+					}
+			);
 		}
 	}
 

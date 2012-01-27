@@ -33,99 +33,205 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/couponItemGetBackground"
             android:layout_width="wrap_content"
-            android:layout_height="50dip"
-            android:background="@drawable/coupons_avialble_hd"
-            android:orientation="vertical" android:layout_gravity="center" android:layout_weight="2" android:weightSum="2">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" android:layout_gravity="center">
 
-            <LinearLayout
-                android:id="@+id/linearLayout7"
+            <FrameLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:orientation="vertical" >
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/LinearLayout05"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_height="fill_parent" android:background="@drawable/coupons_avialble_hd" android:id="@+id/couponItemGetBackground">
 
                 <LinearLayout
-                    android:id="@+id/LinearLayout02"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/linearLayout26"
+                    android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_weight="3" >
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/couponItemGetImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:src="@drawable/itemid5010" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayout12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="79dp"
-                    android:layout_marginRight="5dip"
-                    android:layout_weight="5.63"
                     android:orientation="vertical" >
 
-                    <TextView
-                        android:id="@+id/couponItemGetName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="TextView" />
+                    <LinearLayout
+                        android:id="@+id/linearLayout27"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical" android:layout_weight="2">
+                    </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/linearLayout14"
+                        android:id="@+id/linearLayout21"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical" android:layout_weight="1">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout23"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" >
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout24"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="3.5" >
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout22"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1" >
+
+                                <ImageView
+                                    android:id="@+id/couponItemGetImage"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="3"
+                                    android:src="@drawable/itemid160" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout25"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1" >
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout28"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical" android:layout_weight="2">
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout34"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout35"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.15"
+                        android:orientation="vertical" >
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout33"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
                         android:orientation="vertical" >
 
-                        <FrameLayout
-                            android:id="@+id/frameLayout1"
+                        <LinearLayout
+                            android:id="@+id/linearLayout30"
                             android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" >
+                            android:layout_height="fill_parent" >
 
                             <LinearLayout
-                                android:id="@+id/LinearLayout01"
+                                android:id="@+id/linearLayout31"
                                 android:layout_width="fill_parent"
-                                android:layout_height="fill_parent" >
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1" >
+                            </LinearLayout>
 
-                                <LinearLayout
-                                    android:id="@+id/linearLayout10"
+                            <LinearLayout
+                                android:id="@+id/linearLayout29"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1" >
+
+                                <TextView
+                                    android:id="@+id/couponItemGetName"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="fill_parent"
-                                    android:layout_weight="5" >
-                                </LinearLayout>
+                                    android:layout_height="wrap_content"
+                                    android:text="TextView" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout32"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="3" >
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout36"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout42"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout43"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout41"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout38"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent" >
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout39"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1" >
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout37"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1" >
 
                                 <TextView
                                     android:id="@+id/couponItemGetRequireQuantity"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
                                     android:layout_weight="4"
                                     android:text="TextView" />
-
-                                <LinearLayout
-                                    android:id="@+id/linearLayout9"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="fill_parent"
-                                    android:layout_weight="1" >
-                                </LinearLayout>
                             </LinearLayout>
-                        </FrameLayout>
+
+                            <LinearLayout
+                                android:id="@+id/linearLayout40"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="2.5" >
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout44"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1.8"
+                        android:orientation="vertical" >
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
+            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout
