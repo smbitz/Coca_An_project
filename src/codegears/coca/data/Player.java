@@ -91,6 +91,10 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		return this.exp;
 	}
 	
+	public float getExpPercent(){
+		return 0.5f;
+	}
+	
 	public int getMoney(){
 		return this.money;
 	}

@@ -198,7 +198,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		statusBar = new StatusBar(0, 0, textureCollection, fontCollection, tiledTextureCollection);
 		statusBar.setFarmName( currentPlayer.getName() );
 		statusBar.setLevel( currentPlayer.getLevel() );
-		statusBar.setExp( currentPlayer.getExp() );
+		statusBar.setExp( currentPlayer.getExpPercent() );
 		statusBar.setMoney( currentPlayer.getMoney() );
 		
 		if ( MultiTouch.isSupportedByAndroidVersion() ) {

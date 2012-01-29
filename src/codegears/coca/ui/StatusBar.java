@@ -30,7 +30,7 @@ public class StatusBar extends Sprite {
 	private Sprite moneyBarBitmap;
 	private ChangeableText nameText;
 	private ChangeableText moneyText;
-	private Sprite expBar;
+	private ExpBar expBar;
 	
 	public StatusBar( float pX, float pY, HashMap<String, TextureRegion> textureCollection, 
 							HashMap<String, Font> fontCollection, 
@@ -54,7 +54,7 @@ public class StatusBar extends Sprite {
 		this.attachChild( moneyText );
 		
 		//create exp bar
-		expBar = new Sprite(120, 60, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR_EXP ));
+		expBar = new ExpBar(120, 60, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR_EXP ));
 		this.attachChild( expBar );
 		
 		//Level number
@@ -74,6 +74,7 @@ public class StatusBar extends Sprite {
 	
 	public void setExp(float exp){
 		this.exp = exp;
+		expBar.setExpPercent( exp );
 	}
 	
 	public void setMoney(int money){
