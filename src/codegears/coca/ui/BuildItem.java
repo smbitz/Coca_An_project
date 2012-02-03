@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ public class BuildItem extends LinearLayout {
 	private TextView priceText;
 	private TextView timeText;
 	private ImageView buildItemImage;
+	private FrameLayout unavailableImage; 
 	private String itemId;
 	private MyApp app;
 	
@@ -31,6 +33,7 @@ public class BuildItem extends LinearLayout {
 		priceText = (TextView) this.findViewById( R.id.itemPrice );
 		timeText = (TextView) this.findViewById(R.id.itemTime);
 		buildItemImage = (ImageView) this.findViewById(R.id.buildItemImage);
+		unavailableImage = (FrameLayout) this.findViewById(R.id.buildItemUnavailable);
 
 		nameText.setTextColor(Color.BLACK);
 		priceText.setTextColor(Color.BLACK);
@@ -73,4 +76,13 @@ public class BuildItem extends LinearLayout {
 	public void setItemTimeColor( int setColor ){
 		priceText.setTextColor( setColor );
 	}
+	
+	public void setUnavailableItem(){
+		//set unavailable image
+		unavailableImage.setVisibility( VISIBLE );
+		
+		//set price color red
+		priceText.setTextColor(Color.RED);
+	}
+	
 }

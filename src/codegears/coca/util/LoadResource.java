@@ -11,6 +11,7 @@ import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
+import org.anddev.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
@@ -18,6 +19,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import codegears.coca.MyApp;
+import codegears.coca.R;
 import codegears.coca.data.TextureVar;
 
 public class LoadResource {
@@ -49,6 +51,10 @@ public class LoadResource {
 		BitmapTextureAtlas mLevelUpTextureAtlas = new BitmapTextureAtlas( 1024, 512 );
 		BitmapTextureAtlas mCloseButtonTextureAtlas = new BitmapTextureAtlas( 64, 64 );
 		BitmapTextureAtlas mBackgroundDialogTextureAtlas = new BitmapTextureAtlas( 16, 16 );
+		BitmapTextureAtlas mSupplyItemPlant01TextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSupplyItemAnimal01TextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSupplyItemSeaAnimal01TextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mIconPlusTextureAtlas = new BitmapTextureAtlas( 64, 64 );
 		
 		//Status Bar
 		BitmapTextureAtlas mStatusBarTextureAtlas = new BitmapTextureAtlas( 512, 128 );
@@ -172,6 +178,18 @@ public class LoadResource {
 		TextureRegion mBackgroundDialogTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mBackgroundDialogTextureAtlas, context, "background_dialog.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_BACKGROUND_DIALOG, mBackgroundDialogTextureRegion );
+		TextureRegion mSupplyItemPlant01TextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSupplyItemPlant01TextureAtlas, context, "image_popup_plant01.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SUPPLY_ITEM_PLANT_01, mSupplyItemPlant01TextureRegion );
+		TextureRegion mSupplyItemTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSupplyItemAnimal01TextureAtlas, context, "image_popup_animal01.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SUPPLY_ITEM_ANIMAL_01, mSupplyItemTextureRegion );
+		TextureRegion mSupplyItemSeaAnimal01TextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSupplyItemSeaAnimal01TextureAtlas, context, "image_popup_sea_animal01.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SUPPLY_ITEM_SEA_ANIMAL_01, mSupplyItemSeaAnimal01TextureRegion );
+		TextureRegion mIconPlusTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mIconPlusTextureAtlas, context, "icon_plus.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ICON_PLUS, mIconPlusTextureRegion );
 		
 		//Texture Status Bar
 		TextureRegion statusBar = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
@@ -402,6 +420,10 @@ public class LoadResource {
 		engine.getTextureManager().loadTexture( mLevelUpTextureAtlas );
 		engine.getTextureManager().loadTexture( mCloseButtonTextureAtlas );
 		engine.getTextureManager().loadTexture( mBackgroundDialogTextureAtlas );
+		engine.getTextureManager().loadTexture( mSupplyItemPlant01TextureAtlas );
+		engine.getTextureManager().loadTexture( mSupplyItemAnimal01TextureAtlas );
+		engine.getTextureManager().loadTexture( mSupplyItemSeaAnimal01TextureAtlas );
+		engine.getTextureManager().loadTexture( mIconPlusTextureAtlas );
 		
 		//Texture Status Bar
 		engine.getTextureManager().loadTexture( mStatusBarTextureAtlas );

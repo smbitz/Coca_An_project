@@ -19,11 +19,15 @@ public class AbstractFarmTile extends Sprite {
 	private float touchX;
 	private float touchY;
 	private int state;
+	private float tilePositionX;
+	private float tilePositionY;
 
 	public AbstractFarmTile( float pX, float pY, TextureRegion pTextureRegion ) {
 		super( pX, pY, pTextureRegion );
 		startTouch = false;
 		state = GameActivity.STATE_NORMAL;
+		tilePositionX = pX;
+		tilePositionY = pY;
 	}
 
 	public void setFarmTileListener(FarmTileListener l){
@@ -53,13 +57,13 @@ public class AbstractFarmTile extends Sprite {
 			listener.onBuildRequest( data );
 		} else if(data.getBuildingStatus() == Tile.BUILDING_PROCESS1){
 			if(data.getSupply()<=0){
-				listener.onSupplyRequest( data );
+				listener.onSupplyRequest( data, tilePositionX, tilePositionY  );
 			}else{
 				listener.onAddItemRequest( data );
 			}
 		} else if(data.getBuildingStatus() == Tile.BUILDING_PROCESS2){
 			if(data.getSupply()<=0){
-				listener.onSupplyRequest( data );
+				listener.onSupplyRequest( data, tilePositionX, tilePositionY );
 			}else{
 				listener.onAddItemRequest( data );
 			}

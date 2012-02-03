@@ -1,7 +1,11 @@
 package codegears.coca.dialog;
 
+import java.util.HashMap;
+
+import codegears.coca.GameActivity;
 import codegears.coca.MyApp;
 import codegears.coca.R;
+import codegears.coca.util.LoadResource;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -52,6 +56,7 @@ public class TutorialDialog extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tutorialdialog);
+		
 		app = (MyApp) this.getApplication();
 		
 		closeButton = (ImageButton) findViewById(R.id.tutorialCloseButton);

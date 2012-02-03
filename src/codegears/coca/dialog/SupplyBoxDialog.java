@@ -25,6 +25,7 @@ public class SupplyBoxDialog extends Activity implements OnClickListener{
 	public static final String EXTRA_BUILD_ID = "BUILD_ID";
 	public static final String EXTRA_SUPPLY_PERIOD = "SUPPLY_PERIOD";
 	public static final String EXTRA_BUILD_PERIOD = "BUILD_PERIOD";
+	public static final String EXTRA_ITEM_EXTRA_ID = "ITEM_EXTRA_ID";
 	
 	public static final int RESULT_SUPPLY = 5;
 	public static final int RESULT_EXTRA1 = 6;
@@ -37,6 +38,7 @@ public class SupplyBoxDialog extends Activity implements OnClickListener{
 	private String getBuildId;
 	private String getSupplyPeriod;
 	private String getBuildPeriod;
+	private String getItemExtraId;
 	
 	private ImageButton closeButton;
 	private ImageButton supplyItemButton;
@@ -45,6 +47,10 @@ public class SupplyBoxDialog extends Activity implements OnClickListener{
 	private ImageButton moveButton;
 	
 	private ImageView buildingImage;
+	
+	private ImageView addItemNone1;
+	private ImageView addItemNone2;
+	private ImageView addItemNone3;
 	
 	private TextView buildingName;
 	private TextView supplyPeriod;
@@ -63,6 +69,7 @@ public class SupplyBoxDialog extends Activity implements OnClickListener{
 		getBuildId = getIntent().getExtras().getString( EXTRA_BUILD_ID );
 		getSupplyPeriod = getIntent().getExtras().getString( EXTRA_SUPPLY_PERIOD );
 		getBuildPeriod = getIntent().getExtras().getString( EXTRA_BUILD_PERIOD );
+		getItemExtraId = getIntent().getExtras().getString( EXTRA_ITEM_EXTRA_ID );
 		
 		closeButton = (ImageButton) findViewById(R.id.supplyCloseButton);
 		closeButton.setOnClickListener(this);
@@ -76,6 +83,10 @@ public class SupplyBoxDialog extends Activity implements OnClickListener{
 		moveButton.setOnClickListener(this);
 		
 		buildingImage = (ImageView) findViewById(R.id.supplyBuildingImage);
+		
+		addItemNone1 = (ImageView) findViewById( R.id.AddSupplyItemNone1 );
+		addItemNone2 = (ImageView) findViewById( R.id.AddSupplyItemNone2 );
+		addItemNone3 = (ImageView) findViewById( R.id.AddSupplyItemNone3 );
 		
 		buildingName = (TextView) findViewById(R.id.supplyBuildingName);
 		supplyPeriod = (TextView) findViewById(R.id.supplySupplyPeriod);
@@ -127,7 +138,38 @@ public class SupplyBoxDialog extends Activity implements OnClickListener{
 		}
 		
 		//Set supply, extraItem image.
-		if( getBuildId.equals( BuildingManager.BUILDING_ID_CHICKEN )||
+		if( getBuildId.equals( BuildingManager.BUILDING_ID_MORNING_GLORY )||
+				getBuildId.equals( BuildingManager.BUILDING_ID_CHINESE_CABBAGE )||
+				getBuildId.equals( BuildingManager.BUILDING_ID_PUMPKIN )||
+				getBuildId.equals( BuildingManager.BUILDING_ID_BABY_CORN )||
+				getBuildId.equals( BuildingManager.BUILDING_ID_STRAW_MUSHROOMS ) ){
+			
+			supplyItemButton.setImageResource(R.drawable.image_popup_plant01);
+			extraItem1Button.setImageResource(R.drawable.image_popup_plant02);
+			extraItem2Button.setImageResource(R.drawable.image_popup_plant03);
+			
+			if( !(currentPlayer.checkBackpackItemNone( ItemManager.ITEM_ID_WATER )) ){
+				addItemNone1.setVisibility( View.VISIBLE );
+				supplyItemButton.setOnClickListener(null);
+			}
+			if( getItemExtraId.equals("NULL") ){
+				if( !(currentPlayer.checkBackpackItemNone( ItemManager.ITEM_ID_FERTILIZER_A )) ){
+					addItemNone2.setVisibility( View.VISIBLE );
+					extraItem1Button.setOnClickListener(null);
+				}
+				if( !(currentPlayer.checkBackpackItemNone( ItemManager.ITEM_ID_FERTILIZER_B )) ){
+					addItemNone3.setVisibility( View.VISIBLE );
+					extraItem2Button.setOnClickListener(null);
+				}
+			}else{
+				addItemNone2.setVisibility( View.VISIBLE );
+				addItemNone3.setVisibility( View.VISIBLE );
+				
+				extraItem1Button.setOnClickListener(null);
+				extraItem2Button.setOnClickListener(null);
+			}
+			
+		}else	if( getBuildId.equals( BuildingManager.BUILDING_ID_CHICKEN )||
 				getBuildId.equals( BuildingManager.BUILDING_ID_PIG )||
 				getBuildId.equals( BuildingManager.BUILDING_ID_COW )||
 				getBuildId.equals( BuildingManager.BUILDING_ID_SHEEP )||
@@ -137,6 +179,27 @@ public class SupplyBoxDialog extends Activity implements OnClickListener{
 			extraItem1Button.setImageResource(R.drawable.image_popup_animal02);
 			extraItem2Button.setImageResource(R.drawable.image_popup_animal03);
 			
+			if( !(currentPlayer.checkBackpackItemNone( ItemManager.ITEM_ID_SAPPAN_WOOD )) ){
+				addItemNone1.setVisibility( View.VISIBLE );
+				supplyItemButton.setOnClickListener(null);
+			}
+			if( getItemExtraId.equals("NULL") ){
+				if( !(currentPlayer.checkBackpackItemNone( ItemManager.ITEM_ID_VACCINE_A )) ){
+					addItemNone2.setVisibility( View.VISIBLE );
+					extraItem1Button.setOnClickListener(null);
+				}
+				if( !(currentPlayer.checkBackpackItemNone( ItemManager.ITEM_ID_VACCINE_B )) ){
+					addItemNone3.setVisibility( View.VISIBLE );
+					extraItem2Button.setOnClickListener(null);
+				}
+			}else{
+				addItemNone2.setVisibility( View.VISIBLE );
+				addItemNone3.setVisibility( View.VISIBLE );
+				
+				extraItem1Button.setOnClickListener(null);
+				extraItem2Button.setOnClickListener(null);
+			}
+				
 		}else if( getBuildId.equals( BuildingManager.BUILDING_ID_FISH )||
 							getBuildId.equals( BuildingManager.BUILDING_ID_SQUID )||
 							getBuildId.equals( BuildingManager.BUILDING_ID_SCALLOPS )||
@@ -147,8 +210,28 @@ public class SupplyBoxDialog extends Activity implements OnClickListener{
 			extraItem1Button.setImageResource(R.drawable.image_popup_seaanimal02);
 			extraItem2Button.setImageResource(R.drawable.image_popup_seaanimal03);
 			
+			if( !(currentPlayer.checkBackpackItemNone( ItemManager.ITEM_ID_PELLET_FOOD )) ){
+				addItemNone1.setVisibility( View.VISIBLE );
+				supplyItemButton.setOnClickListener(null);
+			}
+			if( getItemExtraId.equals("NULL") ){
+				if( !(currentPlayer.checkBackpackItemNone( ItemManager.ITEM_ID_MICROORGANISM_A )) ){
+					addItemNone2.setVisibility( View.VISIBLE );
+					extraItem1Button.setOnClickListener(null);
+				}
+				if( !(currentPlayer.checkBackpackItemNone( ItemManager.ITEM_ID_MICROORGANISM_B )) ){
+					addItemNone3.setVisibility( View.VISIBLE );
+					extraItem2Button.setOnClickListener(null);
+				}
+			}else{
+				addItemNone2.setVisibility( View.VISIBLE );
+				addItemNone3.setVisibility( View.VISIBLE );
+				
+				extraItem1Button.setOnClickListener(null);
+				extraItem2Button.setOnClickListener(null);
+			}
+			
 		}
-		
 	}
 
 	@Override

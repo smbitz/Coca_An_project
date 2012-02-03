@@ -2,6 +2,8 @@ package codegears.coca.data;
 
 import org.w3c.dom.Node;
 
+import android.R.string;
+
 public class ItemQuantityPair {
 	private String id;
 	private int quantity;
@@ -23,6 +25,10 @@ public class ItemQuantityPair {
 	
 	public int getQuantity(){
 		return this.quantity;
+	}
+	
+	public String getItemType(){
+		return this.item.getItemType();
 	}
 	
 	public void setItem(Item setValue){

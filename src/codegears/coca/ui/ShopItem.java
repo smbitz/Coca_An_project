@@ -22,6 +22,7 @@ public class ShopItem extends LinearLayout {
 	private ImageView shopItemImage;
 	private ImageButton shopButton;
 	private FrameLayout shopItemBackground;
+	private FrameLayout unavailableImage; 
 	private MyApp app;
 
 	public ShopItem(Context context) {
@@ -36,7 +37,8 @@ public class ShopItem extends LinearLayout {
 		shopItemImage = (ImageView) findViewById(R.id.shopItemImage);
 		shopButton = (ImageButton) findViewById(R.id.shopButton);
 		shopItemBackground = (FrameLayout) findViewById(R.id.shopItemBackground);
-
+		unavailableImage = (FrameLayout) findViewById( R.id.shopItemUnavailableImage );
+		
 		nameText.setTextColor(Color.BLACK);
 		priceText.setTextColor(Color.BLACK);
 		timeText.setTextColor(Color.BLACK);
@@ -88,6 +90,17 @@ public class ShopItem extends LinearLayout {
 	
 	public void setItemTimeColor( int setColor ){
 		timeText.setTextColor( setColor );
+	}
+	
+	public void setUnavailableItem(){
+		//set unavailable image
+		unavailableImage.setVisibility( VISIBLE );
+		
+		//set price color red
+		priceText.setTextColor(Color.RED);
+		
+		//disable buy button
+		shopButton.setVisibility( INVISIBLE );
 	}
 	
 }

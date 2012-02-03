@@ -72,21 +72,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 						fetachItem.getId().equals(ItemManager.ITEM_ID_OSTRICH_BABY) ){
 					
 							BuildItem newBuildItem = new BuildItem(this);
-							newBuildItem.setOnClickListener( this );
-							newBuildItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
-							newBuildItem.setItemName(fetachItem.getName());
-							newBuildItem.setItemId( fetachItem.getId() );
-							newBuildItem.setItemTime(String.valueOf(MilliSecToHour.getConvert(bManager.getMatchBuilding(bManager.getBuildingIdFromItemBuild(fetachItem.getId())).getBuildPeriod())));
-							
-							//Set time or quantity
-							int itemPositionInBackpack = currentPlayer.searchBackpackItem(fetachItem.getId());
-							if(itemPositionInBackpack>=0){
-								int foundItemQuantity = currentPlayer.getBackpack().get(itemPositionInBackpack).getQuantity();
-								newBuildItem.setItemTimeColor( this.getResources().getColor( R.color.dark_green ) );
-								newBuildItem.setItemPrice("x "+String.valueOf(foundItemQuantity));
-							}else{
-								newBuildItem.setItemPrice(String.valueOf(fetachItem.getPrice()));
-							}
+							this.setBuildItemObject( newBuildItem, fetachItem );
 								
 							if(fetachItem.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY_SEED)){
 								newBuildItem.setItemImage(R.drawable.itemid10);
@@ -123,21 +109,7 @@ public class BuildDialog extends Activity implements OnClickListener {
 						fetachItem.getId().equals(ItemManager.ITEM_ID_OYSTER_BABY) ){
 					
 							BuildItem newBuildItem = new BuildItem(this);
-							newBuildItem.setOnClickListener( this );
-							newBuildItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
-							newBuildItem.setItemName(fetachItem.getName());
-							newBuildItem.setItemId( fetachItem.getId() );
-							newBuildItem.setItemTime(String.valueOf(MilliSecToHour.getConvert(bManager.getMatchBuilding(bManager.getBuildingIdFromItemBuild(fetachItem.getId())).getBuildPeriod())));
-							
-							//Set price or quantity
-							int itemPositionInBackpack = currentPlayer.searchBackpackItem(fetachItem.getId());
-							if(itemPositionInBackpack>=0){
-								int foundItemQuantity = currentPlayer.getBackpack().get(itemPositionInBackpack).getQuantity();
-								newBuildItem.setItemTimeColor( this.getResources().getColor( R.color.dark_green ) );
-								newBuildItem.setItemPrice("x "+String.valueOf(foundItemQuantity));
-							}else{
-								newBuildItem.setItemPrice(String.valueOf(fetachItem.getPrice()));
-							}
+							this.setBuildItemObject( newBuildItem, fetachItem );
 							
 							if(fetachItem.getId().equals(ItemManager.ITEM_ID_FISH_BABY)){
 								newBuildItem.setItemImage(R.drawable.itemid110);
@@ -158,6 +130,31 @@ public class BuildDialog extends Activity implements OnClickListener {
 		}
 	}
 
+	private void setBuildItemObject(BuildItem setBItem, Item setItem){
+		setBItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
+		setBItem.setItemName(setItem.getName());
+		setBItem.setItemId( setItem.getId() );
+		setBItem.setItemTime(String.valueOf(MilliSecToHour.getConvert(bManager.getMatchBuilding(bManager.getBuildingIdFromItemBuild(setItem.getId())).getBuildPeriod())));
+		
+		//Set price or quantity
+		int itemPositionInBackpack = currentPlayer.searchBackpackItem(setItem.getId());
+		if(itemPositionInBackpack>=0){
+			int foundItemQuantity = currentPlayer.getBackpack().get(itemPositionInBackpack).getQuantity();
+			setBItem.setItemTimeColor( this.getResources().getColor( R.color.dark_green ) );
+			setBItem.setItemPrice("x "+String.valueOf(foundItemQuantity));
+		}else{
+			setBItem.setItemPrice(String.valueOf(setItem.getPrice()));
+		}
+		
+		//If unavailable item
+		if( setItem.getPrice()>currentPlayer.getMoney() &&
+				itemPositionInBackpack<=0 ){
+			setBItem.setUnavailableItem();
+		}else{
+			setBItem.setOnClickListener( this );
+		}
+	}
+	
 	@Override
 	public void onClick(View v) {
 		if( v.equals(closeButton) ){

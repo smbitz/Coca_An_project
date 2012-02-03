@@ -61,6 +61,9 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 	private static final int RECEIVE_EXP_BUY_SELL_ITEM = 10;
 	private static final int RECEIVE_EXP_EXCHANGE_COUPON = 500;
 	
+	private static final int FIRST_LEVEL = 1;
+	private static final int NUM_FULL_PROGRESS = 1;
+	
 	private String facebookId;
 	private int exp;
 	private int money;
@@ -92,7 +95,22 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 	}
 	
 	public float getExpPercent(){
-		return 0.5f;
+		float currentProgress;
+		int expAtStartLevel;
+		
+		//If first lv.
+		if(this.getLevel()==FIRST_LEVEL){
+			expAtStartLevel = 0;
+		}else{
+			expAtStartLevel = getCalculateExp(this.getLevel()-1);
+		}
+		
+		int expForNextLevel = getCalculateExp(this.getLevel());
+		int diffExp = (expForNextLevel-expAtStartLevel);
+		int currentExp = this.exp-expAtStartLevel;
+		
+		currentProgress = (float) ((float) NUM_FULL_PROGRESS/diffExp)*currentExp;
+		return currentProgress;
 	}
 	
 	public int getMoney(){
@@ -676,5 +694,16 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		}else{
 			return false;
 		}
+	}
+	
+	public Boolean checkBackpackItemNone(String ItemId){
+		int findBackpackItem = this.searchBackpackItem( ItemId );
+		if( findBackpackItem >= 0 ){
+			if((this.getBackpack().get( findBackpackItem ).getQuantity())>0){
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

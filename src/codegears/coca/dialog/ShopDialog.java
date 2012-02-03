@@ -62,9 +62,15 @@ public class ShopDialog extends Activity implements OnClickListener {
     	newShopItem.setItemId( fetchShopItem.getId() );
     	newShopItem.setItemName(fetchShopItem.getName());
     	newShopItem.setItemPrice(String.valueOf(fetchShopItem.getPrice()));
-    	newShopItem.setClickable( true );
-    	newShopItem.setOnClickListener( this );
-    	newShopItem.getShopButton().setOnClickListener( this );
+    	
+    	//If unavailable item
+    	if( fetchShopItem.getPrice()>currentPlayer.getMoney() ){
+    		newShopItem.setUnavailableItem();
+    	}else {
+    		newShopItem.setClickable( true );
+      	newShopItem.setOnClickListener( this );
+      	newShopItem.getShopButton().setOnClickListener( this );
+    	}
     	
     	//Set Image Item
     	if(fetchShopItem.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY_SEED)){
@@ -130,101 +136,104 @@ public class ShopDialog extends Activity implements OnClickListener {
     
     //Build backpack dialog
     for(ItemQuantityPair fetchBackpackItem:backpackItem){
-    	ShopItem newBackpackItem = new ShopItem(this);
-    	newBackpackItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
-    	newBackpackItem.setItemId( fetchBackpackItem.getItem().getId() );
-    	newBackpackItem.setItemName(fetchBackpackItem.getItem().getName());
-    	newBackpackItem.setItemPrice(String.valueOf(fetchBackpackItem.getItem().getSellPrice()));
-    	newBackpackItem.setItemTime("");
-    	newBackpackItem.setItemBackground(R.drawable.plant_shop_nontime);
-    	newBackpackItem.setShopButton(R.drawable.button_sell);
-    	newBackpackItem.setClickable( true );
-    	newBackpackItem.setOnClickListener( this );
-    	newBackpackItem.getShopButton().setOnClickListener( this );
-  		
-    //Set ItemQuantity
-    if(fetchBackpackItem.getQuantity()>0){
-    	newBackpackItem.setItemTimeColor( this.getResources().getColor( R.color.dark_green ) );
-    	newBackpackItem.setItemTime("x "+String.valueOf(fetchBackpackItem.getQuantity()));
-    }
-    	
-    //Set Image Item
-  	if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY_SEED)){
-  		newBackpackItem.setItemImage(R.drawable.itemid10);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_CHINESE_CABBAGE_SEED)){
-			newBackpackItem.setItemImage(R.drawable.itemid20);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_PUMPKIN_SEED)){
-			newBackpackItem.setItemImage(R.drawable.itemid30);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_BABY_CORN_SEED)){
-			newBackpackItem.setItemImage(R.drawable.itemid40);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_STRAW_MUSHROOMS_SEED)){
-			newBackpackItem.setItemImage(R.drawable.itemid50);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_CHICKEN_BABY)){
-			newBackpackItem.setItemImage(R.drawable.itemid60);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_PIG_BABY)){
-			newBackpackItem.setItemImage(R.drawable.itemid70);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_COW_BABY)){
-			newBackpackItem.setItemImage(R.drawable.itemid80);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SHEEP_BABY)){
-			newBackpackItem.setItemImage(R.drawable.itemid90);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_OSTRICH_BABY)){
-			newBackpackItem.setItemImage(R.drawable.itemid100);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_FISH_BABY)){
-			newBackpackItem.setItemImage(R.drawable.itemid110);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SQUID_BABY)){
-			newBackpackItem.setItemImage(R.drawable.itemid120);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SCALLOPS_BABY)){
-			newBackpackItem.setItemImage(R.drawable.itemid130);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SHRIMP_BABY)){
-			newBackpackItem.setItemImage(R.drawable.itemid140);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_OYSTER_BABY)){
-			newBackpackItem.setItemImage(R.drawable.itemid150);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY)){
-			newBackpackItem.setItemImage(R.drawable.itemid160);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_CHINESE_CABBAGE)){
-			newBackpackItem.setItemImage(R.drawable.itemid170);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_PUMPKIN)){
-			newBackpackItem.setItemImage(R.drawable.itemid180);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_BABY_CORN)){
-			newBackpackItem.setItemImage(R.drawable.itemid190);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_STRAW_MUSHROOMS)){
-			newBackpackItem.setItemImage(R.drawable.itemid200);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_CHICKEN)){
-			newBackpackItem.setItemImage(R.drawable.itemid210);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_PIG)){
-			newBackpackItem.setItemImage(R.drawable.itemid220);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_COW)){
-			newBackpackItem.setItemImage(R.drawable.itemid230);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SHEEP)){
-			newBackpackItem.setItemImage(R.drawable.itemid240);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_OSTRICH)){
-			newBackpackItem.setItemImage(R.drawable.itemid250);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_FISH)){
-			newBackpackItem.setItemImage(R.drawable.itemid260);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SQUID)){
-			newBackpackItem.setItemImage(R.drawable.itemid270);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SCALLOPS)){
-			newBackpackItem.setItemImage(R.drawable.itemid280);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SHRIMP)){
-			newBackpackItem.setItemImage(R.drawable.itemid290);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_OYSTER)){
-			newBackpackItem.setItemImage(R.drawable.itemid300);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_WATER)){
-			newBackpackItem.setItemImage(R.drawable.itemid310);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SAPPAN_WOOD)){
-			newBackpackItem.setItemImage(R.drawable.itemid320);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_PELLET_FOOD)){
-			newBackpackItem.setItemImage(R.drawable.itemid330);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_PEARL)){
-			newBackpackItem.setItemImage(R.drawable.itemid340);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_GOLD)){
-			newBackpackItem.setItemImage(R.drawable.itemid350);
-		}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_DIAMOND)){
-			newBackpackItem.setItemImage(R.drawable.itemid360);
-		}
-    	
-  		backpackLayout.addView(newBackpackItem);
-  		backpackLayoutList.add( newBackpackItem );
+    	if( !fetchBackpackItem.getItemType().equals( ItemManager.ITEM_TYPE_SPECIAL ) &&
+    			!fetchBackpackItem.getItemType().equals( ItemManager.ITEM_TYPE_COUPON ) ){
+			    	ShopItem newBackpackItem = new ShopItem(this);
+			    	newBackpackItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
+			    	newBackpackItem.setItemId( fetchBackpackItem.getItem().getId() );
+			    	newBackpackItem.setItemName(fetchBackpackItem.getItem().getName());
+			    	newBackpackItem.setItemPrice(String.valueOf(fetchBackpackItem.getItem().getSellPrice()));
+			    	newBackpackItem.setItemTime("");
+			    	newBackpackItem.setItemBackground(R.drawable.plant_shop_nontime);
+			    	newBackpackItem.setShopButton(R.drawable.button_sell);
+			    	newBackpackItem.setClickable( true );
+			    	newBackpackItem.setOnClickListener( this );
+			    	newBackpackItem.getShopButton().setOnClickListener( this );
+			  		
+			    //Set ItemQuantity
+			    if(fetchBackpackItem.getQuantity()>0){
+			    	newBackpackItem.setItemTimeColor( this.getResources().getColor( R.color.dark_green ) );
+			    	newBackpackItem.setItemTime("x "+String.valueOf(fetchBackpackItem.getQuantity()));
+			    }
+			    	
+			    //Set Image Item
+			  	if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY_SEED)){
+			  		newBackpackItem.setItemImage(R.drawable.itemid10);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_CHINESE_CABBAGE_SEED)){
+						newBackpackItem.setItemImage(R.drawable.itemid20);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_PUMPKIN_SEED)){
+						newBackpackItem.setItemImage(R.drawable.itemid30);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_BABY_CORN_SEED)){
+						newBackpackItem.setItemImage(R.drawable.itemid40);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_STRAW_MUSHROOMS_SEED)){
+						newBackpackItem.setItemImage(R.drawable.itemid50);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_CHICKEN_BABY)){
+						newBackpackItem.setItemImage(R.drawable.itemid60);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_PIG_BABY)){
+						newBackpackItem.setItemImage(R.drawable.itemid70);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_COW_BABY)){
+						newBackpackItem.setItemImage(R.drawable.itemid80);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SHEEP_BABY)){
+						newBackpackItem.setItemImage(R.drawable.itemid90);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_OSTRICH_BABY)){
+						newBackpackItem.setItemImage(R.drawable.itemid100);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_FISH_BABY)){
+						newBackpackItem.setItemImage(R.drawable.itemid110);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SQUID_BABY)){
+						newBackpackItem.setItemImage(R.drawable.itemid120);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SCALLOPS_BABY)){
+						newBackpackItem.setItemImage(R.drawable.itemid130);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SHRIMP_BABY)){
+						newBackpackItem.setItemImage(R.drawable.itemid140);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_OYSTER_BABY)){
+						newBackpackItem.setItemImage(R.drawable.itemid150);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_MORNING_GLORY)){
+						newBackpackItem.setItemImage(R.drawable.itemid160);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_CHINESE_CABBAGE)){
+						newBackpackItem.setItemImage(R.drawable.itemid170);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_PUMPKIN)){
+						newBackpackItem.setItemImage(R.drawable.itemid180);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_BABY_CORN)){
+						newBackpackItem.setItemImage(R.drawable.itemid190);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_STRAW_MUSHROOMS)){
+						newBackpackItem.setItemImage(R.drawable.itemid200);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_CHICKEN)){
+						newBackpackItem.setItemImage(R.drawable.itemid210);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_PIG)){
+						newBackpackItem.setItemImage(R.drawable.itemid220);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_COW)){
+						newBackpackItem.setItemImage(R.drawable.itemid230);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SHEEP)){
+						newBackpackItem.setItemImage(R.drawable.itemid240);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_OSTRICH)){
+						newBackpackItem.setItemImage(R.drawable.itemid250);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_FISH)){
+						newBackpackItem.setItemImage(R.drawable.itemid260);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SQUID)){
+						newBackpackItem.setItemImage(R.drawable.itemid270);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SCALLOPS)){
+						newBackpackItem.setItemImage(R.drawable.itemid280);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SHRIMP)){
+						newBackpackItem.setItemImage(R.drawable.itemid290);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_OYSTER)){
+						newBackpackItem.setItemImage(R.drawable.itemid300);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_WATER)){
+						newBackpackItem.setItemImage(R.drawable.itemid310);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_SAPPAN_WOOD)){
+						newBackpackItem.setItemImage(R.drawable.itemid320);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_PELLET_FOOD)){
+						newBackpackItem.setItemImage(R.drawable.itemid330);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_PEARL)){
+						newBackpackItem.setItemImage(R.drawable.itemid340);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_GOLD)){
+						newBackpackItem.setItemImage(R.drawable.itemid350);
+					}else if(fetchBackpackItem.getId().equals(ItemManager.ITEM_ID_DIAMOND)){
+						newBackpackItem.setItemImage(R.drawable.itemid360);
+					}
+			    	
+			  		backpackLayout.addView(newBackpackItem);
+			  		backpackLayoutList.add( newBackpackItem );
+			    }
     }
 	}
 

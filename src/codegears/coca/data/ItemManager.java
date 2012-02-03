@@ -73,6 +73,7 @@ public class ItemManager implements NetworkThreadListener {
 	
 	public static final String ITEM_TYPE_NORMAL = "normal";
 	public static final String ITEM_TYPE_COUPON = "coupon";
+	public static final String ITEM_TYPE_SPECIAL = "special";
 	
 	private static final String ITEM_URL = "ITEM_URL";
 	

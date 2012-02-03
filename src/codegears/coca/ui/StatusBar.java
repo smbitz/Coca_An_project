@@ -54,11 +54,11 @@ public class StatusBar extends Sprite {
 		this.attachChild( moneyText );
 		
 		//create exp bar
-		expBar = new ExpBar(120, 60, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR_EXP ));
+		expBar = new ExpBar(127, 58, textureCollection.get( TextureVar.TEXTURE_STATUS_BAR_EXP ));
 		this.attachChild( expBar );
 		
 		//Level number
-		levelBitmap = new BitmapNumber( 10, 20, textureCollection.get( TextureVar.TEXTURE_EMPTY_FARM ), tiledTextureCollection.get( TextureVar.TILEDTEXTURE_STATUS_BAR_NUMBER_LEVEL ), 3);
+		levelBitmap = new BitmapNumber( 14, 24, textureCollection.get( TextureVar.TEXTURE_EMPTY_FARM ), tiledTextureCollection.get( TextureVar.TILEDTEXTURE_STATUS_BAR_NUMBER_LEVEL ), 3);
 		this.attachChild( levelBitmap );
 	}
 	

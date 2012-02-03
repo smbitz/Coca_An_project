@@ -34,7 +34,7 @@
 			    android:id="@+id/SpecialCodeField"
 			    android:layout_height="wrap_content"
 			    android:background="#10FFFFFF"
-			    android:inputType="numberDecimal"
+			    android:inputType="number"
 			    android:maxLength="8"
 			    android:maxLines="1" android:layout_width="fill_parent" android:layout_marginLeft="50dip" android:layout_marginRight="50dip" android:textStyle="bold">
 
