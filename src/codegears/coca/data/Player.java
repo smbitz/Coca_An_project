@@ -335,6 +335,7 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 				reciveExp( RECEIVE_EXP_SUPPLY );
 			}
 		}
+		System.out.println("Tile Supply :" + tile.getSupply());
 	}
 
 	private boolean isItemEnough(String checkId, int checkQuantity) {
@@ -620,6 +621,7 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 	public void update(long currentTime){
 		int elapse = (int)(currentTime - lastUpdateTime);
 		lastUpdateTime = currentTime;
+		//----- Update all Tile with elapse time # Chet -----------//
 	}
 	
 	public void swap(Tile moveTile, Tile destinationTile){

@@ -1,5 +1,6 @@
 package codegears.coca.dialog;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import codegears.coca.MyApp;
@@ -66,6 +67,7 @@ public class SupplyBoxDialog extends Activity implements OnClickListener{
 		currentPlayer = app.getCurrentPlayer();
 		
 		//Get intent extra.
+		//------- varliable name should not be verb # Chet ---------// 
 		getBuildId = getIntent().getExtras().getString( EXTRA_BUILD_ID );
 		getSupplyPeriod = getIntent().getExtras().getString( EXTRA_SUPPLY_PERIOD );
 		getBuildPeriod = getIntent().getExtras().getString( EXTRA_BUILD_PERIOD );
@@ -98,10 +100,11 @@ public class SupplyBoxDialog extends Activity implements OnClickListener{
 		
 		//Set name,supply period,build period
 		Building currentBuilding = app.getBuildingManager().getMatchBuilding(getBuildId);
-		String supplyProgress = String.valueOf((Integer.parseInt(getSupplyPeriod)/currentBuilding.getSupplyPeriod()) * 100);
+		float supplyProgress = (Float.parseFloat(getSupplyPeriod)/currentBuilding.getSupplyPeriod()) * 100;
+		String supplyProgressStr = new DecimalFormat("0.00").format( supplyProgress );
 		
 		buildingName.setText( currentBuilding.getBuildName() );
-		supplyPeriod.setText( supplyProgress+" %" );
+		supplyPeriod.setText( supplyProgressStr+" %" );
 		buildPeriod.setText(MilliSecToHour.getConvert( Integer.parseInt(getBuildPeriod) ));
 		
 		//Set building image
