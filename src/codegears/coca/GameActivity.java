@@ -57,6 +57,7 @@ import codegears.coca.dialog.SpecialCodeDialog;
 import codegears.coca.dialog.SupplyBoxDialog;
 import codegears.coca.dialog.TutorialDialog;
 import codegears.coca.ui.AbstractFarmTile;
+import codegears.coca.ui.FillItemListener;
 import codegears.coca.ui.FillItemOnTile;
 import codegears.coca.ui.ButtonListener;
 import codegears.coca.ui.ButtonSprite;
@@ -77,7 +78,7 @@ import android.view.MotionEvent;
 
 public class GameActivity extends BaseGameActivity implements ButtonListener,
 				IPinchZoomDetectorListener, IOnSceneTouchListener, FarmTileListener, 
-				PlayerListener, LevelUpPopUpListener {
+				PlayerListener, LevelUpPopUpListener, FillItemListener {
 
 	public static final int REQUEST_PURCHASETILE = 1;
 	public static final int REQUEST_BUILD = 2;
@@ -241,20 +242,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	@Override
 	public void onLoadComplete() {
 		currentPlayer.start(System.currentTimeMillis());
-		gameTimerHandler = new TimerHandler( 0.1f, new ITimerCallback(){
+		gameTimerHandler = new TimerHandler( 0.2f, true, new ITimerCallback(){
 												public void onTimePassed(final TimerHandler handler){
-													System.out.println("Update !!");
-													if(state == STATE_LEVELUP){
-														//unregister
-														farmMapSprite.unRegisterChildTouchArea( mMainScene );
-														farmMapSprite.update( mMainScene );
-													} else {
-														//unregister
-														farmMapSprite.unRegisterChildTouchArea( mMainScene );
-														farmMapSprite.update( mMainScene );
-														//register
-														farmMapSprite.registerChildTouchArea( mMainScene );
-													}
 													currentPlayer.update(System.currentTimeMillis());
 												}}
 									 		 );
@@ -357,7 +346,9 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 				String buildingId = app.getBuildingManager().getBuildingIdFromItemBuild( itemForBuildId );
 				Building building = app.getBuildingManager().getMatchBuilding(buildingId);
 				currentPlayer.build( activeTile, building );
-				//farmMapSprite.update( mMainScene );
+				farmMapSprite.unRegisterChildTouchArea( mMainScene );
+				farmMapSprite.update( mMainScene );
+				farmMapSprite.registerChildTouchArea( mMainScene );
 				currentPlayer.updateToServer();
 			}
 		} else if(requestCode == REQUEST_SPECIALCODE){
@@ -447,6 +438,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		TextureRegion supplyTexture = null;
 		
 		//Clear old fill supply image
+		//---------- Move newFarmItemOnTile to farmMapSprite # Chet ------------------//
 		this.runOnUiThread( new Runnable() {
 			@Override
 			public void run() {
@@ -459,13 +451,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		currentPlayer.addSupply(data);
 		
 		//Update farm
-		this.runOnUiThread( new Runnable() {
-			@Override
-			public void run() {
-				farmMapSprite.update( mMainScene );
-			};
-		}
-		);
+		//farmMapSprite.update( mMainScene );
 		
 		//display supply animation
 		if( data.getBuildingId().equals( BuildingManager.BUILDING_ID_MORNING_GLORY ) ||
@@ -487,15 +473,14 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 							data.getBuildingId().equals( BuildingManager.BUILDING_ID_SCALLOPS ) ){
 			supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_ITEM_SEA_ANIMAL_01 );
 		}
-		newFillItemOnTile = new FillItemOnTile(tileX, tileY, supplyTexture,
-				textureCollection.get( TextureVar.TEXTURE_ICON_PLUS ));
+		newFillItemOnTile = new FillItemOnTile(tileX, tileY, supplyTexture);
+		newFillItemOnTile.setOnFillItemListener( this );
+		//Sprite newIconPlus = new Sprite(tileX, tileY, textureCollection.get( TextureVar.TEXTURE_SPECIALCODEBUTTON ));
+		//farmMapSprite.attachChild( newIconPlus );
 		farmMapSprite.attachChild( newFillItemOnTile );
-		
-		//farmMapSprite.update( mMainScene );
-		//System.out.println("Yess !!");
-		
+				
 		//update player to server
-		//currentPlayer.updateToServer();
+		currentPlayer.updateToServer();
 	}
 
 	@Override
@@ -507,6 +492,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		currentPlayer.updateToServer();
 		
 		//Update farm
+		//------------- Need to Talk on this issue # Chet ----------------//
+		/*
 		this.runOnUiThread( new Runnable() {
 			@Override
 			public void run() {
@@ -514,6 +501,10 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			};
 		}
 		);
+		*/
+		farmMapSprite.unRegisterChildTouchArea( mMainScene );
+		farmMapSprite.update( mMainScene );
+		farmMapSprite.registerChildTouchArea( mMainScene );
 		
 		//Harvest Animation
 	}
@@ -525,7 +516,9 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		currentPlayer.swap(activeTile, data);
 		
 		///Update farm
+		farmMapSprite.unRegisterChildTouchArea( mMainScene );
 		farmMapSprite.update( mMainScene );
+		farmMapSprite.registerChildTouchArea( mMainScene );
 	}
 
 	@Override
@@ -565,6 +558,13 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		mMainScene.registerTouchArea( soundButton );
 		mMainScene.registerTouchArea( specialCodeButton );
 		levelUpPopUp.setVisible( mMainScene, false );
+	}
+
+	@Override
+	public void onFillItemComplete() {
+		farmMapSprite.unRegisterChildTouchArea( mMainScene );
+		farmMapSprite.update( mMainScene );
+		farmMapSprite.registerChildTouchArea( mMainScene );
 	}
 
 }
