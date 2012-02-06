@@ -130,7 +130,8 @@ public class FarmSprite extends Sprite {
 						extraItemTileList.add( tileExtra );
 					}
 					
-					if( tileData.getBuildingStatus() != Tile.BUILDING_ROTTED ){
+					if( tileData.getBuildingStatus() != Tile.BUILDING_ROTTED &&
+							tileData.getBuildingStatus() != Tile.BUILDING_COMPLETED ){
 						if( tileData.getSupply()<=0 ){
 							if( tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_MORNING_GLORY ) ||
 									tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_CHINESE_CABBAGE ) ||
@@ -242,7 +243,8 @@ public class FarmSprite extends Sprite {
 						extraItemTileList.add( tileExtra );
 					}
 					
-					if( tileData.getBuildingStatus() != Tile.BUILDING_ROTTED ){
+					if( tileData.getBuildingStatus() != Tile.BUILDING_ROTTED &&
+							tileData.getBuildingStatus() != Tile.BUILDING_COMPLETED ){
 						if( tileData.getSupply()<=0 ){
 							if( tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_MORNING_GLORY ) ||
 									tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_CHINESE_CABBAGE ) ||

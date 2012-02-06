@@ -487,9 +487,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 							data.getBuildingId().equals( BuildingManager.BUILDING_ID_SCALLOPS ) ){
 			supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_ITEM_SEA_ANIMAL_01 );
 		}
-		newFillItemOnTile = new FillItemOnTile(tileX, tileY, supplyTexture);
-		//Sprite newIconPlus = new Sprite(tileX, tileY, textureCollection.get( TextureVar.TEXTURE_SPECIALCODEBUTTON ));
-		//farmMapSprite.attachChild( newIconPlus );
+		newFillItemOnTile = new FillItemOnTile(tileX, tileY, supplyTexture,
+				textureCollection.get( TextureVar.TEXTURE_ICON_PLUS ));
 		farmMapSprite.attachChild( newFillItemOnTile );
 		
 		//farmMapSprite.update( mMainScene );

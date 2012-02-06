@@ -22,17 +22,22 @@ public class FillItemOnTile extends Sprite {
 	private int itemImagePositionX;
 	private int itemImagePositionY;
 
-	public FillItemOnTile(float pX, float pY, TextureRegion pTextureRegion){
-		super((pX+SET_ITEM_IMAGE_POSITION_X), (pY+SET_ITEM_IMAGE_POSITION_Y), pTextureRegion);
+	public FillItemOnTile(float pX, float pY, TextureRegion supplyTextureRegion, 
+			TextureRegion iconPlusTextureRegion){
+		super((pX+SET_ITEM_IMAGE_POSITION_X), (pY+SET_ITEM_IMAGE_POSITION_Y), supplyTextureRegion);
 		
 		itemImagePositionX = (int) (pX + SET_ITEM_IMAGE_POSITION_X);
 		itemImagePositionY = (int) (pY + SET_ITEM_IMAGE_POSITION_Y);
 		
+		Sprite iconPlus = new Sprite(itemImagePositionX, itemImagePositionY, iconPlusTextureRegion);
+		this.attachChild( iconPlus );
+		
 		final Path path = new Path( SET_ITEM_MOVE_POSITION_TIME ).to(itemImagePositionX, itemImagePositionY)
   	.to( itemImagePositionX, itemImagePositionY + SET_ITEM_IMAGE_POSITION_Y_MOVE_1);
 		
-		this.registerEntityModifier( new ParallelEntityModifier( new PathModifier(SET_ITEM_MOVE_POSITION_SPEED, path),
-					new FadeOutModifier(SET_ITEM_MOVE_POSITION_SPEED) ) );
+		this.registerEntityModifier( new ParallelEntityModifier( 
+				new PathModifier(SET_ITEM_MOVE_POSITION_SPEED, path),
+				new FadeOutModifier(SET_ITEM_MOVE_POSITION_SPEED) ) );
 	}
 
 }
