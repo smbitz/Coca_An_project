@@ -14,6 +14,13 @@ public class PurchaseTile extends AbstractFarmTile {
 	@Override
 	protected boolean touchOnPreferedRegion(float localX, float localY){
 		System.out.println("Purchase Farm Touch");
+		float scale = this.getParent().getScaleX();
+		float x = localX;
+		float y = localY;
+		if(( y > 50 ) && ( x > 50 ) && 
+						(y < this.getHeightScaled()) && (x < this.getWidthScaled())){
+			return true;
+		}
 		return false;
 	}
 }
