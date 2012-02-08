@@ -19,8 +19,8 @@ public class SupplyOnTile extends Sprite {
 	private int itemImagePositionX;
 	private int itemImagePositionY;
 	
-	public SupplyOnTile(float pX, float pY, TextureRegion pTextureRegion) {
-		super(( pX + SET_ITEM_IMAGE_POSITION_X ), ( pY + SET_ITEM_IMAGE_POSITION_Y ), pTextureRegion);
+	public SupplyOnTile(float pX, float pY, TextureRegion textureSupplyRegion) {
+		super(( pX + SET_ITEM_IMAGE_POSITION_X ), ( pY + SET_ITEM_IMAGE_POSITION_Y ), textureSupplyRegion);
 		
 		itemImagePositionX = (int) (pX + SET_ITEM_IMAGE_POSITION_X);
 		itemImagePositionY = (int) (pY + SET_ITEM_IMAGE_POSITION_Y);
@@ -29,6 +29,7 @@ public class SupplyOnTile extends Sprite {
 	  	.to( itemImagePositionX, itemImagePositionY + SET_ITEM_IMAGE_POSITION_Y_MOVE_1 )
 	  	.to( itemImagePositionX, itemImagePositionY);
 		
-		this.registerEntityModifier( new LoopEntityModifier( new PathModifier(  SET_ITEM_MOVE_POSITION_SPEED, path ) ) );
+		this.registerEntityModifier( new LoopEntityModifier( 
+			new PathModifier(  SET_ITEM_MOVE_POSITION_SPEED, path ) ) );
 	}
 }

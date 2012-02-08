@@ -43,6 +43,7 @@ import codegears.coca.data.Building;
 import codegears.coca.data.BuildingManager;
 import codegears.coca.data.Item;
 import codegears.coca.data.ItemManager;
+import codegears.coca.data.ItemQuantityPair;
 import codegears.coca.data.PlayerListener;
 import codegears.coca.data.TextureVar;
 import codegears.coca.data.Player;
@@ -78,7 +79,7 @@ import android.view.MotionEvent;
 
 public class GameActivity extends BaseGameActivity implements ButtonListener,
 				IPinchZoomDetectorListener, IOnSceneTouchListener, FarmTileListener, 
-				PlayerListener, LevelUpPopUpListener, FillItemListener {
+				PlayerListener, LevelUpPopUpListener {
 
 	public static final int REQUEST_PURCHASETILE = 1;
 	public static final int REQUEST_BUILD = 2;
@@ -128,8 +129,6 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	private StatusBar statusBar;
 	
 	private TimerHandler gameTimerHandler;
-	
-	private FillItemOnTile newFillItemOnTile;
 	
 	//---- Data Variable ----//
 	private Player currentPlayer;
@@ -280,21 +279,11 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	@Override
 	public void onClickUp(ButtonSprite buttonSprite) {
 		if ( buttonSprite == this.couponButton ) {
-			this.runOnUpdateThread( new Runnable() {
-					@Override
-					public void run() {
-						mMainScene.detachChild( mClickImageButton );
-					}
-			} );
+			mMainScene.detachChild( mClickImageButton );
 			Intent i = new Intent( this, CouponDialog.class );
 			this.startActivityForResult( i, REQUEST_COUPON );
 		} else if ( buttonSprite == this.specialCodeButton ) {
-			this.runOnUpdateThread( new Runnable() {
-					@Override
-					public void run() {
-						mMainScene.detachChild( mClickImageButton );
-					}
-			} );
+			mMainScene.detachChild( mClickImageButton );
 			Intent i = new Intent( this, SpecialCodeDialog.class );
 			this.startActivityForResult( i, REQUEST_SPECIALCODE );
 		} else if ( buttonSprite == this.shopButton ) {
@@ -367,10 +356,13 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			}
 		} else if(requestCode == REQUEST_ADD_ITEM){
 			if(resultCode == SupplyBoxDialog.RESULT_SUPPLY){
+				farmMapSprite.fillItemOnTile(activeTile, FarmSprite.FILL_ITEM_TYPE_SUPPLY);
 				currentPlayer.addSupply(activeTile);
 			} else if(resultCode == SupplyBoxDialog.RESULT_EXTRA1){
+				farmMapSprite.fillItemOnTile(activeTile, FarmSprite.FILL_ITEM_TYPE_EXTRA_A);
 				currentPlayer.addExtraItem1(activeTile);
 			} else if(resultCode == SupplyBoxDialog.RESULT_EXTRA2){
+				farmMapSprite.fillItemOnTile(activeTile, FarmSprite.FILL_ITEM_TYPE_EXTRA_B);
 				currentPlayer.addExtraItem2(activeTile);
 			} else if(resultCode == SupplyBoxDialog.RESULT_MOVE){
 				//enter move state
@@ -432,79 +424,38 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		intent.putExtra( SupplyBoxDialog.EXTRA_ITEM_EXTRA_ID, String.valueOf( activeTile.getExtraId() ));
 		this.startActivityForResult( intent, REQUEST_ADD_ITEM );
 	}
-
+	
 	@Override
-	public void onSupplyRequest( Tile data, float tileX, float tileY ) {
-		TextureRegion supplyTexture = null;
-		
-		//Clear old fill supply image
+	public void onSupplyRequest( Tile data ) {
 		//---------- Move newFarmItemOnTile to farmMapSprite # Chet ------------------//
-		this.runOnUiThread( new Runnable() {
-			@Override
-			public void run() {
-				farmMapSprite.detachChild( newFillItemOnTile );
-			};
-		}
-		);
 		
 		//Add supply to player 
 		currentPlayer.addSupply(data);
 		
-		//Update farm
-		//farmMapSprite.update( mMainScene );
-		
 		//display supply animation
-		if( data.getBuildingId().equals( BuildingManager.BUILDING_ID_MORNING_GLORY ) ||
-				data.getBuildingId().equals( BuildingManager.BUILDING_ID_CHINESE_CABBAGE ) ||
-				data.getBuildingId().equals( BuildingManager.BUILDING_ID_BABY_CORN ) ||
-				data.getBuildingId().equals( BuildingManager.BUILDING_ID_PUMPKIN ) ||
-				data.getBuildingId().equals( BuildingManager.BUILDING_ID_STRAW_MUSHROOMS ) ){
-			supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_ITEM_PLANT_01 );
-		}else if( data.getBuildingId().equals( BuildingManager.BUILDING_ID_CHICKEN ) ||
-							data.getBuildingId().equals( BuildingManager.BUILDING_ID_PIG ) ||
-							data.getBuildingId().equals( BuildingManager.BUILDING_ID_COW ) ||
-							data.getBuildingId().equals( BuildingManager.BUILDING_ID_SHEEP ) ||
-							data.getBuildingId().equals( BuildingManager.BUILDING_ID_OSTRICH ) ){
-			supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_ITEM_ANIMAL_01 );
-		}else if( data.getBuildingId().equals( BuildingManager.BUILDING_ID_FISH ) ||
-							data.getBuildingId().equals( BuildingManager.BUILDING_ID_SQUID ) ||
-							data.getBuildingId().equals( BuildingManager.BUILDING_ID_SHRIMP ) ||
-							data.getBuildingId().equals( BuildingManager.BUILDING_ID_OYSTER ) ||
-							data.getBuildingId().equals( BuildingManager.BUILDING_ID_SCALLOPS ) ){
-			supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_ITEM_SEA_ANIMAL_01 );
-		}
-		newFillItemOnTile = new FillItemOnTile(tileX, tileY, supplyTexture);
-		newFillItemOnTile.setOnFillItemListener( this );
-		//Sprite newIconPlus = new Sprite(tileX, tileY, textureCollection.get( TextureVar.TEXTURE_SPECIALCODEBUTTON ));
-		//farmMapSprite.attachChild( newIconPlus );
-		farmMapSprite.attachChild( newFillItemOnTile );
-				
+		farmMapSprite.fillItemOnTile(data, FarmSprite.FILL_ITEM_TYPE_SUPPLY);
+		
 		//update player to server
 		currentPlayer.updateToServer();
 	}
 
 	@Override
 	public void onHarvestRequest( Tile data ) {
-		currentPlayer.harvest(data);
+		//harvest
+		ArrayList<ItemQuantityPair> receiveItem = currentPlayer.harvest(data);
+		
 		//display harvest animation
+		if( receiveItem!=null ){
+			farmMapSprite.harvestTile( data, receiveItem );
+		}
 		
 		//update player to server
-		currentPlayer.updateToServer();
+		//currentPlayer.updateToServer();
 		
 		//Update farm
-		//------------- Need to Talk on this issue # Chet ----------------//
-		/*
-		this.runOnUiThread( new Runnable() {
-			@Override
-			public void run() {
-				farmMapSprite.update( mMainScene );
-			};
-		}
-		);
-		*/
-		farmMapSprite.unRegisterChildTouchArea( mMainScene );
+		/*farmMapSprite.unRegisterChildTouchArea( mMainScene );
 		farmMapSprite.update( mMainScene );
-		farmMapSprite.registerChildTouchArea( mMainScene );
+		farmMapSprite.registerChildTouchArea( mMainScene );*/
 		
 		//Harvest Animation
 	}
@@ -522,23 +473,26 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	}
 
 	@Override
-	public void onLevelUp(Player player) {
+	public void onLevelUp(final Player player) {
 		musicCollection.get( LoadResource.SOUND_LEVEL_UP ).play();
 		this.state = STATE_LEVELUP;
+		
+		farmMapSprite.unRegisterChildTouchArea( mMainScene );
+		mMainScene.unregisterTouchArea( shopButton );
+		mMainScene.unregisterTouchArea( couponButton );
+		mMainScene.unregisterTouchArea( soundButton );
+		mMainScene.unregisterTouchArea( specialCodeButton );
 		
 		this.runOnUiThread( new Runnable() {
 			@Override
 			public void run() {
-				farmMapSprite.unRegisterChildTouchArea( mMainScene );
-				mMainScene.unregisterTouchArea( shopButton );
-				mMainScene.unregisterTouchArea( couponButton );
-				mMainScene.unregisterTouchArea( soundButton );
-				mMainScene.unregisterTouchArea( specialCodeButton );
+				// TODO Auto-generated method stub
+				statusBar.setLevel( player.getLevel() );
+				statusBar.setMoney( player.getMoney() );
+				statusBar.setExp( player.getExpPercent() );
 			}
-		} );
+		});
 		
-		statusBar.setLevel( player.getLevel() );
-		statusBar.setMoney( player.getMoney() );
 		levelUpPopUp.setLevel( player.getLevel() );
 		levelUpPopUp.setVisible( mMainScene, true );
 	}
@@ -546,18 +500,27 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	@Override
 	public void onExpUp(Player player) {
 		statusBar.setMoney( player.getMoney() );
+		statusBar.setExp( player.getExpPercent() );
 	}
 
 	@Override
 	public void onLevelPopUpCloseButtonClick() {
 		musicCollection.get( LoadResource.SOUND_CHOOSE_CLICK ).play();
 		this.state = STATE_NORMAL;
+		
 		farmMapSprite.registerChildTouchArea( mMainScene );
 		mMainScene.registerTouchArea( shopButton );
 		mMainScene.registerTouchArea( couponButton );
 		mMainScene.registerTouchArea( soundButton );
 		mMainScene.registerTouchArea( specialCodeButton );
 		levelUpPopUp.setVisible( mMainScene, false );
+	}
+
+	@Override
+	public void onPlayerTileUpdate() {
+		farmMapSprite.unRegisterChildTouchArea( mMainScene );
+		farmMapSprite.update( mMainScene );
+		farmMapSprite.registerChildTouchArea( mMainScene );
 	}
 
 	@Override

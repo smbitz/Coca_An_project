@@ -140,8 +140,12 @@ public class BuildDialog extends Activity implements OnClickListener {
 		int itemPositionInBackpack = currentPlayer.searchBackpackItem(setItem.getId());
 		if(itemPositionInBackpack>=0){
 			int foundItemQuantity = currentPlayer.getBackpack().get(itemPositionInBackpack).getQuantity();
-			setBItem.setItemTimeColor( this.getResources().getColor( R.color.dark_green ) );
-			setBItem.setItemPrice("x "+String.valueOf(foundItemQuantity));
+			if( foundItemQuantity>0 ){
+				setBItem.setItemTimeColor( this.getResources().getColor( R.color.dark_green ) );
+				setBItem.setItemPrice("x "+String.valueOf(foundItemQuantity));
+			}else {
+				setBItem.setItemPrice(String.valueOf(setItem.getPrice()));
+			}
 		}else{
 			setBItem.setItemPrice(String.valueOf(setItem.getPrice()));
 		}

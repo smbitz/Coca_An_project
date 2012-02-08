@@ -1,6 +1,5 @@
 package codegears.coca.ui;
 
 public interface FillItemListener {
-
-	public void onFillItemComplete();
+	public void onFillItemAnimationComplete(FillItemOnTile fillItemOnTile);
 }

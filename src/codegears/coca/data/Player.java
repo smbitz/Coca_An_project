@@ -230,12 +230,13 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 	}
 	
 	//---- Harvest completed tile ----//
-	public void harvest(Tile tile){
+	public ArrayList<ItemQuantityPair> harvest(Tile tile){
 		int getYieldMoney = tile.getBuilding().generateYieldMoney();
+		ArrayList<ItemQuantityPair> getYieldItem = null;
 		
 		if(tile.getBuildingStatus()==Tile.BUILDING_COMPLETED){
 			//Harvest Yield Item
-			ArrayList<ItemQuantityPair> getYieldItem = tile.getBuilding().generateYieldItem();
+			getYieldItem = tile.getBuilding().generateYieldItem();
 			String getTileExtraId = tile.getExtraId();
 			float harvestPercentsExtraA = tile.getBuilding().getExtra().get(0).getResult();
 			float harvestPercentsExtraB = tile.getBuilding().getExtra().get(1).getResult();
@@ -293,6 +294,7 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		  //Clear Tile
 			tile.clearTile();
 			reciveExp( RECEIVE_EXP_HARVEST );
+			return getYieldItem;
 		}else if(tile.getBuildingStatus()==Tile.BUILDING_ROTTED){
 		  //Harvest Money
 			this.money += getYieldMoney;
@@ -300,6 +302,9 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 		  //Clear Tile
 			tile.clearTile();
 			reciveExp( RECEIVE_EXP_HARVEST );
+			return getYieldItem;
+		}else{
+			return null;
 		}
 	}
 	
@@ -613,7 +618,6 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 	public void onNetworkThreadFail( String referenceKey ) {
 	}
 	
-	
 	public void start(long startTime){
 		lastUpdateTime = startTime;
 	}
@@ -621,7 +625,18 @@ public class Player implements NetworkThreadListener, NetworkThread2Listener {
 	public void update(long currentTime){
 		int elapse = (int)(currentTime - lastUpdateTime);
 		lastUpdateTime = currentTime;
+		
 		//----- Update all Tile with elapse time # Chet -----------//
+		for( Tile fetchTile:tileList ){
+			int tileStatus = fetchTile.getBuildingStatus();
+			int supply = fetchTile.getSupply();
+			fetchTile.update( elapse );
+			if( tileStatus != fetchTile.getBuildingStatus() ){
+				playerListener.onPlayerTileUpdate();
+			}else if( (supply > 0) && (fetchTile.getSupply() <= 0) ){
+				playerListener.onPlayerTileUpdate();
+			}
+		}
 	}
 	
 	public void swap(Tile moveTile, Tile destinationTile){

@@ -14,6 +14,7 @@ public class FarmTileBuilder {
 	private static final int TILE_OCCUPY_SET_X = 160;
 	private static final int TILE_OCCUPY_SET_Y = 25;
 	private static final int TILE_BUILDING_SET_Y = 7;
+	private static final int TILE_SEA_ANIMAL_SET_Y = 20;
 	
 	public static AbstractFarmTile createFarmTile(int pX, int pY, Tile tile, HashMap<String, TextureRegion> textureCollection){
 
@@ -123,16 +124,7 @@ public class FarmTileBuilder {
 			newFarmTile.attachChild(s);
 			
 			return newFarmTile;
-		}
-			//tr = pig, cow, ....
-			//phase1, phase2, complete, die
-			//Sprite s = new Sprite();
-			//MeatFarmTile farmTile = new MeatFarmTile(px, py, tr);
-			//farmTile.add(s);
-			//return farmTile;
-		
-		//if vege
-		else if( tile.getBuildingId().equals( BuildingManager.BUILDING_ID_MORNING_GLORY ) ){
+		}else if( tile.getBuildingId().equals( BuildingManager.BUILDING_ID_MORNING_GLORY ) ){
 			if( tile.getBuildingStatus() == Tile.BUILDING_PROCESS1 ){
 				tr = textureCollection.get( TextureVar.TEXTURE_TILE_MORNING_GLORY_01 );
 			}else if( tile.getBuildingStatus() == Tile.BUILDING_PROCESS2 ){
@@ -192,12 +184,7 @@ public class FarmTileBuilder {
 			}
 			
 			return new VegeFarmTile(pX, pY, tr);
-		}
-			//tr = ....
-			//return new VegeFarmTile(px, py, tr);
-		
-		//if sea
-		else if( tile.getBuildingId().equals( BuildingManager.BUILDING_ID_FISH ) ){
+		} else if( tile.getBuildingId().equals( BuildingManager.BUILDING_ID_FISH ) ){
 			tr = textureCollection.get( TextureVar.TEXTURE_TILE_CORRAL_SEA_ANIMAL );
 			TextureRegion animalTr = null;
 			if( tile.getBuildingStatus() == Tile.BUILDING_PROCESS1 ){
@@ -209,7 +196,7 @@ public class FarmTileBuilder {
 			}else if( tile.getBuildingStatus() == Tile.BUILDING_ROTTED ){
 				animalTr = textureCollection.get( TextureVar.TEXTURE_TILE_FISH_04 );
 			}
-			Sprite s = new Sprite(0, 0, animalTr);
+			Sprite s = new Sprite(0, 0+TILE_SEA_ANIMAL_SET_Y, animalTr);
 			SeaFarmTile newFarmTile = new SeaFarmTile(pX, pY, tr);
 			newFarmTile.attachChild(s);
 			
@@ -226,7 +213,7 @@ public class FarmTileBuilder {
 			}else if( tile.getBuildingStatus() == Tile.BUILDING_ROTTED ){
 				animalTr = textureCollection.get( TextureVar.TEXTURE_TILE_SQUID_04 );
 			}
-			Sprite s = new Sprite(0, 0, animalTr);
+			Sprite s = new Sprite(0, 0+TILE_SEA_ANIMAL_SET_Y, animalTr);
 			SeaFarmTile newFarmTile = new SeaFarmTile(pX, pY, tr);
 			newFarmTile.attachChild(s);
 			
@@ -243,7 +230,7 @@ public class FarmTileBuilder {
 			}else if( tile.getBuildingStatus() == Tile.BUILDING_ROTTED ){
 				animalTr = textureCollection.get( TextureVar.TEXTURE_TILE_SCALLOPS_04 );
 			}
-			Sprite s = new Sprite(0, 0, animalTr);
+			Sprite s = new Sprite(0, 0+TILE_SEA_ANIMAL_SET_Y, animalTr);
 			SeaFarmTile newFarmTile = new SeaFarmTile(pX, pY, tr);
 			newFarmTile.attachChild(s);
 			
@@ -260,7 +247,7 @@ public class FarmTileBuilder {
 			}else if( tile.getBuildingStatus() == Tile.BUILDING_ROTTED ){
 				animalTr = textureCollection.get( TextureVar.TEXTURE_TILE_SHRIMP_04 );
 			}
-			Sprite s = new Sprite(0, 0, animalTr);
+			Sprite s = new Sprite(0, 0+TILE_SEA_ANIMAL_SET_Y, animalTr);
 			SeaFarmTile newFarmTile = new SeaFarmTile(pX, pY, tr);
 			newFarmTile.attachChild(s);
 			
@@ -277,18 +264,15 @@ public class FarmTileBuilder {
 			}else if( tile.getBuildingStatus() == Tile.BUILDING_ROTTED ){
 				animalTr = textureCollection.get( TextureVar.TEXTURE_TILE_OYSTER_04 );
 			}
-			Sprite s = new Sprite(0, 0, animalTr);
+			Sprite s = new Sprite(0, 0+TILE_SEA_ANIMAL_SET_Y, animalTr);
 			SeaFarmTile newFarmTile = new SeaFarmTile(pX, pY, tr);
 			newFarmTile.attachChild(s);
 			
 			return newFarmTile;
-		}
-			//tr = fish, ...
-			//return new SeaFarmTile(px, py, tr);
-		
-		else if( tile.getIsOccupy() ){
+		} else if( tile.getIsOccupy() ){
 			return new FarmTile(pX, pY, textureCollection.get( TextureVar.TEXTURE_EMPTY_FARM ));
-		}else{
+		} else{
+			//debug
 			pX-=TILE_OCCUPY_SET_X;
 			pY+=TILE_OCCUPY_SET_Y;
 			return new PurchaseTile(pX, pY, textureCollection.get( TextureVar.TEXTURE_FARM_NOTOCCUPY ));

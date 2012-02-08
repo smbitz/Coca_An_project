@@ -14,11 +14,12 @@ import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 import codegears.coca.data.BuildingManager;
 import codegears.coca.data.ItemManager;
+import codegears.coca.data.ItemQuantityPair;
 import codegears.coca.data.TextureVar;
 import codegears.coca.data.Player;
 import codegears.coca.data.Tile;
 
-public class FarmSprite extends Sprite {
+public class FarmSprite extends Sprite implements FillItemListener {
 	
 	private static final float ZOOM_MIN = 1.0f;
 	private static final float ZOOM_MAX = 1.0f;
@@ -30,10 +31,12 @@ public class FarmSprite extends Sprite {
 	
 	private static final float MAP_SCALE = (float) 1.37;
 	
+	public static final String FILL_ITEM_TYPE_SUPPLY = "FILL_ITEM_TYPE_SUPPLY";
+	public static final String FILL_ITEM_TYPE_EXTRA_A = "FILL_ITEM_TYPE_EXTRA_A";
+	public static final String FILL_ITEM_TYPE_EXTRA_B = "FILL_ITEM_TYPE_EXTRA_B";
+	
 	private ArrayList<AbstractFarmTile> farmTileList;
 	private ArrayList<AbstractFarmTile> purchaseTileList;
-	private ArrayList<AbstractFarmTile> extraItemTileList;
-	private ArrayList<SupplyOnTile> supplyItemTileList;
 	
 	private Player currentPlayer;
 	private HashMap<String, TextureRegion> textureCollection;
@@ -50,6 +53,10 @@ public class FarmSprite extends Sprite {
 	private MapSprite map;
 	private Sprite iconBuyArea;
 	
+	private FillItemOnTile newFillItemOnTile;
+	
+	private HarvestItemPopUp newHarvestItemPopUp;
+	
 	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection, 
 			HashMap<String, TiledTextureRegion> gettiledTextureCollection){
 		super(0, 0, getTextureCollection.get(TextureVar.TEXTURE_FARM_MAP_DEFAULT));
@@ -59,8 +66,6 @@ public class FarmSprite extends Sprite {
 		
 		farmTileList = new ArrayList<AbstractFarmTile>();
 		purchaseTileList = new ArrayList<AbstractFarmTile>();
-		extraItemTileList = new ArrayList<AbstractFarmTile>();
-		supplyItemTileList = new ArrayList<SupplyOnTile>();
 		
 		textureCollection = getTextureCollection;
 		tiledTextureCollection = gettiledTextureCollection;
@@ -115,19 +120,20 @@ public class FarmSprite extends Sprite {
 				tile.setData( tileData );
 				
 				//Add Butterfly Animate
-				if( tileData.getBuildingStatus() != Tile.BUILDING_EMPTY &&
-						tileData.getBuildingStatus() != Tile.BUILDING_ROTTED ){
+				if( tileData.getBuildingStatus() != Tile.BUILDING_EMPTY ){
+					AnimatedSprite butterflyAnimate = new AnimatedSprite(50, 25, tiledTextureCollection.get( TextureVar.TEXTURE_BUTTERFLY_ANIMATE ).deepCopy());
+					butterflyAnimate.animate(100);
+					tile.attachChild( butterflyAnimate );
+					
 					if( tileData.getExtraId().equals( ItemManager.ITEM_ID_FERTILIZER_A )||
 							tileData.getExtraId().equals( ItemManager.ITEM_ID_VACCINE_A )||
 							tileData.getExtraId().equals( ItemManager.ITEM_ID_MICROORGANISM_A ) ||
-							tileData.getExtraId().equals( ItemManager.ITEM_ID_FERTILIZER_A )||
-							tileData.getExtraId().equals( ItemManager.ITEM_ID_VACCINE_A )||
-							tileData.getExtraId().equals( ItemManager.ITEM_ID_MICROORGANISM_A ) ){
-						AbstractFarmTile tileExtra = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection );
-						tileExtra.setData( tileData );
-						tileExtra.setColor(1, 0, 0, (float) 0.3);
-						//tile.attachChild(tileExtraB);
-						extraItemTileList.add( tileExtra );
+							tileData.getExtraId().equals( ItemManager.ITEM_ID_FERTILIZER_B )||
+							tileData.getExtraId().equals( ItemManager.ITEM_ID_VACCINE_B )||
+							tileData.getExtraId().equals( ItemManager.ITEM_ID_MICROORGANISM_B ) ){
+						AbstractFarmTile tileExtra = FarmTileBuilder.createFarmTile( 0, 5, tileData, textureCollection );
+						tileExtra.setColor(1, 0, 0, (float) 0.1);
+						tile.attachChild( tileExtra );
 					}
 					
 					if( tileData.getBuildingStatus() != Tile.BUILDING_ROTTED &&
@@ -138,29 +144,25 @@ public class FarmSprite extends Sprite {
 									tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_BABY_CORN ) ||
 									tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_PUMPKIN ) ||
 									tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_STRAW_MUSHROOMS ) ){
-								SupplyOnTile supplyItem = new SupplyOnTile(setX, setY, textureCollection.get( TextureVar.TEXTURE_SUPPLY_ITEM_PLANT_01 ));
-								supplyItemTileList.add(supplyItem);
+								SupplyOnTile supplyItem = new SupplyOnTile(0, 0, textureCollection.get( TextureVar.TEXTURE_SUPPLY_WATER ));
+								tile.attachSupplyOnTile(supplyItem);
 							}else if( tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_CHICKEN ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_PIG ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_COW ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_SHEEP ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_OSTRICH ) ){
-								SupplyOnTile supplyItem = new SupplyOnTile(setX, setY, textureCollection.get( TextureVar.TEXTURE_SUPPLY_ITEM_ANIMAL_01 ));
-								supplyItemTileList.add(supplyItem);
+								SupplyOnTile supplyItem = new SupplyOnTile(0, 0, textureCollection.get( TextureVar.TEXTURE_SUPPLY_STRAW ));
+								tile.attachSupplyOnTile(supplyItem);
 							}else if( tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_FISH ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_SQUID ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_SHRIMP ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_OYSTER ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_SCALLOPS ) ){
-								SupplyOnTile supplyItem = new SupplyOnTile(setX, setY, textureCollection.get( TextureVar.TEXTURE_SUPPLY_ITEM_SEA_ANIMAL_01 ));
-								supplyItemTileList.add(supplyItem);
+								SupplyOnTile supplyItem = new SupplyOnTile(0, 0, textureCollection.get( TextureVar.TEXTURE_SUPPLY_PELLET_FOOD ));
+								tile.attachSupplyOnTile(supplyItem);
 							}
 						}
 					}
-					
-					AnimatedSprite butterflyAnimate = new AnimatedSprite(50, 25, tiledTextureCollection.get( TextureVar.TEXTURE_BUTTERFLY_ANIMATE ).deepCopy());
-					butterflyAnimate.animate(100);
-					tile.attachChild( butterflyAnimate );
 				}
 				
 				farmTileList.add( tile );
@@ -191,9 +193,6 @@ public class FarmSprite extends Sprite {
 		for(AbstractFarmTile tile:purchaseTileList){
 			this.attachChild( tile );
 		}
-		for(AbstractFarmTile tile:extraItemTileList){
-			this.attachChild( tile );
-		}
 		for(AbstractFarmTile tile:farmTileList){
 			this.attachChild( tile );
 		}
@@ -209,14 +208,6 @@ public class FarmSprite extends Sprite {
 			this.detachChild( tile );
 		}
 		farmTileList.clear();
-		for(AbstractFarmTile tile:extraItemTileList){
-			this.detachChild( tile );
-		}
-		extraItemTileList.clear();
-		for(SupplyOnTile tile:supplyItemTileList){
-			this.detachChild( tile );
-		}
-		supplyItemTileList.clear();
 		
 		ArrayList<Tile> tileList = currentPlayer.getTile();
 		//---- Create FarmTile ----//
@@ -232,15 +223,19 @@ public class FarmSprite extends Sprite {
 				
 				//Add Butterfly Animate
 				if( tileData.getBuildingStatus() != Tile.BUILDING_EMPTY ){
+					AnimatedSprite butterflyAnimate = new AnimatedSprite(50, 25, tiledTextureCollection.get( TextureVar.TEXTURE_BUTTERFLY_ANIMATE ).deepCopy());
+					butterflyAnimate.animate(100);
+					tile.attachChild( butterflyAnimate );
+					
 					if( tileData.getExtraId().equals( ItemManager.ITEM_ID_FERTILIZER_A )||
 							tileData.getExtraId().equals( ItemManager.ITEM_ID_VACCINE_A )||
 							tileData.getExtraId().equals( ItemManager.ITEM_ID_MICROORGANISM_A ) ||
-							tileData.getExtraId().equals( ItemManager.ITEM_ID_FERTILIZER_A )||
-							tileData.getExtraId().equals( ItemManager.ITEM_ID_VACCINE_A )||
-							tileData.getExtraId().equals( ItemManager.ITEM_ID_MICROORGANISM_A ) ){
-						AbstractFarmTile tileExtra = FarmTileBuilder.createFarmTile( setX, setY, tileData, textureCollection );
+							tileData.getExtraId().equals( ItemManager.ITEM_ID_FERTILIZER_B )||
+							tileData.getExtraId().equals( ItemManager.ITEM_ID_VACCINE_B )||
+							tileData.getExtraId().equals( ItemManager.ITEM_ID_MICROORGANISM_B ) ){
+						AbstractFarmTile tileExtra = FarmTileBuilder.createFarmTile( 0, 5, tileData, textureCollection );
 						tileExtra.setColor(1, 0, 0, (float) 0.1);
-						extraItemTileList.add( tileExtra );
+						tile.attachChild( tileExtra );
 					}
 					
 					if( tileData.getBuildingStatus() != Tile.BUILDING_ROTTED &&
@@ -251,29 +246,25 @@ public class FarmSprite extends Sprite {
 									tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_BABY_CORN ) ||
 									tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_PUMPKIN ) ||
 									tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_STRAW_MUSHROOMS ) ){
-								SupplyOnTile supplyItem = new SupplyOnTile(setX, setY, textureCollection.get( TextureVar.TEXTURE_SUPPLY_ITEM_PLANT_01 ));
-								supplyItemTileList.add(supplyItem);
+								SupplyOnTile supplyItem = new SupplyOnTile(0, 0, textureCollection.get( TextureVar.TEXTURE_SUPPLY_WATER ));
+								tile.attachSupplyOnTile(supplyItem);
 							}else if( tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_CHICKEN ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_PIG ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_COW ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_SHEEP ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_OSTRICH ) ){
-								SupplyOnTile supplyItem = new SupplyOnTile(setX, setY, textureCollection.get( TextureVar.TEXTURE_SUPPLY_ITEM_ANIMAL_01 ));
-								supplyItemTileList.add(supplyItem);
+								SupplyOnTile supplyItem = new SupplyOnTile(0, 0, textureCollection.get( TextureVar.TEXTURE_SUPPLY_STRAW ));
+								tile.attachSupplyOnTile(supplyItem);
 							}else if( tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_FISH ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_SQUID ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_SHRIMP ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_OYSTER ) ||
 												tileData.getBuildingId().equals( BuildingManager.BUILDING_ID_SCALLOPS ) ){
-								SupplyOnTile supplyItem = new SupplyOnTile(setX, setY, textureCollection.get( TextureVar.TEXTURE_SUPPLY_ITEM_SEA_ANIMAL_01 ));
-								supplyItemTileList.add(supplyItem);
+								SupplyOnTile supplyItem = new SupplyOnTile(0, 0, textureCollection.get( TextureVar.TEXTURE_SUPPLY_PELLET_FOOD ));
+								tile.attachSupplyOnTile(supplyItem);
 							}
 						}
 					}
-					
-					AnimatedSprite butterflyAnimate = new AnimatedSprite(50, 25, tiledTextureCollection.get( TextureVar.TEXTURE_BUTTERFLY_ANIMATE ).deepCopy());
-					butterflyAnimate.animate(100);
-					tile.attachChild( butterflyAnimate );
 				}
 				
 				farmTileList.add( tile );
@@ -305,12 +296,6 @@ public class FarmSprite extends Sprite {
 			this.attachChild( tile );
 		}
 		for(AbstractFarmTile tile:farmTileList){
-			this.attachChild( tile );
-		}
-		for(AbstractFarmTile tile:extraItemTileList){
-			this.attachChild( tile );
-		}
-		for(SupplyOnTile tile:supplyItemTileList){
 			this.attachChild( tile );
 		}
 		this.setFarmTileListener( this.tileListener );
@@ -368,4 +353,154 @@ public class FarmSprite extends Sprite {
 			tile.setNormalState();
 		}
 	}
+
+	public void fillItemOnTile(Tile data, String fillItemType){
+		//Remove supply on tile image
+		for(AbstractFarmTile tile:farmTileList){
+			if( tile.getData().equals( data ) ){
+				tile.detachSupplyOnTile();
+			}
+		}
+		
+		for( AbstractFarmTile fetchTile:farmTileList ){
+			if( fetchTile.getData().equals( data ) ){
+				TextureRegion supplyTexture = null;
+				
+				if( data.getBuildingId().equals( BuildingManager.BUILDING_ID_MORNING_GLORY ) ||
+						data.getBuildingId().equals( BuildingManager.BUILDING_ID_CHINESE_CABBAGE ) ||
+						data.getBuildingId().equals( BuildingManager.BUILDING_ID_BABY_CORN ) ||
+						data.getBuildingId().equals( BuildingManager.BUILDING_ID_PUMPKIN ) ||
+						data.getBuildingId().equals( BuildingManager.BUILDING_ID_STRAW_MUSHROOMS ) ){
+					if( fillItemType.equals( FILL_ITEM_TYPE_SUPPLY ) ){
+						supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_WATER );
+					}else if( fillItemType.equals( FILL_ITEM_TYPE_EXTRA_A ) ){
+						supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_FERTILIZER_A );
+					}else if( fillItemType.equals( FILL_ITEM_TYPE_EXTRA_B ) ){
+						supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_FERTILIZER_B );
+					}
+				}else if( data.getBuildingId().equals( BuildingManager.BUILDING_ID_CHICKEN ) ||
+									data.getBuildingId().equals( BuildingManager.BUILDING_ID_PIG ) ||
+									data.getBuildingId().equals( BuildingManager.BUILDING_ID_COW ) ||
+									data.getBuildingId().equals( BuildingManager.BUILDING_ID_SHEEP ) ||
+									data.getBuildingId().equals( BuildingManager.BUILDING_ID_OSTRICH ) ){
+					if( fillItemType.equals( FILL_ITEM_TYPE_SUPPLY ) ){
+						supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_STRAW );
+					}else if( fillItemType.equals( FILL_ITEM_TYPE_EXTRA_A ) ){
+						supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_VACCINE_A );
+					}else if( fillItemType.equals( FILL_ITEM_TYPE_EXTRA_B ) ){
+						supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_VACCINE_B );
+					}
+				}else if( data.getBuildingId().equals( BuildingManager.BUILDING_ID_FISH ) ||
+									data.getBuildingId().equals( BuildingManager.BUILDING_ID_SQUID ) ||
+									data.getBuildingId().equals( BuildingManager.BUILDING_ID_SHRIMP ) ||
+									data.getBuildingId().equals( BuildingManager.BUILDING_ID_OYSTER ) ||
+									data.getBuildingId().equals( BuildingManager.BUILDING_ID_SCALLOPS ) ){
+					if( fillItemType.equals( FILL_ITEM_TYPE_SUPPLY ) ){
+						supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_PELLET_FOOD );
+					}else if( fillItemType.equals( FILL_ITEM_TYPE_EXTRA_A ) ){
+						supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_MICROORGANISM_A );
+					}else if( fillItemType.equals( FILL_ITEM_TYPE_EXTRA_B ) ){
+						supplyTexture = textureCollection.get( TextureVar.TEXTURE_SUPPLY_MICROORGANISM_B );
+					}
+				}
+				
+				newFillItemOnTile = new FillItemOnTile(0, 0, supplyTexture, 
+						textureCollection.get( TextureVar.TEXTURE_ICON_PLUS ));
+				newFillItemOnTile.setOnFillItemListener( this );
+				fetchTile.attachChild( newFillItemOnTile );
+			}
+		}
+	}
+
+	@Override
+	public void onFillItemAnimationComplete(FillItemOnTile fillItemOnTile) {
+		fillItemOnTile.detachSelf();
+		tileListener.onFillItemComplete();
+	}
+
+	public void harvestTile(Tile data, ArrayList<ItemQuantityPair> receiveItem) {
+		for( AbstractFarmTile fetchTile:farmTileList ){
+			if( fetchTile.getData().equals( data ) ){
+				newHarvestItemPopUp = new HarvestItemPopUp(0, 0, textureCollection.get( TextureVar.TEXTURE_EMPTY_FARM ));
+				
+				for( ItemQuantityPair fetchReceiveItem:receiveItem ){
+					TextureRegion harvestItemTexture = null;
+					
+					if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_MORNING_GLORY_SEED ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_MORNING_GLORY_SEED );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_CHINESE_CABBAGE_SEED ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_CHINESE_CABBAGE_SEED );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_PUMPKIN_SEED ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_PUMPKIN_SEED );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_BABY_CORN_SEED ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_BABY_CORN_SEED );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_STRAW_MUSHROOMS_SEED ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_STRAW_MUSHROOMS_SEED );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_CHICKEN_BABY ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_CHICKEN_BABY );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_PIG_BABY ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_PIG_BABY );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_COW_BABY ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_COW_BABY );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_SHEEP_BABY ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_SHEEP_BABY );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_OSTRICH_BABY ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_OSTRICH_BABY );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_FISH_BABY ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_FISH_BABY );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_SQUID_BABY ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_SQUID_BABY );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_SCALLOPS_BABY ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_SCALLOPS_BABY );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_SHRIMP_BABY ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_SHEEP_BABY );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_OYSTER_BABY ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_OYSTER_BABY );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_MORNING_GLORY ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_MORNING_GLORY );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_CHINESE_CABBAGE ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_CHINESE_CABBAGE );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_PUMPKIN ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_PUMPKIN );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_BABY_CORN ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_BABY_CORN );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_STRAW_MUSHROOMS ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_STRAW_MUSHROOMS );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_CHICKEN ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_CHICKEN );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_PIG ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_PIG );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_COW ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_COW );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_SHEEP ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_SHEEP );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_OSTRICH ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_OSTRICH );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_FISH ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_FISH );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_SQUID ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_SQUID );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_SCALLOPS ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_SCALLOPS );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_SHRIMP ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_SHRIMP );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_OYSTER ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_OYSTER );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_PEARL ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_PEARL );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_GOLD ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_GOLD );
+					}else if( fetchReceiveItem.getItem().getId().equals( ItemManager.ITEM_ID_DIAMOND ) ){
+						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_DIAMOND );
+					}
+					
+					Sprite newHarvestItemSprite = new Sprite(0, 0, harvestItemTexture);
+					newHarvestItemPopUp.attachChild( newHarvestItemSprite );
+				}
+				
+				fetchTile.attachChild( newHarvestItemPopUp );
+			}
+		}
+	}
+	
 }

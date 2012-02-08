@@ -21,6 +21,8 @@ public class AbstractFarmTile extends Sprite {
 	private int state;
 	private float tilePositionX;
 	private float tilePositionY;
+	
+	private Sprite supplyOnTileSprite;
 
 	public AbstractFarmTile( float pX, float pY, TextureRegion pTextureRegion ) {
 		super( pX, pY, pTextureRegion );
@@ -50,6 +52,15 @@ public class AbstractFarmTile extends Sprite {
 		state = GameActivity.STATE_NORMAL;
 	}
 	
+	public void attachSupplyOnTile(Sprite s){
+		supplyOnTileSprite = s;
+		this.attachChild(supplyOnTileSprite);
+	}
+	
+	public void detachSupplyOnTile(){
+		this.detachChild(supplyOnTileSprite);	
+	}
+	
 	private void processTouch(){
 		if(data.getBuildingStatus() == Tile.BUILDING_NOTOCCUPY){
 			listener.onPurchaseRequest( data );
@@ -57,13 +68,13 @@ public class AbstractFarmTile extends Sprite {
 			listener.onBuildRequest( data );
 		} else if(data.getBuildingStatus() == Tile.BUILDING_PROCESS1){
 			if(data.getSupply()<=0){
-				listener.onSupplyRequest( data, tilePositionX, tilePositionY  );
+				listener.onSupplyRequest( data );
 			}else{
 				listener.onAddItemRequest( data );
 			}
 		} else if(data.getBuildingStatus() == Tile.BUILDING_PROCESS2){
 			if(data.getSupply()<=0){
-				listener.onSupplyRequest( data, tilePositionX, tilePositionY );
+				listener.onSupplyRequest( data );
 			}else{
 				listener.onAddItemRequest( data );
 			}
@@ -98,7 +109,6 @@ public class AbstractFarmTile extends Sprite {
 							(y < ( 0.55 * x) + 98 ) && (y > ( 0.55 * x) - 17 )){
 				return true;
 			}
-			return false;
 		}
 		return false;
 	}
@@ -106,11 +116,12 @@ public class AbstractFarmTile extends Sprite {
 	@Override
 	public boolean onAreaTouched( TouchEvent pSceneTouchEvent, float pTouchAreaLocalX,
 					float pTouchAreaLocalY ) {
+		//debug
 		if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN){
 			if(touchOnPreferedRegion(pTouchAreaLocalX, pTouchAreaLocalY)){
 				startTouch = true;
 				touchX = pSceneTouchEvent.getX();
-				touchY = pSceneTouchEvent.getY();				
+				touchY = pSceneTouchEvent.getY();	
 			}
 		}
 		if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_UP){

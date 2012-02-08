@@ -51,10 +51,60 @@ public class LoadResource {
 		BitmapTextureAtlas mLevelUpTextureAtlas = new BitmapTextureAtlas( 1024, 512 );
 		BitmapTextureAtlas mCloseButtonTextureAtlas = new BitmapTextureAtlas( 64, 64 );
 		BitmapTextureAtlas mBackgroundDialogTextureAtlas = new BitmapTextureAtlas( 16, 16 );
-		BitmapTextureAtlas mSupplyItemPlant01TextureAtlas = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas mSupplyItemAnimal01TextureAtlas = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas mSupplyItemSeaAnimal01TextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSupplyItemWaterTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSupplyItemFertilizertATextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSupplyItemFertilizertBTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSupplyItemStrawTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSupplyItemVaccineATextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSupplyItemVaccineBTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSupplyItemPelletFoodTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSupplyItemMicroorganismATextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mSupplyItemMicroorganismBTextureAtlas = new BitmapTextureAtlas( 128, 128 );
 		BitmapTextureAtlas mIconPlusTextureAtlas = new BitmapTextureAtlas( 64, 64 );
+		
+		//Texture Item
+		//Seed & Baby animal
+		BitmapTextureAtlas mItemMorningGlorySeedTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemPumpkinSeedTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemChineseCabbageSeedTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemBabyCornSeedTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemStrawMushroomsSeedTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		
+		BitmapTextureAtlas mItemChickenBabyTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemPigBabyTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemCowBabyTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemSheepBabyTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemOstrichBabyTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		
+		BitmapTextureAtlas mItemFishBabyTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemSquidBabyTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemScallopsBabyTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemShrimpBabyTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemOysterBabyTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		
+		//Product
+		BitmapTextureAtlas mItemMorningGloryTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemPumpkinTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemChineseCabbageTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemBabyCornTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemStrawMushroomsTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		
+		BitmapTextureAtlas mItemChickenTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemPigTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemCowTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemSheepTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemOstrichTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		
+		BitmapTextureAtlas mItemFishTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemSquidTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemScallopsTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemShrimpTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemOysterTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		
+		//Special
+		BitmapTextureAtlas mItemPearlTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemGoldTextureAtlas = new BitmapTextureAtlas( 128, 128 );
+		BitmapTextureAtlas mItemDiamondTextureAtlas = new BitmapTextureAtlas( 128, 128 );
 		
 		//Status Bar
 		BitmapTextureAtlas mStatusBarTextureAtlas = new BitmapTextureAtlas( 512, 128 );
@@ -178,18 +228,146 @@ public class LoadResource {
 		TextureRegion mBackgroundDialogTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mBackgroundDialogTextureAtlas, context, "background_dialog.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_BACKGROUND_DIALOG, mBackgroundDialogTextureRegion );
-		TextureRegion mSupplyItemPlant01TextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				mSupplyItemPlant01TextureAtlas, context, "image_popup_plant01.png", 0, 0 );
-		textureCollection.put( TextureVar.TEXTURE_SUPPLY_ITEM_PLANT_01, mSupplyItemPlant01TextureRegion );
-		TextureRegion mSupplyItemTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				mSupplyItemAnimal01TextureAtlas, context, "image_popup_animal01.png", 0, 0 );
-		textureCollection.put( TextureVar.TEXTURE_SUPPLY_ITEM_ANIMAL_01, mSupplyItemTextureRegion );
-		TextureRegion mSupplyItemSeaAnimal01TextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				mSupplyItemSeaAnimal01TextureAtlas, context, "image_popup_sea_animal01.png", 0, 0 );
-		textureCollection.put( TextureVar.TEXTURE_SUPPLY_ITEM_SEA_ANIMAL_01, mSupplyItemSeaAnimal01TextureRegion );
+		TextureRegion mSupplyItemWaterTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSupplyItemWaterTextureAtlas, context, "image_popup_plant01.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SUPPLY_WATER, mSupplyItemWaterTextureRegion );
+		TextureRegion mSupplyItemFertilizertATextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSupplyItemFertilizertATextureAtlas, context, "image_popup_plant02.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SUPPLY_FERTILIZER_A, mSupplyItemFertilizertATextureRegion );
+		TextureRegion mSupplyItemFertilizertBTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSupplyItemFertilizertBTextureAtlas, context, "image_popup_plant03.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SUPPLY_FERTILIZER_B, mSupplyItemFertilizertBTextureRegion );
+		TextureRegion mSupplyItemStrawTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSupplyItemStrawTextureAtlas, context, "image_popup_animal01.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SUPPLY_STRAW, mSupplyItemStrawTextureRegion );
+		TextureRegion mSupplyItemVaccineATextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSupplyItemVaccineATextureAtlas, context, "image_popup_animal02.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SUPPLY_VACCINE_A, mSupplyItemVaccineATextureRegion );
+		TextureRegion mSupplyItemVaccineBTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSupplyItemVaccineBTextureAtlas, context, "image_popup_animal03.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SUPPLY_VACCINE_B, mSupplyItemVaccineBTextureRegion );
+		TextureRegion mSupplyItemPelletFoodTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSupplyItemPelletFoodTextureAtlas, context, "image_popup_sea_animal01.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SUPPLY_PELLET_FOOD, mSupplyItemPelletFoodTextureRegion );
+		TextureRegion mSupplyItemMicroorganismATextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSupplyItemMicroorganismATextureAtlas, context, "image_popup_sea_animal02.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SUPPLY_MICROORGANISM_A, mSupplyItemMicroorganismATextureRegion );
+		TextureRegion mSupplyItemMicroorganismBTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSupplyItemMicroorganismBTextureAtlas, context, "image_popup_sea_animal03.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SUPPLY_MICROORGANISM_B, mSupplyItemMicroorganismBTextureRegion );
 		TextureRegion mIconPlusTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mIconPlusTextureAtlas, context, "icon_plus.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_ICON_PLUS, mIconPlusTextureRegion );
+		
+		//Texture Item
+		//Seed & Baby
+		TextureRegion mItemMorningGlorySeedTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemMorningGlorySeedTextureAtlas, context, "itemid10.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_MORNING_GLORY_SEED, mItemMorningGlorySeedTextureRegion );
+		TextureRegion mItemChineseCabbageSeedTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemChineseCabbageSeedTextureAtlas, context, "itemid20.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_CHINESE_CABBAGE_SEED, mItemChineseCabbageSeedTextureRegion );
+		TextureRegion mItemPumpkinSeedTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemPumpkinSeedTextureAtlas, context, "itemid30.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_PUMPKIN_SEED , mItemPumpkinSeedTextureRegion );
+		TextureRegion mItemBabyCornSeedTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemBabyCornSeedTextureAtlas, context, "itemid40.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_BABY_CORN_SEED, mItemBabyCornSeedTextureRegion );
+		TextureRegion mItemStrawMushroomsSeedTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemStrawMushroomsSeedTextureAtlas, context, "itemid50.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_STRAW_MUSHROOMS_SEED, mItemStrawMushroomsSeedTextureRegion );
+		
+		TextureRegion mItemChickenBabyTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemChickenBabyTextureAtlas, context, "itemid60.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_CHICKEN_BABY, mItemChickenBabyTextureRegion );
+		TextureRegion mItemPigBabyTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemPigBabyTextureAtlas, context, "itemid70.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_PIG_BABY, mItemPigBabyTextureRegion );
+		TextureRegion mItemCowBabyTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemCowBabyTextureAtlas, context, "itemid80.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_COW_BABY, mItemCowBabyTextureRegion );
+		TextureRegion mItemSheepBabyTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemSheepBabyTextureAtlas, context, "itemid90.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_SHEEP_BABY, mItemSheepBabyTextureRegion );
+		TextureRegion mItemOstrichBabyTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemOstrichBabyTextureAtlas, context, "itemid100.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_OSTRICH_BABY, mItemOstrichBabyTextureRegion );
+		
+		TextureRegion mItemFishBabyTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemFishBabyTextureAtlas, context, "itemid110.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_FISH_BABY, mItemFishBabyTextureRegion );
+		TextureRegion mItemSquidBabyTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemSquidBabyTextureAtlas, context, "itemid120.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_SQUID_BABY, mItemSquidBabyTextureRegion );
+		TextureRegion mItemScallopsBabyTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemScallopsBabyTextureAtlas, context, "itemid130.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_SCALLOPS_BABY, mItemScallopsBabyTextureRegion );
+		TextureRegion mItemShrimpBabyTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemShrimpBabyTextureAtlas, context, "itemid140.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_SHRIMP_BABY, mItemShrimpBabyTextureRegion );
+		TextureRegion mItemOysterBabyTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemOysterBabyTextureAtlas, context, "itemid150.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_OYSTER_BABY, mItemOysterBabyTextureRegion );
+		
+		//Product
+		TextureRegion mItemMorningGloryTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemMorningGloryTextureAtlas , context, "itemid160.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_MORNING_GLORY, mItemMorningGloryTextureRegion );
+		TextureRegion mItemPumpkinTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemPumpkinTextureAtlas , context, "itemid170.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_CHINESE_CABBAGE, mItemPumpkinTextureRegion );
+		TextureRegion mItemChineseCabbageTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemChineseCabbageTextureAtlas , context, "itemid180.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_PUMPKIN, mItemChineseCabbageTextureRegion );
+		TextureRegion mItemBabyCornTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemBabyCornTextureAtlas , context, "itemid190.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_BABY_CORN, mItemBabyCornTextureRegion );
+		TextureRegion mItemStrawMushroomsTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemStrawMushroomsTextureAtlas , context, "itemid200.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_STRAW_MUSHROOMS, mItemStrawMushroomsTextureRegion );
+		
+		TextureRegion mItemChickenTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemChickenTextureAtlas, context, "itemid210.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_CHICKEN, mItemChickenTextureRegion );
+		TextureRegion mItemPigTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemPigTextureAtlas, context, "itemid220.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_PIG, mItemPigTextureRegion );
+		TextureRegion mItemCowTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemCowTextureAtlas, context, "itemid230.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_COW, mItemCowTextureRegion );
+		TextureRegion mItemSheepTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemSheepTextureAtlas, context, "itemid240.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_SHEEP, mItemSheepTextureRegion );
+		TextureRegion mItemOstrichTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemOstrichTextureAtlas, context, "itemid250.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_OSTRICH, mItemOstrichTextureRegion );
+		
+		TextureRegion mItemFishTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemFishTextureAtlas, context, "itemid260.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_FISH, mItemFishTextureRegion );
+		TextureRegion mItemSquidTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemSquidTextureAtlas, context, "itemid270.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_SQUID, mItemSquidTextureRegion );
+		TextureRegion mItemScallopsTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemScallopsTextureAtlas, context, "itemid280.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_SCALLOPS, mItemScallopsTextureRegion );
+		TextureRegion mItemShrimpTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemShrimpTextureAtlas, context, "itemid290.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_SHRIMP, mItemShrimpTextureRegion );
+		TextureRegion mItemOysterTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemOysterTextureAtlas, context, "itemid300.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_OYSTER, mItemOysterTextureRegion );
+		
+		//Special item
+		TextureRegion mItemPearlTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemPearlTextureAtlas, context, "itemid340.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_PEARL, mItemPearlTextureRegion );
+		TextureRegion mItemGoldTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemGoldTextureAtlas, context, "itemid350.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_GOLD, mItemGoldTextureRegion );
+		TextureRegion mItemDiamondTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mItemDiamondTextureAtlas, context, "itemid360.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_ITEM_DIAMOND, mItemDiamondTextureRegion );
 		
 		//Texture Status Bar
 		TextureRegion statusBar = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
@@ -420,10 +598,60 @@ public class LoadResource {
 		engine.getTextureManager().loadTexture( mLevelUpTextureAtlas );
 		engine.getTextureManager().loadTexture( mCloseButtonTextureAtlas );
 		engine.getTextureManager().loadTexture( mBackgroundDialogTextureAtlas );
-		engine.getTextureManager().loadTexture( mSupplyItemPlant01TextureAtlas );
-		engine.getTextureManager().loadTexture( mSupplyItemAnimal01TextureAtlas );
-		engine.getTextureManager().loadTexture( mSupplyItemSeaAnimal01TextureAtlas );
+		engine.getTextureManager().loadTexture( mSupplyItemWaterTextureAtlas );
+		engine.getTextureManager().loadTexture( mSupplyItemFertilizertATextureAtlas );
+		engine.getTextureManager().loadTexture( mSupplyItemFertilizertBTextureAtlas );
+		engine.getTextureManager().loadTexture( mSupplyItemStrawTextureAtlas );
+		engine.getTextureManager().loadTexture( mSupplyItemVaccineATextureAtlas );
+		engine.getTextureManager().loadTexture( mSupplyItemVaccineBTextureAtlas );
+		engine.getTextureManager().loadTexture( mSupplyItemPelletFoodTextureAtlas );
+		engine.getTextureManager().loadTexture( mSupplyItemMicroorganismATextureAtlas );
+		engine.getTextureManager().loadTexture( mSupplyItemMicroorganismBTextureAtlas );
 		engine.getTextureManager().loadTexture( mIconPlusTextureAtlas );
+		
+	  //Texture Item
+		//Seed & baby
+		engine.getTextureManager().loadTexture( mItemMorningGlorySeedTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemPumpkinSeedTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemChineseCabbageSeedTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemBabyCornSeedTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemStrawMushroomsSeedTextureAtlas );
+		
+		engine.getTextureManager().loadTexture( mItemChickenBabyTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemPigBabyTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemCowBabyTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemSheepBabyTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemOstrichBabyTextureAtlas );
+		
+		engine.getTextureManager().loadTexture( mItemFishBabyTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemSquidBabyTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemScallopsBabyTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemShrimpBabyTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemOysterBabyTextureAtlas );
+		
+		//Product
+		engine.getTextureManager().loadTexture( mItemMorningGloryTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemPumpkinTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemChineseCabbageTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemBabyCornTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemStrawMushroomsTextureAtlas );
+		
+		engine.getTextureManager().loadTexture( mItemChickenTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemPigTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemCowTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemSheepTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemOstrichTextureAtlas );
+		
+		engine.getTextureManager().loadTexture( mItemFishTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemSquidTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemScallopsTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemShrimpTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemOysterTextureAtlas );
+		
+		//Special
+		engine.getTextureManager().loadTexture( mItemPearlTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemGoldTextureAtlas );
+		engine.getTextureManager().loadTexture( mItemDiamondTextureAtlas );
 		
 		//Texture Status Bar
 		engine.getTextureManager().loadTexture( mStatusBarTextureAtlas );

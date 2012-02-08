@@ -168,4 +168,33 @@ public class Tile {
 		this.setBuilding(buildValue);
 	}
 	
+	public void update(int elapse){
+		if( building != null ){
+			int buildingStatus = getBuildingStatus();
+			if(buildingStatus == BUILDING_EMPTY){
+				//update elapse with nothing
+			} else if(buildingStatus == BUILDING_PROCESS1){
+				//update elapse with progress
+				if(this.supply>0){
+					this.progress -= elapse;
+					this.supply -= elapse;
+				}
+				buildingStatus = this.getBuildingStatus();
+			} else if(buildingStatus == BUILDING_PROCESS2){
+				//update elapse with progress
+				if(this.supply>0){
+					this.progress -= elapse;
+					this.supply -= elapse;
+				}
+				buildingStatus = this.getBuildingStatus();
+			} else if(buildingStatus == BUILDING_COMPLETED){
+				//update elapse with rotten
+				this.rottenPeriod -= elapse;
+				buildingStatus = this.getBuildingStatus();
+			} else if(buildingStatus == BUILDING_ROTTED){
+				//update elapse with nothing
+			}
+		}
+	}
+	
 }

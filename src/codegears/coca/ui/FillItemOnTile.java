@@ -21,20 +21,35 @@ public class FillItemOnTile extends Sprite {
 	private static final int SET_ITEM_MOVE_POSITION_TIME = 2;
 	private static final float SET_ITEM_MOVE_POSITION_SPEED = (float) 0.7;
 	
+	private static final int SET_ICON_PLUS_1_POSITION_X = 60;
+	private static final int SET_ICON_PLUS_1_POSITION_Y = -25;
+	private static final int SET_ICON_PLUS_2_POSITION_X = 75;
+	private static final int SET_ICON_PLUS_2_POSITION_Y = -50;
+	
+	private static final float SET_SCALE_ICON_PLUS_2 = 0.5f;
+	
 	private int itemImagePositionX;
 	private int itemImagePositionY;
 	
 	private FillItemListener listener;
 
 	public FillItemOnTile(float pX, float pY, TextureRegion supplyTextureRegion, 
-			TextureRegion iconPlusTextureRegion){
+			TextureRegion textureIconPlusRegion){
 		super((pX+SET_ITEM_IMAGE_POSITION_X), (pY+SET_ITEM_IMAGE_POSITION_Y), supplyTextureRegion);
 		
 		itemImagePositionX = (int) (pX + SET_ITEM_IMAGE_POSITION_X);
 		itemImagePositionY = (int) (pY + SET_ITEM_IMAGE_POSITION_Y);
 		
-		Sprite iconPlus = new Sprite(itemImagePositionX, itemImagePositionY, iconPlusTextureRegion);
-		this.attachChild( iconPlus );
+		Sprite iconPlus1 = new Sprite(SET_ICON_PLUS_1_POSITION_X, SET_ICON_PLUS_1_POSITION_Y, textureIconPlusRegion);
+		Sprite iconPlus2 = new Sprite(SET_ICON_PLUS_2_POSITION_X, SET_ICON_PLUS_2_POSITION_Y, textureIconPlusRegion);
+		
+		iconPlus2.setScale( SET_SCALE_ICON_PLUS_2 );
+		
+		iconPlus1.registerEntityModifier( new FadeOutModifier(SET_ITEM_MOVE_POSITION_SPEED) );
+		iconPlus2.registerEntityModifier( new FadeOutModifier(SET_ITEM_MOVE_POSITION_SPEED) );
+		
+		this.attachChild(iconPlus1);
+		this.attachChild(iconPlus2);
 		
 		final Path path = new Path( SET_ITEM_MOVE_POSITION_TIME ).to(itemImagePositionX, itemImagePositionY)
   	.to( itemImagePositionX, itemImagePositionY + SET_ITEM_IMAGE_POSITION_Y_MOVE_1);
@@ -45,7 +60,7 @@ public class FillItemOnTile extends Sprite {
 			@Override
 			public void onPathFinished( PathModifier arg0, IEntity arg1 ) {
 				if(listener != null){
-					listener.onFillItemComplete();
+					listener.onFillItemAnimationComplete( FillItemOnTile.this );
 				}
 			}
 
