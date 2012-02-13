@@ -6,7 +6,8 @@ public class TextureVar {
 	public static final String TEXTURE_FARM_NOTOCCUPY = "TEXTURE_FARM_NOTOCCUPY";
 	public static final String TEXTURE_COUPONBUTTON = "TEXTURE_COUPONBUTTON";
 	public static final String TEXTURE_SPECIALCODEBUTTON = "TEXTURE_SPECIALCODEBUTTON";
-	public static final String TEXTURE_SOUNDBUTTON = "TEXTURE_SOUNDBUTTON";
+	public static final String TEXTURE_SOUNDBUTTON_ON = "TEXTURE_SOUNDBUTTON_ON";
+	public static final String TEXTURE_SOUNDBUTTON_OFF = "TEXTURE_SOUNDBUTTON_OFF";
 	public static final String TEXTURE_SHOPBUTTON = "TEXTURE_SHOPBUTTON";
 	public static final String TEXTURE_EMPTY_FARM = "TEXTURE_EMPTY_FARM";
 	public static final String TEXTURE_LEVEL_UP_DIALOG = "TEXTURE_LEVEL_UP_DIALOG";

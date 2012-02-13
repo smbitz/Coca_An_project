@@ -75,6 +75,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 public class GameActivity extends BaseGameActivity implements ButtonListener,
@@ -98,9 +99,13 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public static final int STATE_MOVE = 2;
 	public static final int STATE_LEVELUP = 3;
 	
+	private static final int SOUND_STATE_ON = 0;
+	private static final int SOUND_STATE_OFF = 1;
+	
 	private static final Float SHOP_SCALE_SIZE = (float) 1.4;
 	
 	private int state;
+	private int soundState;
 	
 	private ZoomCamera mZoomCamera;
 	private Scene mMainScene;
@@ -109,7 +114,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	private ButtonSprite couponButton;
 	private ButtonSprite specialCodeButton;
-	private ButtonSprite soundButton;
+	private ButtonSprite soundButtonOn;
+	private ButtonSprite soundButtonOff;
 	private ButtonSprite shopButton;
 	
 	private ButtonSprite mClickImageButton;
@@ -184,7 +190,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 		couponButton = new ButtonSprite( 750, 5, textureCollection.get( TextureVar.TEXTURE_COUPONBUTTON ) );
 		specialCodeButton = new ButtonSprite( 650, 15, textureCollection.get( TextureVar.TEXTURE_SPECIALCODEBUTTON ) );
-		soundButton = new ButtonSprite( 870, 15, textureCollection.get( TextureVar.TEXTURE_SOUNDBUTTON ) );
+		soundButtonOn = new ButtonSprite( 870, 15, textureCollection.get( TextureVar.TEXTURE_SOUNDBUTTON_ON ) );
 		shopButton = new ButtonSprite( 1435, 425, textureCollection.get( TextureVar.TEXTURE_SHOPBUTTON ) );
 		shopButton.setVisible( false );
 		farmMapSprite = new FarmSprite( textureCollection, tiledTextureCollection );
@@ -196,7 +202,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		farmMapSprite.setFarmTileListener(this);
 		couponButton.setListener( this );
 		specialCodeButton.setListener( this );
-		soundButton.setListener( this );
+		soundButtonOn.setListener( this );
 		shopButton.setListener( this );
 		levelUpPopUp.setListener( this );
 
@@ -221,13 +227,13 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		mMainScene.attachChild( farmMapSprite );
 		mMainScene.attachChild( couponButton );
 		mMainScene.attachChild( specialCodeButton );
-		mMainScene.attachChild( soundButton );
+		mMainScene.attachChild( soundButtonOn );
 		mMainScene.attachChild( statusBar );
 		mMainScene.attachChild( levelUpPopUp );
 
 		mMainScene.registerTouchArea( couponButton );
 		mMainScene.registerTouchArea( specialCodeButton );
-		mMainScene.registerTouchArea( soundButton );
+		mMainScene.registerTouchArea( soundButtonOn );
 		mMainScene.registerTouchArea( shopButton );
 		mMainScene.registerTouchArea( levelUpPopUp );
 		//mMainScene.registerTouchArea( farmMapSprite );
@@ -271,7 +277,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			mMainScene.attachChild( mClickImageButton );
 		} else if ( buttonSprite == this.shopButton ) {
 			buttonSprite.setVisible( true );
-		} else if ( buttonSprite == this.soundButton ) {
+		} else if ( buttonSprite == this.soundButtonOn ) {
 			
 		}
 	}
@@ -290,8 +296,35 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			buttonSprite.setVisible( false );
 			Intent i = new Intent( this, ShopDialog.class);
 			this.startActivityForResult( i, REQUEST_SHOP );
-		} else if ( buttonSprite == this.soundButton ) {
-			
+		} else if ( buttonSprite == this.soundButtonOn ) {
+			if( soundState == SOUND_STATE_ON ){
+				buttonSprite.setVisible( false );
+				mClickImageButton = new ButtonSprite( 870, 15, textureCollection.get( TextureVar.TEXTURE_SOUNDBUTTON_OFF ) );
+				mMainScene.attachChild( mClickImageButton );
+				
+				musicCollection.get( LoadResource.SOUND_BG ).setVolume(0);
+				musicCollection.get( LoadResource.SOUND_BONUS ).setVolume(0);
+				musicCollection.get( LoadResource.SOUND_BUTTON ).setVolume(0);
+				musicCollection.get( LoadResource.SOUND_CHOOSE_CLICK ).setVolume(0);
+				musicCollection.get( LoadResource.SOUND_COIN ).setVolume(0);
+				musicCollection.get( LoadResource.SOUND_LAND_CLICK ).setVolume(0);
+				musicCollection.get( LoadResource.SOUND_LEVEL_UP ).setVolume(0);
+				musicCollection.get( LoadResource.SOUND_ON_OF ).setVolume(0);
+				soundState = SOUND_STATE_OFF;
+			}else{
+				buttonSprite.setVisible( true );
+				mMainScene.detachChild( mClickImageButton );
+				
+				musicCollection.get( LoadResource.SOUND_BG ).setVolume(1);
+				musicCollection.get( LoadResource.SOUND_BONUS ).setVolume(1);
+				musicCollection.get( LoadResource.SOUND_BUTTON ).setVolume(1);
+				musicCollection.get( LoadResource.SOUND_CHOOSE_CLICK ).setVolume(1);
+				musicCollection.get( LoadResource.SOUND_COIN ).setVolume(1);
+				musicCollection.get( LoadResource.SOUND_LAND_CLICK ).setVolume(1);
+				musicCollection.get( LoadResource.SOUND_LEVEL_UP ).setVolume(1);
+				musicCollection.get( LoadResource.SOUND_ON_OF ).setVolume(1);
+				soundState = SOUND_STATE_ON;
+			}
 		}
 	}
 	
@@ -323,8 +356,14 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		if(requestCode == REQUEST_PURCHASETILE){
 			if(resultCode == Activity.RESULT_OK){
+				musicCollection.get( LoadResource.SOUND_COIN ).play();
+				
 				currentPlayer.purchase( activeTile );
+				
 				//update farmSprite
+				farmMapSprite.unRegisterChildTouchArea( mMainScene );
+				farmMapSprite.update( mMainScene );
+				farmMapSprite.registerChildTouchArea( mMainScene );
 				
 				//update player to server
 				currentPlayer.updateToServer();
@@ -335,19 +374,26 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 				String buildingId = app.getBuildingManager().getBuildingIdFromItemBuild( itemForBuildId );
 				Building building = app.getBuildingManager().getMatchBuilding(buildingId);
 				currentPlayer.build( activeTile, building );
+				
+				//update farmSprite
 				farmMapSprite.unRegisterChildTouchArea( mMainScene );
 				farmMapSprite.update( mMainScene );
 				farmMapSprite.registerChildTouchArea( mMainScene );
+				
+				//update farmSprite
 				currentPlayer.updateToServer();
 			}
 		} else if(requestCode == REQUEST_SPECIALCODE){
 			if(resultCode == Activity.RESULT_OK){
+				musicCollection.get( LoadResource.SOUND_BONUS ).play();
+				
 				String itemId = data.getStringExtra( SpecialCodeDialog.PUT_EXTRA_ITEM_ID );
 				int itemQuantity = data.getIntExtra( SpecialCodeDialog.PUT_EXTRA_ITEM_QUANTITY, 0 );
 				Intent intent = new Intent(this, ItemGetDialog.class);
 				intent.putExtra( SpecialCodeDialog.PUT_EXTRA_ITEM_ID, itemId );
 				intent.putExtra( SpecialCodeDialog.PUT_EXTRA_ITEM_QUANTITY, itemQuantity );
-				this.startActivity( intent );	
+				this.startActivity( intent );
+				
 				//add item to player
 				currentPlayer.addItemToBackpack(itemId, itemQuantity);
 				
@@ -374,6 +420,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 			currentPlayer.updateToServer();
 		} else if(requestCode == REQUEST_SHOP){
 			if(resultCode == ShopDialog.RESULT_BUY){
+				musicCollection.get( LoadResource.SOUND_COIN ).play();
+				
 				String itemId = data.getStringExtra( ShopDialog.EXTRA_ITEM_ID );
 				currentPlayer.buy( itemId, 1 );
 				
@@ -381,6 +429,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 				Intent i = new Intent( this, ShopDialog.class);
 				this.startActivityForResult( i, REQUEST_SHOP );
 			} else if(resultCode == ShopDialog.RESULT_SELL){
+				musicCollection.get( LoadResource.SOUND_COIN ).play();
+				
 				String itemId = data.getStringExtra( ShopDialog.EXTRA_ITEM_ID );
 				currentPlayer.sell( itemId, 1 );
 				
@@ -401,6 +451,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public void onPurchaseRequest( Tile data ) {
+		musicCollection.get( LoadResource.SOUND_LAND_CLICK ).play();
+		
 		activeTile = data;
 		Intent intent = new Intent(this, PurchaseDialog.class);
 		this.startActivityForResult( intent, REQUEST_PURCHASETILE );
@@ -408,6 +460,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public void onBuildRequest( Tile data ) {
+		musicCollection.get( LoadResource.SOUND_LAND_CLICK ).play();
+		
 		activeTile = data;
 		Intent intent = new Intent(this, BuildDialog.class);
 		intent.putExtra( BuildDialog.EXTRA_LAND_TYPE, activeTile.getLandType() );
@@ -416,6 +470,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public void onAddItemRequest( Tile data ) {
+		musicCollection.get( LoadResource.SOUND_LAND_CLICK ).play();
+		
 		activeTile = data;
 		Intent intent = new Intent(this, SupplyBoxDialog.class);
 		intent.putExtra( SupplyBoxDialog.EXTRA_BUILD_ID, activeTile.getBuildingId() );
@@ -427,6 +483,8 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 	
 	@Override
 	public void onSupplyRequest( Tile data ) {
+		musicCollection.get( LoadResource.SOUND_LAND_CLICK ).play();
+		
 		//---------- Move newFarmItemOnTile to farmMapSprite # Chet ------------------//
 		
 		//Add supply to player 
@@ -441,8 +499,15 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 
 	@Override
 	public void onHarvestRequest( Tile data ) {
+		musicCollection.get( LoadResource.SOUND_LAND_CLICK ).play();
+		
 		//harvest
 		ArrayList<ItemQuantityPair> receiveItem = currentPlayer.harvest(data);
+		
+		//Update farm for clear old tile.
+		farmMapSprite.unRegisterChildTouchArea( mMainScene );
+		farmMapSprite.update( mMainScene );
+		farmMapSprite.registerChildTouchArea( mMainScene );
 		
 		//display harvest animation
 		if( receiveItem!=null ){
@@ -450,18 +515,13 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		}
 		
 		//update player to server
-		//currentPlayer.updateToServer();
-		
-		//Update farm
-		/*farmMapSprite.unRegisterChildTouchArea( mMainScene );
-		farmMapSprite.update( mMainScene );
-		farmMapSprite.registerChildTouchArea( mMainScene );*/
-		
-		//Harvest Animation
+		currentPlayer.updateToServer();
 	}
 
 	@Override
 	public void onMoveRequest( Tile data ) {
+		musicCollection.get( LoadResource.SOUND_LAND_CLICK ).play();
+		
 		state = STATE_NORMAL;
 		farmMapSprite.setNormalState();
 		currentPlayer.swap(activeTile, data);
@@ -480,7 +540,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		farmMapSprite.unRegisterChildTouchArea( mMainScene );
 		mMainScene.unregisterTouchArea( shopButton );
 		mMainScene.unregisterTouchArea( couponButton );
-		mMainScene.unregisterTouchArea( soundButton );
+		mMainScene.unregisterTouchArea( soundButtonOn );
 		mMainScene.unregisterTouchArea( specialCodeButton );
 		
 		this.runOnUiThread( new Runnable() {
@@ -511,7 +571,7 @@ public class GameActivity extends BaseGameActivity implements ButtonListener,
 		farmMapSprite.registerChildTouchArea( mMainScene );
 		mMainScene.registerTouchArea( shopButton );
 		mMainScene.registerTouchArea( couponButton );
-		mMainScene.registerTouchArea( soundButton );
+		mMainScene.registerTouchArea( soundButtonOn );
 		mMainScene.registerTouchArea( specialCodeButton );
 		levelUpPopUp.setVisible( mMainScene, false );
 	}

@@ -137,7 +137,8 @@ public class ShopDialog extends Activity implements OnClickListener {
     //Build backpack dialog
     for(ItemQuantityPair fetchBackpackItem:backpackItem){
     	if( !fetchBackpackItem.getItemType().equals( ItemManager.ITEM_TYPE_SPECIAL ) &&
-    			!fetchBackpackItem.getItemType().equals( ItemManager.ITEM_TYPE_COUPON ) ){
+    			!fetchBackpackItem.getItemType().equals( ItemManager.ITEM_TYPE_COUPON ) &&
+    			(fetchBackpackItem.getQuantity()>0) ){
 			    	ShopItem newBackpackItem = new ShopItem(this);
 			    	newBackpackItem.setLayoutParams( new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
 			    	newBackpackItem.setItemId( fetchBackpackItem.getItem().getId() );

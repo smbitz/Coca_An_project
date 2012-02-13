@@ -1,5 +1,7 @@
 package codegears.coca.ui;
 
+import org.anddev.andengine.entity.primitive.Line;
+import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
@@ -17,8 +19,8 @@ public class PurchaseTile extends AbstractFarmTile {
 		float scale = this.getParent().getScaleX();
 		float x = localX;
 		float y = localY;
-		if(( y > 50 ) && ( x > 50 ) && 
-						(y < this.getHeightScaled()) && (x < this.getWidthScaled())){
+		if(( y > 85 ) && ( x > 160 ) && 
+						(y < (this.getHeightScaled()-175)+85) && (x < (this.getWidthScaled()-320)+160)){
 			return true;
 		}
 		return false;

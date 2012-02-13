@@ -19,7 +19,7 @@ import codegears.coca.data.TextureVar;
 import codegears.coca.data.Player;
 import codegears.coca.data.Tile;
 
-public class FarmSprite extends Sprite implements FillItemListener {
+public class FarmSprite extends Sprite implements FillItemListener, HarvestItemListener {
 	
 	private static final float ZOOM_MIN = 1.0f;
 	private static final float ZOOM_MAX = 1.0f;
@@ -52,10 +52,9 @@ public class FarmSprite extends Sprite implements FillItemListener {
 	
 	private MapSprite map;
 	private Sprite iconBuyArea;
-	
 	private FillItemOnTile newFillItemOnTile;
-	
 	private HarvestItemPopUp newHarvestItemPopUp;
+	private ArrayList<TextureRegion> allHarvestItemTextureRegion;
 	
 	public FarmSprite(HashMap<String, TextureRegion> getTextureCollection, 
 			HashMap<String, TiledTextureRegion> gettiledTextureCollection){
@@ -131,8 +130,8 @@ public class FarmSprite extends Sprite implements FillItemListener {
 							tileData.getExtraId().equals( ItemManager.ITEM_ID_FERTILIZER_B )||
 							tileData.getExtraId().equals( ItemManager.ITEM_ID_VACCINE_B )||
 							tileData.getExtraId().equals( ItemManager.ITEM_ID_MICROORGANISM_B ) ){
-						AbstractFarmTile tileExtra = FarmTileBuilder.createFarmTile( 0, 5, tileData, textureCollection );
-						tileExtra.setColor(1, 0, 0, (float) 0.1);
+						AbstractFarmTile tileExtra = FarmTileBuilder.createExtraFarmTile( 0, 5, tileData, textureCollection );
+						tileExtra.setColor(0.4f, 0, 0, (float) 0.1);
 						tile.attachChild( tileExtra );
 					}
 					
@@ -233,8 +232,8 @@ public class FarmSprite extends Sprite implements FillItemListener {
 							tileData.getExtraId().equals( ItemManager.ITEM_ID_FERTILIZER_B )||
 							tileData.getExtraId().equals( ItemManager.ITEM_ID_VACCINE_B )||
 							tileData.getExtraId().equals( ItemManager.ITEM_ID_MICROORGANISM_B ) ){
-						AbstractFarmTile tileExtra = FarmTileBuilder.createFarmTile( 0, 5, tileData, textureCollection );
-						tileExtra.setColor(1, 0, 0, (float) 0.1);
+						AbstractFarmTile tileExtra = FarmTileBuilder.createExtraFarmTile( 0, 5, tileData, textureCollection );
+						tileExtra.setColor(0.4f, 0, 0, (float) 0.1);
 						tile.attachChild( tileExtra );
 					}
 					
@@ -419,10 +418,10 @@ public class FarmSprite extends Sprite implements FillItemListener {
 	}
 
 	public void harvestTile(Tile data, ArrayList<ItemQuantityPair> receiveItem) {
+		allHarvestItemTextureRegion = new ArrayList<TextureRegion>();
+		
 		for( AbstractFarmTile fetchTile:farmTileList ){
 			if( fetchTile.getData().equals( data ) ){
-				newHarvestItemPopUp = new HarvestItemPopUp(0, 0, textureCollection.get( TextureVar.TEXTURE_EMPTY_FARM ));
-				
 				for( ItemQuantityPair fetchReceiveItem:receiveItem ){
 					TextureRegion harvestItemTexture = null;
 					
@@ -494,13 +493,20 @@ public class FarmSprite extends Sprite implements FillItemListener {
 						harvestItemTexture = textureCollection.get( TextureVar.TEXTURE_ITEM_DIAMOND );
 					}
 					
-					Sprite newHarvestItemSprite = new Sprite(0, 0, harvestItemTexture);
-					newHarvestItemPopUp.attachChild( newHarvestItemSprite );
+					allHarvestItemTextureRegion.add( harvestItemTexture );
 				}
 				
+				newHarvestItemPopUp = new HarvestItemPopUp(0, 0, textureCollection.get( TextureVar.TEXTURE_EMPTY_FARM ), 
+						allHarvestItemTextureRegion);
+				newHarvestItemPopUp.setOnHarvesItemListener( this );
 				fetchTile.attachChild( newHarvestItemPopUp );
 			}
 		}
+	}
+
+	@Override
+	public void onHarvestItemAnimationComplete(HarvestItemPopUp harvestItemPopUp) {
+		harvestItemPopUp.detachSelf();
 	}
 	
 }

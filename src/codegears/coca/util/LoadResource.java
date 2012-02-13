@@ -45,7 +45,8 @@ public class LoadResource {
 		BitmapTextureAtlas mFarmMapNotOccupyTextureAtlas = new BitmapTextureAtlas( 2048, 1024 );
 		BitmapTextureAtlas mCouponButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
 		BitmapTextureAtlas mSpecialCodeButtonTextureAtlas = new BitmapTextureAtlas( 128, 128 );
-		BitmapTextureAtlas mSoundButtonTextureAtlas = new BitmapTextureAtlas( 128, 64 );
+		BitmapTextureAtlas mSoundButtonOnTextureAtlas = new BitmapTextureAtlas( 128, 64 );
+		BitmapTextureAtlas mSoundButtonOffTextureAtlas = new BitmapTextureAtlas( 128, 64 );
 		BitmapTextureAtlas mShopButtonTextureAtlas = new BitmapTextureAtlas( 1024, 256 );
 		BitmapTextureAtlas mEmptyFarmTextureAtlas = new BitmapTextureAtlas( 512, 256 );
 		BitmapTextureAtlas mLevelUpTextureAtlas = new BitmapTextureAtlas( 1024, 512 );
@@ -210,9 +211,12 @@ public class LoadResource {
 		TextureRegion mSpecialCodeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 						mSpecialCodeButtonTextureAtlas, context, "button_code.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_SPECIALCODEBUTTON, mSpecialCodeTextureRegion );
-		TextureRegion mSoundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-						mSoundButtonTextureAtlas, context, "button_opensound.png", 0, 0 );
-		textureCollection.put( TextureVar.TEXTURE_SOUNDBUTTON, mSoundTextureRegion );
+		TextureRegion mSoundOnTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+						mSoundButtonOnTextureAtlas, context, "button_opensound.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SOUNDBUTTON_ON, mSoundOnTextureRegion );
+		TextureRegion mSoundOffTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mSoundButtonOffTextureAtlas, context, "button_mute.png", 0, 0 );
+		textureCollection.put( TextureVar.TEXTURE_SOUNDBUTTON_OFF, mSoundOffTextureRegion );
 		TextureRegion mShopTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 						mShopButtonTextureAtlas, context, "map_market.png", 0, 0 );
 		textureCollection.put( TextureVar.TEXTURE_SHOPBUTTON, mShopTextureRegion );
@@ -592,7 +596,8 @@ public class LoadResource {
 		engine.getTextureManager().loadTexture( mFarmMapNotOccupyTextureAtlas );
 		engine.getTextureManager().loadTexture( mCouponButtonTextureAtlas );
 		engine.getTextureManager().loadTexture( mSpecialCodeButtonTextureAtlas );
-		engine.getTextureManager().loadTexture( mSoundButtonTextureAtlas );
+		engine.getTextureManager().loadTexture( mSoundButtonOnTextureAtlas );
+		engine.getTextureManager().loadTexture( mSoundButtonOffTextureAtlas );
 		engine.getTextureManager().loadTexture( mShopButtonTextureAtlas );
 		engine.getTextureManager().loadTexture( mEmptyFarmTextureAtlas );
 		engine.getTextureManager().loadTexture( mLevelUpTextureAtlas );

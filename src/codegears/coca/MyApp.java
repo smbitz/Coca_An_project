@@ -45,7 +45,7 @@ public class MyApp extends Application implements LoadListener {
 		isIManagerLoad = false;
 		isCurrentPlayerLoad = false;
 		textFont = Typeface.createFromAsset(getAssets(), FONT_POSITION);
-		facebookId = "1035916259";
+		facebookId = "2222";
 		facebookName = "Name";
 	}
 	
@@ -86,6 +86,14 @@ public class MyApp extends Application implements LoadListener {
 	
 	public Typeface getTextFont(){
 		return textFont;
+	}
+	
+	public void setFacebookId( String setFacebookIdValue ){
+		this.facebookId = setFacebookIdValue;
+	}
+	
+	public void setFacebookName( String setFacebookNameValue ){
+		this.facebookName = setFacebookNameValue;
 	}
 
 	@Override
